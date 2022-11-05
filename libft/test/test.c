@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <strings.h>
+#include <stdlib.h>
 
 #define KGRN  "\x1B[32m"
 #define KBLU  "\x1B[34m"
@@ -435,26 +436,42 @@ int main(void)
     else
         printf("String was fully copied");
 
+	/*
+    this test should abort
+    char dest[14] = "a";
+    int ft_dest_results = ft_strlcat(dest, "lorem ipsum dolor sit amet", 15);
+	printf("%d\n", ft_dest_results);
+	write(1, dest, 15);
+    */
+
     printf("%s \n-----Testing from original-----\n%s", KBLU, KWHT);
     int strlcat_result;
     char og_part_2[] = "123456";
     strcpy(buffer,part_1);
     strlcat_result = strlcat(buffer, og_part_2, size);
-     printf("%s \n", buffer);
-    printf("Value returned: %d\n",strlcat_result);
+    printf("%s \n", buffer);
+    printf("Value returned: %d\n", strlcat_result);
     printf("%s \n", og_part_2);
-
     if( (int) strlcat_result > size )
         printf("String truncated\n");
     else
         printf("String was fully copied\n");
+    
+    /*
+    returns abort
+    char og_dest[14] = "a";
+    int og_results = strlcat(og_dest, "lorem ipsum dolor sit amet", 15);
+	printf("%d\n", og_results);
+	write(1, dest, 15);
+
+    */
  
     printf("\n%sTesting ft_toupper\n %s", KGRN, KWHT);  
     printf("%s \n-----Testing from libft-----\n%s", KMAG, KWHT);  
     printf("this should be g in upper: %c \n", ft_toupper('g'));
     printf("this should be b in upper: %c \n", ft_toupper('b'));
     printf("this should be a in upper: %c \n", ft_toupper('A'));
-    printf("this should be $ %c: ", ft_toupper('$'));
+    printf("this should be $: %c ", ft_toupper('$'));
 
 
     printf("%s\nTesting ft_tolower\n %s", KGRN, KWHT);  
@@ -464,39 +481,27 @@ int main(void)
     printf("this should be a in lower: %c\n", ft_tolower('A'));
     printf("this should be $:%c \n", ft_tolower('$'));
 
-
-    printf("%sTesting ft_isalpha\n %s", KGRN, KWHT);
-
-    printf("%s \n-----Testing from libft-----\n%s", KMAG, KWHT);  
-    char const duplicateme[12] = "print twice";
-    printf("there should be 2 of these, %s\n", duplicateme );
-    char *duplicate =  ft_strdup(duplicateme);
-    printf("Did it work? %s\n", duplicate);
-    printf("%s \n-----Testing from original-----\n%s", KBLU, KWHT);
-    char *og_duplicate =  strdup(duplicateme);
-    printf("Did it work? %s\n", og_duplicate);
-
-
-    printf("\n%sTesting ft_strchr\n", KGRN);  
+    printf("\n%sTesting ft_strchr\n", KGRN);
+    char test_strchar[20] = "look for things";
     printf("%s \n-----Testing from libft-----\n%s", KMAG, KWHT); 
-    printf("%s\n", ft_strchr(duplicateme, ' '));
-    printf("%s\n", ft_strchr(duplicateme, 'p'));
-    printf("%s\n", ft_strchr(duplicateme, '\0'));
+    printf("%s\n", ft_strchr(test_strchar, ' '));
+    printf("%s\n", ft_strchr(test_strchar, 'p'));
+    printf("%s\n", ft_strchr(test_strchar, '\0'));
     printf("%s \n-----Testing from original-----\n%s", KBLU, KWHT);
-    printf("%s\n", strchr(duplicateme, ' '));
-    printf("%s\n", strchr(duplicateme, 'p'));
-    printf("%s\n", strchr(duplicateme, '\0'));
+    printf("%s\n", strchr(test_strchar, ' '));
+    printf("%s\n", strchr(test_strchar, 'p'));
+    printf("%s\n", strchr(test_strchar, '\0'));
     
     
     printf("\n%sTesting ft_strrchr\n", KGRN);  
     printf("%s \n-----Testing from libft-----\n%s", KMAG, KWHT); 
-    printf("%s \n", ft_strrchr(duplicateme, 't'));
-    printf("%s \n", ft_strrchr(duplicateme, ' '));
-    printf("%s\n ", ft_strrchr(duplicateme, '0'));
+    printf("%s \n", ft_strrchr(test_strchar, 't'));
+    printf("%s \n", ft_strrchr(test_strchar, ' '));
+    printf("%s\n ", ft_strrchr(test_strchar, '0'));
     printf("%s \n-----Testing from original-----\n%s", KBLU, KWHT);
-    printf("%s \n", ft_strrchr(duplicateme, 't'));
-    printf("%s \n", ft_strrchr(duplicateme, ' '));
-    printf("%s\n ", ft_strrchr(duplicateme, '0'));
+    printf("%s \n", ft_strrchr(test_strchar, 't'));
+    printf("%s \n", ft_strrchr(test_strchar, ' '));
+    printf("%s\n ", ft_strrchr(test_strchar, '0'));
 
 
     printf("\n%sTesting ft_strncmp\n", KGRN);
@@ -542,18 +547,17 @@ int main(void)
 	
 
     printf("\n%sTesting ft_memchr this needs more work\n", KGRN);
-    // duplicateme[12] = "print twice"
-    printf("\n%sTesting ft_strchr\n", KGRN);  
+    //char test_strchar[20] = "look for things";
+    printf("\n%sTesting ft_memchr\n", KGRN);  
     printf("%s \n-----Testing from libft-----\n%s", KMAG, KWHT); 
-    printf("%s\n", ft_memchr(duplicateme, ' ', 7));
-    printf("%s\n", ft_memchr(duplicateme, 'p', 13));
-    printf("output from search for null:|%s|\n", ft_memchr(duplicateme, '\0', 12));
+    printf("%s\n", ft_memchr(test_strchar, ' ', 7));
+    printf("%s\n", ft_memchr(test_strchar, 'p', 13));
+    printf("output from search for null:|%s|\n", ft_memchr(test_strchar, '\0', 12));
     printf("%s \n-----Testing from original-----\n%s", KBLU, KWHT);
-    printf("%s\n", memchr(duplicateme, ' ', 7));
-    printf("%s\n", memchr(duplicateme, 'p', 13));
-    printf("output from search for null:|%s|\n", memchr(duplicateme, '\0', 12));
+    printf("%s\n", memchr(test_strchar, ' ', 7));
+    printf("%s\n", memchr(test_strchar, 'p', 13));
+    printf("output from search for null:|%s|\n", memchr(test_strchar, '\0', 12));
 
-    //--------------------------------------------------------------------------------------
     printf("\n%sTesting ft_memcmp\n", KGRN);
    char str1[15] = "1234";
    char str2[15] = "1234";
@@ -593,19 +597,71 @@ int main(void)
     else 
         printf("str1 is equal to str2");
 
-//-------------------------------------------------------------------------------------------
-    printf("\n%sTesting ft_strnstr\n", KGRN);
+
+    printf("\n%sTesting ft_strnstr VARIABLES FOR THIS ONE NEED TO BE CHANGED MANUALLY\n", KGRN);
+    // test size 0, a set that is not found and haystack as a null
     printf("%s\n-----Testing from libft-----\n%s", KMAG, KWHT);
       const char *haystack = "does this work";
       const char *needle = "this";
       char *strnstr_ptr = ft_strnstr(haystack, needle, 12);
-      printf("Libft output = %s", strnstr_ptr);
-      
+      printf("Libft output = %s\n", strnstr_ptr);
+
       printf("%s \n-----Testing from original-----\n%s", KBLU, KWHT);
       char *strnog_ptr = strnstr(haystack, needle, 12);
       printf("Libft output = %s", strnog_ptr);
 
+
+
+    printf("\n%sTesting ft_atoi\n", KGRN);    
+    printf("%s\n-----Testing from libft-----\n%s", KMAG, KWHT);
+    const char *atoi_test = "2";
+    const char *atoi_test1 = "30";
+    const char *atoi_test2 = "-5789";
+    const char *atoi_test3 = "0";
+    const char *atoi_test4 = "-2147483648";
+    const char *atoi_test5 = "2147483647";
     
+    printf("testing 2:  %d\n", ft_atoi(atoi_test));
+    printf("testing 30:  %d\n", ft_atoi(atoi_test1));
+    printf("testing -5789:  %d\n", ft_atoi(atoi_test2));
+    printf("testing 0:  %d\n", ft_atoi(atoi_test3));
+    printf("testing -2147483648:  %d\n", ft_atoi(atoi_test4));
+    printf("testing 2147483647:  %d\n", ft_atoi(atoi_test5));
+
+    printf("%s \n-----Testing from original-----\n%s", KBLU, KWHT);
+    printf("testing 2:  %d\n", atoi(atoi_test));
+    printf("testing 30:  %d\n", atoi(atoi_test1));
+    printf("testing -5789:  %d\n", atoi(atoi_test2));
+    printf("testing 0:  %d\n", atoi(atoi_test3));
+    printf("testing -2147483648:  %d\n", atoi(atoi_test4));
+    printf("testing 2147483647:  %d\n", atoi(atoi_test5));
+
+    printf("\n%sTesting ft_calloc\n", KGRN);
+    printf("%s\n-----Testing from libft-----\n%s", KMAG, KWHT);
+
+    void *ft_calloc_test = ft_calloc(2, 7);
+    if (!ft_calloc_test)
+        printf("test failed\n");
+    else 
+        printf("test passed\n");
+
+    printf("%s \n-----Testing from original-----\n%s", KBLU, KWHT);
+    void *calloc_test = calloc(2, 7);
+    if (!calloc_test)
+        printf("test failed\n");
+    else
+        printf("test passed\n");
+
+    printf("%sTesting ft_strdup\n %s", KGRN, KWHT);
+    printf("%s \n-----Testing from libft-----\n%s", KMAG, KWHT);  
+    char const duplicateme[12] = "print twice";
+    printf("there should be 2 of these: %s\n", duplicateme);
+    char *duplicate =  ft_strdup(duplicateme);
+    printf("string after ft_strdup: %s\n", duplicate);
+
+    printf("%s \n-----Testing from original-----\n%s", KBLU, KWHT);
+    char *og_duplicate =  strdup(duplicateme);
+    printf("string after original strdup: %s\n", og_duplicate);
 
         printf("%s \n\n\n==========%s PART 2%s ==========%s \n", KBLU, KMAG, KBLU, KWHT);
     
@@ -621,11 +677,11 @@ int main(void)
 
     printf("\n%s Testing ft_itoa %s\n", KMAG, KWHT);
 
-    printf("This should be 12345:   %s/n", ft_itoa(12345));
-    printf("This should be 10:   %s/n", ft_itoa(10));
-    printf("This should be 0:  %s/n", ft_itoa(0));
-    printf("This should be -2147483648:   %s/n", ft_itoa(-2147483648));
-    printf("This should be 2147483648:   %s/n", ft_itoa(2147483648));
+    printf("This should be 12345:   %s\n", ft_itoa(12345));
+    printf("This should be 10:   %s\n", ft_itoa(10));
+    printf("This should be 0:  %s\n", ft_itoa(0));
+    printf("This should be -2147483648:   %s\n", ft_itoa(-2147483648));
+    printf("This should be 2147483647:   %s\n", ft_itoa(2147483647));
 
     printf("\n%sTesting ft_striteri%s\n\n", KMAG, KWHT);
      char  *stuff;

@@ -11,34 +11,21 @@
 /* ************************************************************************** */
 #include "libft.h"
 
-static	size_t	string_length(const char *str)
-{
-	size_t	index;
-
-	index = 0;
-	while (str[index] != '\0')
-		index++;
-	return (index);
-}
-
 size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	size_t	len;
-	size_t	str_len;
+	size_t	index;
+	size_t	count;
 
-	len = 0;
-	str_len = string_length(src);
-	if (size == 0)
-		return (str_len + len);
-	while (*dst && size > 0)
+	index = 0;
+	count = 0;
+	while (dst[index] && index < size)
+		index++;
+	while (src[count] && (index + count + 1) < size)
 	{
-		dst++;
-		len++;
-		size--;
+		dst[index + count] = src[count];
+		count++;
 	}
-	while (*src && size-- > 1)
-		*dst++ = *src++;
-	if (size == 1 || *src == 0)
-		*dst = '\0';
-	return (str_len + len);
+	if (index < size)
+		dst[index + count] = '\0';
+	return (index + ft_strlen(src));
 }

@@ -17,6 +17,7 @@ int ft_memcmp(const void *str1, const void *str2, size_t n)
 	const unsigned char *str2_hold;
 	size_t	index;
 	
+	index = 0;
 	str1_hold = str1;
 	str2_hold = str2;
 	while (index < n)

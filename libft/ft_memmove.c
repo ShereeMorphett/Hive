@@ -14,28 +14,27 @@
 
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	char	*destination;
-	char	*source;
+	unsigned char	*destination;
+	unsigned char	*source;
 
-	source = (char *) src;
-	destination = (char *) dest;
-	if ((source == NULL && destination == NULL) || n == 0)
-		return (destination);
+	source = (unsigned char *) src;
+	destination = (unsigned char *) dest;
 	if (source < destination)
 	{
-		destination += n;
-		source += n;
+		destination += n - 1;
+		source += n - 1;
 		while (n--)
 		{
-			*--destination = *--source;
+			*destination-- = *source--;
 		}
 	}
-	else
+	else if (source >= destination)
 	{
 		while (n--)
 		{
 			*destination++ = *source++;
 		}
 	}
-	return ((void *) destination);
+	return (dest);
 }
+
