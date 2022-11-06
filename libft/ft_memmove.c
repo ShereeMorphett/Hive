@@ -28,7 +28,7 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 			*destination-- = *source--;
 		}
 	}
-	else if (source >= destination)
+	else if (source > destination)
 	{
 		while (n--)
 		{
@@ -37,4 +37,3 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 	}
 	return (dest);
 }
-

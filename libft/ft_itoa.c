@@ -12,7 +12,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int		find_length(long num)
+static int	find_length(long num)
 {
 	int		len;
 
@@ -35,9 +35,20 @@ int		find_length(long num)
 	return (len);
 }
 
+static char	check_zero(char str, int num)
+{
+	if (num == 0)
+	{
+		str = '0';
+		return (str);
+	}
+	else
+		return (str);
+}
+
 char	*ft_itoa(int nb)
 {
-	char *str;
+	char	*str;
 	long	num;
 	int		index;
 
@@ -47,11 +58,7 @@ char	*ft_itoa(int nb)
 	if (!str)
 		return (NULL);
 	str[index--] = '\0';
-	if (num == 0)
-	{
-		str[0] = '0';
-		return (str);
-	}
+	str[0] = check_zero(*str, num);
 	if (num < 0)
 	{
 		str[0] = '-';
