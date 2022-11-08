@@ -6,21 +6,17 @@
 /*   By: smorphet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 16:51:11 by smorphet          #+#    #+#             */
-/*   Updated: 2022/11/06 12:09:32 by smorphet         ###   ########.fr       */
+/*   Updated: 2022/11/07 17:20:01 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 static int	check_result(result, sign)
 {
-	int	end_result;
-
-	if (result * sign >= 2147483647)
-		end_result = -1;
-	if (result * sign < -2147483648)
-		end_result = 0;
+	if (sign > 0)
+		return (-1);
+	else if (sign < 0)
+		return (0);
 	else
-		end_result = sign * result;
-	return (end_result);
+		return (result);
 }
 
 int	ft_atoi(const char *str)
@@ -46,6 +42,7 @@ int	ft_atoi(const char *str)
 		result = (result * 10) + (str[index] - '0');
 		index++;
 	}
-	result = check_result(result, sign);
-	return (result);
+	if (result < 0)
+		result = check_result(result, sign);
+	return (result * sign);
 }

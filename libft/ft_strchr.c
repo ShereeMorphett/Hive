@@ -6,20 +6,23 @@
 /*   By: smorphet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 14:37:24 by smorphet          #+#    #+#             */
-/*   Updated: 2022/11/03 17:11:02 by smorphet         ###   ########.fr       */
+/*   Updated: 2022/11/07 17:22:10 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
+#include "libft.h"
 
 char	*ft_strchr(const char *s, int c)
 {
+	char	find;
+
+	find = c;
 	while (*s)
 	{
-		if (*s == c)
+		if (*s == find)
 			return ((char *)s);
 		s++;
 	}
-	if (c == '\0')
+	if (find == '\0')
 		return ((char *)s);
 	return (NULL);
 }

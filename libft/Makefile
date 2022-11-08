@@ -34,7 +34,7 @@ OBJ = ft_atoi.o ft_bzero.o ft_calloc.o ft_isalnum.o ft_isalpha.o \
 all:	$(NAME)
 
 $(NAME): 
-	gcc -c $(SRC)
+	cc -c $(SRC)
 	ar rc $(NAME) $(OBJ)
 clean:
 	/bin/rm -f $(OBJ)

@@ -6,7 +6,7 @@
 /*   By: smorphet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 13:54:39 by smorphet          #+#    #+#             */
-/*   Updated: 2022/11/06 12:11:49 by smorphet         ###   ########.fr       */
+/*   Updated: 2022/11/08 10:47:19 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -30,6 +30,15 @@ static int	count_words(char const *s, char c)
 			index++;
 	}
 	return (word);
+}
+
+static void	free_all(char **str_array, int out_index)
+{
+	while (str_array)
+	{
+		free(str_array[out_index]);
+		out_index--;
+	}
 }
 
 static int	word_length(char const *str, char c, int index)
@@ -65,7 +74,7 @@ char	**ft_split(char const *s, char c)
 		str_array[out_index] = ft_substr(s, index, word_length(s, c, index));
 		if (!str_array[out_index])
 		{
-			free(str_array);
+			free_all(str_array, out_index);
 			return (NULL);
 		}
 		index += word_length(s, c, index);

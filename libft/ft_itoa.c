@@ -9,8 +9,7 @@
 /*   Updated: 2022/11/01 12:24:59 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdlib.h>
-#include <stdio.h>
+#include "libft.h"
 
 static int	find_length(long num)
 {
