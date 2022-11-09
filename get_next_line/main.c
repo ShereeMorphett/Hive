@@ -3,7 +3,7 @@
 
 int main(void)
 {
-	open()
+		open()
 
 		printf(get_next_line(1));
 		printf('\n');
