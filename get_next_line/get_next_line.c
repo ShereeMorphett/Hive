@@ -9,19 +9,45 @@
 /*   Updated: 2022/11/08 10:55:54 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdio.h>
+#include "get_next_line.h"
 
-// read(int fd, char *baf, int count)
+#define BUF_SIZE 4096
 
 char *get_next_line(int fd)
 {	
-	int buffer = 42;
-	char buff[buffer +1];
+	
 	int ret;
+	static char buf[BUF_SIZE + 1];
+	ret = read(fd, buf, BUF_SIZE);
+	buf[ret] = '\0';
 
-	while (ret = read(fd, char *baf, int count))
-	{
-		buff[ret]= '\0';
+	printf("%s", buf);
 
-	}
-
+	return (buf);
 }
+
+
+
+
+
+
+
+
+
+
+// BELOW PRINTS THE FULL FILE (FOR WHEN FUTURE SHEREE BREAKS IT)
+/* char *get_next_line(int fd)
+{	
+	
+	int ret;
+	static char buf[BUF_SIZE + 1];
+	ret = read(fd, buf, BUF_SIZE);
+	buf[ret] = '\0';
+
+	printf("%s", buf);
+
+	return (buf);
+} */
