@@ -1,20 +1,18 @@
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
-#ifndef LIBFT_H
-# define LIBFT_H
+# include <stdlib.h>
+# include <unistd.h>
 
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
 
-#define BUF_SIZE 4096
+size_t			ft_strlen(char *str);
+char			*ft_strchr(char *str, int c);
+char			*gnl_strjoin(char *s1, char *s2);
 
-char *get_next_line(int fd);
-char	*get_line(char *holder);
-char	*update_hold(char *holder);
-char	*read_string_to_hold(int fd, char *holder);
-size_t	ft_strlen(const char *str);
-char	*ft_strchr(const char *s, int c);
-char	*ft_strjoin(char const *s1, char const *s2);
+char			*get_next_line(int fd);
+
+char			*find_line(char *save);
+char			*save_line(char *save);
+char			*read_file(int fd, char *save);
 
 #endif

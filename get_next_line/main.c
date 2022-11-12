@@ -9,16 +9,27 @@
 int main(void)
 {
 	int fd;
-	char buf[BUF_SIZE + 1];
-	int ret;
-	
+	int fd1;	
 	fd = open("br_test_file.txt", O_RDONLY);
 	if (fd == -1)
 	{
 			printf("open () error");
 			return (1);
 	}
-	printf("%s", get_next_line(fd));
+
+	fd1 = open("cat_test_text.txt", O_RDONLY);
+	if (fd1 == -1)
+	{
+			printf("open () error");
+			return (1);
+	}
+
+	printf("\n%s\n", get_next_line(fd));
+	//printf("\n%s", get_next_line(fd1));
+	//printf("\n%s", get_next_line(fd));
+	//printf("\n%s", get_next_line(fd1));
+	//printf("\n%s", get_next_line(fd));
+	//printf("\n%s", get_next_line(fd));
 
 	fd = close(fd);
 	if (fd == -1)

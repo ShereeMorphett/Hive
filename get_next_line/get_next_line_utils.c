@@ -2,57 +2,62 @@
 
 /*SHEREE THESE ARE FINE, THEY PASSED LIBFT DO NOT MESS WITH THEM.....THEY DO WHAT YOU WANT!*/
 
-size_t	ft_strlen(const char *str)
+size_t	ft_strlen(char *str)
 {
 	size_t	index;
 
 	index = 0;
+	if (!str)
+		return (0);
 	while (str[index] != '\0')
 		index++;
 	return (index);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strchr(char *str, int c)
 {
+	int		index;
 	char	find;
 
 	find = c;
-	while (*s)
+	index = ft_strlen(str);
+	if (str == '\0')
+		return (NULL);
+	while (index >= 0)
 	{
-		if (*s == find)
-			return ((char *)s);
-		s++;
+		if (str[index] == find)
+			return ((char *) &str[index]);
+		index--;
 	}
-	if (find == '\0')
-		return ((char *)s);
+	if (index == 0)
+		return (NULL);
 	return (NULL);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*gnl_strjoin(char *s1, char *s2)
 {
-	int		len;
-	int		index;
-	int		subindex;
-	char	*substr;
+	size_t	i;
+	size_t	c;
+	char	*str;
 
 	if (!s1)
-		return (NULL);
-	index = 0;
-	subindex = 0;
-	len = ft_strlen(s1) + ft_strlen(s2);
-	substr = malloc(len + 1);
-	if (substr || len == 0)
 	{
-		while (s1[index] != '\0')
-			substr[subindex++] = s1[index++];
-		index = 0;
-		while (s2[index] != '\0')
-		{
-			substr[subindex] = s2[index++];
-			subindex++;
-		}
-		substr[subindex] = '\0';
-		return (substr);
+		s1 = (char *)malloc(1 * sizeof(char));
+		s1[0] = '\0';
 	}
-	return (NULL);
+	if (!s1 || !s2)
+		return (NULL);
+	str = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	if (str == NULL)
+		return (NULL);
+	i = -1;
+	c = 0;
+	if (s1)
+		while (s1[++i] != '\0')
+			str[i] = s1[i];
+	while (s2[c] != '\0')
+		str[i++] = s2[c++];
+	str[ft_strlen(s1) + ft_strlen(s2)] = '\0';
+	free(s1);
+	return (str);
 }

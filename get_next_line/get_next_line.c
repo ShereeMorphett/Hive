@@ -11,92 +11,95 @@
 /* ************************************************************************** */
 #include "get_next_line.h"
 
-char	*get_line(char *holder)
+char	*find_line(char *save)
 {
-	int counter;
-	char	*line;
+	int		i;
+	char	*s;
 
-	if (!holder)
+	i = 0;
+	if (!save[i])
 		return (NULL);
-	while (*holder && *holder != '\n')
-		holder++;
-		counter++;
-	line = (char *)malloc(sizeof(char) * (counter + 2));
-	if (!line)
+	while (save[i] && save[i] != '\n')
+		i++;
+	s = (char *)malloc(sizeof(char) * (i + 2));
+	if (!s)
 		return (NULL);
-	while (holder && *holder != '\n')
+	i = 0;
+	while (save[i] && save[i] != '\n')
 	{
-		*line++ = *holder++;
+		s[i] = save[i];
+		i++;
 	}
-	if (*holder == '\n')
+	if (save[i] == '\n')
 	{
-		*line++ = *holder++;
+		s[i] = save[i];
+		i++;
 	}
-	*line = '\0';
-	return (line);
+	s[i] = '\0';
+	return (s);
 }
 
-char	*update_hold(char *holder)
+char	*save_line(char *save)
 {
-	int		count = 0;
-	char	*string;
+	int		i;
+	int		c;
+	char	*s;
 
-	while (*holder && *holder != '\n')
-		holder++;
-		count++;
-	if (!holder)
+	i = 0;
+	while (save[i] && save[i] != '\n')
+		i++;
+	if (!save[i])
 	{
-		free(holder);
+		free(save);
 		return (NULL);
 	}
-	string = (char *)malloc(sizeof(char) * (ft_strlen(holder) + 1 - count));
-	if (!string)
+	s = (char *)malloc(sizeof(char) * (ft_strlen(save) - i + 1));
+	if (!s)
 		return (NULL);
-	count++;
-	while (holder)
-		*string++ = *holder++;
-	*string = '\0';
-	free(holder);
-	return (string);
+	i++;
+	c = 0;
+	while (save[i])
+		s[c++] = save[i++];
+	s[c] = '\0';
+	free(save);
+	return (s);
 }
 
-char	*read_string_to_hold(int fd, char *holder)
+char	*read_file(int fd, char *save)
 {
-	int		read_char;
-	char	*buffer;
-	
+	char	*buff;
+	int		read_bytes;
 
-	buffer = malloc((BUF_SIZE + 1) * sizeof(char));
-	if (!buffer)
+	buff = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!buff)
 		return (NULL);
-	read_char = 1;
-	while (!ft_strchr(holder, '\n') && read_char != 0)
+	read_bytes = 1;
+	while (!ft_strchr(save, '\n') && read_bytes != 0)
 	{
-		read_char = read(fd, buffer, BUF_SIZE);
-		if (read_char == -1)
+		read_bytes = read(fd, buff, BUFFER_SIZE);
+		if (read_bytes == -1)
 		{
-			free(buffer);
+			free(buff);
 			return (NULL);
 		}
-		buffer[read_char] = '\0';
-		holder = ft_strjoin(holder, buffer);
+		buff[read_bytes] = '\0';
+		save = gnl_strjoin(save, buff);
 	}
-	free(buffer);
-	return (holder);
+	free(buff);
+	return (save);
 }
 
-char *get_next_line(int fd)
-{	
-	static char *holder[4096];
-	char *returned_line;
+char	*get_next_line(int fd)
+{
+	char		*line;
+	static char	*save;
 
-	holder[fd] = read_string_to_hold(fd, holder[fd]);
-	
-	if (BUF_SIZE <= 0 || !holder[fd])
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
-
-	returned_line = get_next_line(fd);
-
-	holder[fd] = update_hold(holder[fd]);
-	return (returned_line);
+	save = read_file(fd, save);
+	if (!save)
+		return (NULL);
+	line = find_line(save);
+	save = save_line(save);
+	return (line);
 }
