@@ -13,59 +13,59 @@
 
 char	*find_line(char *save)
 {
-	int		i;
-	char	*s;
+	int		index;
+	char	*search;
 
-	i = 0;
-	if (!save[i])
+	index = 0;
+	if (!save[index])
 		return (NULL);
-	while (save[i] && save[i] != '\n')
-		i++;
-	s = (char *)malloc(sizeof(char) * (i + 2));
-	if (!s)
+	while (save[index] && save[index] != '\n')
+		index++;
+	search = (char *)malloc(sizeof(char) * (index + 2));
+	if (!search)
 		return (NULL);
-	i = 0;
-	while (save[i] && save[i] != '\n')
+	index = 0;
+	while (save[index] && save[index] != '\n')
 	{
-		s[i] = save[i];
-		i++;
+		search[index] = save[index];
+		index++;
 	}
-	if (save[i] == '\n')
+	if (save[index] == '\n')
 	{
-		s[i] = save[i];
-		i++;
+		search[index] = save[index];
+		index++;
 	}
-	s[i] = '\0';
-	return (s);
+	search[index] = '\0';
+	return (search);
 }
 
-char	*save_line(char *save)
+char	*save_line(char *holder)
 {
-	int		i;
-	int		c;
-	char	*s;
+	int		index;
+	int		line_index;
+	char	*line;
 
-	i = 0;
-	while (save[i] && save[i] != '\n')
-		i++;
-	if (!save[i])
+	index = 0;
+	while (holder[index] && holder[index] != '\n')
+		index++;
+	if (!holder[index])
 	{
-		free(save);
+		free(holder);
 		return (NULL);
 	}
-	s = (char *)malloc(sizeof(char) * (ft_strlen(save) - i + 1));
-	if (!s)
+	line = (char *)malloc(sizeof(char) * (ft_strlen(holder) - index + 1));
+	if (line)
 		return (NULL);
-	i++;
-	c = 0;
-	while (save[i])
-		s[c++] = save[i++];
-	s[c] = '\0';
-	free(save);
-	return (s);
+	index++;
+	line_index = 0;
+	while (holder[index])
+		line[line_index] = holder[index++];
+	line[line_index] = '\0';
+	free(holder);
+	return (line);
 }
 
-char	*read_file(int fd, char *save)
+char	*read_file(int fd, char *holder)
 {
 	char	*buff;
 	int		read_bytes;
@@ -74,7 +74,7 @@ char	*read_file(int fd, char *save)
 	if (!buff)
 		return (NULL);
 	read_bytes = 1;
-	while (!ft_strchr(save, '\n') && read_bytes != 0)
+	while (!ft_strchr(holder, '\n') && read_bytes != 0)
 	{
 		read_bytes = read(fd, buff, BUFFER_SIZE);
 		if (read_bytes == -1)
@@ -83,23 +83,23 @@ char	*read_file(int fd, char *save)
 			return (NULL);
 		}
 		buff[read_bytes] = '\0';
-		save = gnl_strjoin(save, buff);
+		holder = gnl_strjoin(holder, buff);
 	}
 	free(buff);
-	return (save);
+	return (holder);
 }
 
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*save;
+	static char	*holder;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
-	save = read_file(fd, save);
-	if (!save)
+	holder = read_file(fd, holder);
+	if (!holder)
 		return (NULL);
-	line = find_line(save);
-	save = save_line(save);
+	line = find_line(holder);
+	holder = save_line(holder);
 	return (line);
 }
