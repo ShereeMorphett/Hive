@@ -89,17 +89,17 @@ char	*read_file(int fd, char *holder)
 	return (holder);
 }
 
-char	*get_next_line(int fd)
+char *get_next_line(int fd)
 {
-	char		*line;
-	static char	*holder[200];
+ char *line;
+ static char *holder[1000];
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (0);
-	holder[fd] = read_file(fd, holder[fd]);
-	if (!holder[fd])
-		return (NULL);
-	line = find_line(holder[fd]);
-	holder[fd] = save_line(holder[fd]);
-	return (line);
+ if (fd < 0 || BUFFER_SIZE <= 0 || fd > 999)
+  return (0);
+ holder[fd] =	read_file(fd, holder[fd]);
+ if (!holder[fd])
+  return (NULL);
+ line = find_line(holder[fd]);
+ holder[fd] = save_line(holder[fd]);
+ return (line);
 }
