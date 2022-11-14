@@ -11,28 +11,28 @@
 /* ************************************************************************** */
 #include "get_next_line.h"
 
-char	*find_line(char *save)
+char	*find_line(char *holder)
 {
 	int		index;
 	char	*search;
 
 	index = 0;
-	if (!save[index])
+	if (!holder[index])
 		return (NULL);
-	while (save[index] && save[index] != '\n')
+	while (holder[index] && holder[index] != '\n')
 		index++;
 	search = (char *)malloc(sizeof(char) * (index + 2));
 	if (!search)
 		return (NULL);
 	index = 0;
-	while (save[index] && save[index] != '\n')
+	while (holder[index] && holder[index] != '\n')
 	{
-		search[index] = save[index];
+		search[index] = holder[index];
 		index++;
 	}
-	if (save[index] == '\n')
+	if (holder[index] == '\n')
 	{
-		search[index] = save[index];
+		search[index] = holder[index];
 		index++;
 	}
 	search[index] = '\0';
@@ -74,7 +74,7 @@ char	*read_file(int fd, char *holder)
 	if (!buff)
 		return (NULL);
 	read_char = 1;
-	while (!ft_strchr(holder, '\n') && read_char!= 0)
+	while (!ft_strchr(holder, '\n') && read_char != 0)
 	{
 		read_char = read(fd, buff, BUFFER_SIZE);
 		if (read_char == -1)

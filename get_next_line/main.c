@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include "get_next_line.h"
 
+#define KMAG  "\x1B[35m"
+
 
 int main(void)
 {
