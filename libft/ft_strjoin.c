@@ -13,29 +13,28 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	int		len;
-	int		index;
-	int		subindex;
-	char	*substr;
+    size_t    index_s1;
+    size_t    index_s2;
+    char    *str;
 
-	if (!s1)
-		return (NULL);
-	index = 0;
-	subindex = 0;
-	len = ft_strlen(s1) + ft_strlen(s2);
-	substr = malloc(len + 1);
-	if (substr || len == 0)
-	{
-		while (s1[index] != '\0')
-			substr[subindex++] = s1[index++];
-		index = 0;
-		while (s2[index] != '\0')
-		{
-			substr[subindex] = s2[index++];
-			subindex++;
-		}
-		substr[subindex] = '\0';
-		return (substr);
-	}
-	return (NULL);
+    if (!s1)
+    {
+        s1 = (char *)malloc(1 * sizeof(char));
+        s1[0] = '\0';
+    }
+    if (!s1 || !s2)
+        return (NULL);
+    str = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+    if (str == NULL)
+        return (NULL);
+    index_s1 = -1;
+    index_s2 = 0;
+    if (s1)
+        while (s1[++index_s1] != '\0')
+            str[index_s1] = s1[index_s1];
+    while (s2[index_s2] != '\0')
+        str[index_s1++] = s2[index_s2++];
+    str[ft_strlen(s1) + ft_strlen(s2)] = '\0';
+    free(s1);
+    return (str);
 }

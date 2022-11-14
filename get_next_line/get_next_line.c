@@ -44,7 +44,7 @@ char	*save_line(char *holder)
 	int		index;
 	int		line_index;
 	char	*line;
-
+	
 	index = 0;
 	while (holder[index] && holder[index] != '\n')
 		index++;
@@ -54,12 +54,12 @@ char	*save_line(char *holder)
 		return (NULL);
 	}
 	line = (char *)malloc(sizeof(char) * (ft_strlen(holder) - index + 1));
-	if (line)
+	if (!line)
 		return (NULL);
 	index++;
 	line_index = 0;
 	while (holder[index])
-		line[line_index] = holder[index++];
+		line[line_index++] = holder[index++];
 	line[line_index] = '\0';
 	free(holder);
 	return (line);
@@ -68,21 +68,21 @@ char	*save_line(char *holder)
 char	*read_file(int fd, char *holder)
 {
 	char	*buff;
-	int		read_bytes;
+	int		read_char;
 
 	buff = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buff)
 		return (NULL);
-	read_bytes = 1;
-	while (!ft_strchr(holder, '\n') && read_bytes != 0)
+	read_char = 1;
+	while (!ft_strchr(holder, '\n') && read_char!= 0)
 	{
-		read_bytes = read(fd, buff, BUFFER_SIZE);
-		if (read_bytes == -1)
+		read_char = read(fd, buff, BUFFER_SIZE);
+		if (read_char == -1)
 		{
 			free(buff);
 			return (NULL);
 		}
-		buff[read_bytes] = '\0';
+		buff[read_char] = '\0';
 		holder = gnl_strjoin(holder, buff);
 	}
 	free(buff);
@@ -92,14 +92,14 @@ char	*read_file(int fd, char *holder)
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*holder;
+	static char	*holder[200];
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
-	holder = read_file(fd, holder);
-	if (!holder)
+	holder[fd] = read_file(fd, holder[fd]);
+	if (!holder[fd])
 		return (NULL);
-	line = find_line(holder);
-	holder = save_line(holder);
+	line = find_line(holder[fd]);
+	holder[fd] = save_line(holder[fd]);
 	return (line);
 }
