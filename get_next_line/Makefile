@@ -7,7 +7,7 @@ SRC = main.c, get_next_line.c, get_next_line_utils.c, get_next_line.h
 all:	$(NAME)
 
 $(NAME): 
-	cc -g $(FLAGS) main.c get_next_line.c get_next_line_utils.c get_next_line.h
+	cc -g $(FLAGS) -D BUFFER_SIZE=4096 main.c get_next_line.c get_next_line_utils.c get_next_line.h
 
 clean:
 	/bin/rm -f $(NAME)

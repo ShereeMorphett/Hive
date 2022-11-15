@@ -9,7 +9,7 @@
 /*   Updated: 2022/11/14 17:20:30 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 size_t	ft_strlen(char *str)
 {
