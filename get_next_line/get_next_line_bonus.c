@@ -6,37 +6,37 @@
 /*   By: smorphet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 17:20:42 by smorphet          #+#    #+#             */
-/*   Updated: 2022/11/14 17:20:46 by smorphet         ###   ########.fr       */
+/*   Updated: 2022/11/15 12:09:30 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 static char	*find_line(char *holder)
 {
-	int		index;
-	char	*search;
+	int		len;
+	char	*line;
 
-	index = 0;
-	if (!holder[index])
+	len = 0;
+	if (!holder[len])
 		return (NULL);
-	while (holder[index] && holder[index] != '\n')
-		index++;
-	search = (char *)malloc(sizeof(char) * (index + 2));
-	if (!search)
+	while (holder[len] && holder[len] != '\n')
+		len++;
+	line = (char *)malloc(sizeof(char) * (len + 2));
+	if (!line)
 		return (NULL);
-	index = 0;
-	while (holder[index] && holder[index] != '\n')
+	len = 0;
+	while (holder[len] && holder[len] != '\n')
 	{
-		search[index] = holder[index];
-		index++;
+		line[len] = holder[len];
+		len++;
 	}
-	if (holder[index] == '\n')
+	if (holder[len] == '\n')
 	{
-		search[index] = holder[index];
-		index++;
+		line[len] = holder[len];
+		len++;
 	}
-	search[index] = '\0';
-	return (search);
+	line[len] = '\0';
+	return (line);
 }
 
 static char	*update_holder(char *holder)
@@ -44,7 +44,7 @@ static char	*update_holder(char *holder)
 	int		index;
 	int		new_index;
 	char	*new_holder;
-	
+
 	index = 0;
 	while (holder[index] && holder[index] != '\n')
 		index++;
@@ -53,7 +53,7 @@ static char	*update_holder(char *holder)
 		free(holder);
 		return (NULL);
 	}
-	new_holder= (char *)malloc(sizeof(char) * (ft_strlen(holder) - index + 1));
+	new_holder = (char *)malloc(sizeof(char) * (ft_strlen(holder) - index + 1));
 	if (!new_holder)
 		return (NULL);
 	index++;
@@ -89,17 +89,17 @@ static char	*read_file(int fd, char *holder)
 	return (holder);
 }
 
-char *get_next_line(int fd)
+char	*get_next_line(int fd)
 {
- char *line;
- static char *holder[1000];
+	char		*line;
+	static char	*holder[1000];
 
- if (fd < 0 || BUFFER_SIZE <= 0 || fd > 999)
-  return (NULL);
- holder[fd] =	read_file(fd, holder[fd]);
- if (!holder[fd])
-  return (NULL);
- line = find_line(holder[fd]);
- holder[fd] = update_holder(holder[fd]);
- return (line);
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > 999)
+		return (NULL);
+	holder[fd] = read_file(fd, holder[fd]);
+	if (!holder[fd])
+		return (NULL);
+	line = find_line(holder[fd]);
+	holder[fd] = update_holder(holder[fd]);
+	return (line);
 }

@@ -1,15 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smorphet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/08 10:55:52 by smorphet          #+#    #+#             */
-/*   Updated: 2022/11/15 12:09:04 by smorphet         ###   ########.fr       */
+/*   Created: 2022/11/14 17:20:42 by smorphet          #+#    #+#             */
+/*   Updated: 2022/11/16 13:42:03 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static char	*find_line(char *holder)
 {
