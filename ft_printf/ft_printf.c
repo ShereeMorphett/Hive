@@ -4,27 +4,28 @@
 #include <stdarg.h>
 #include <stdio.h>
 
-
-
- void check_conversion(const char *arguments, va_list arg)
+ static int check_conversion(const char *arguments, va_list arg)
 {
+	int len;
+
+	len = 0;
 		if ( *arguments == '%')
 	{	
-		ft_putchar_fd('%', 1);
+		len += ft_putchar('%');
 	}
 	if ( *arguments == 'c')
 	{	
-		ft_putchar_fd(va_arg(arg, int),1);
+		len += ft_putchar(va_arg(arg, int));
 	}
 	if ( *arguments == 'i' || *arguments == 'd')
 	{
-		ft_putnbr_fd(va_arg(arg, int),1);
+		len += ft_putnbr(va_arg(arg, int));
 	}
 	if ( *arguments == 's')
 	{	
-		ft_putstr_fd(va_arg(arg, char *),1);
+		len += ft_putstr(va_arg(arg, char *));
 	}
-
+	return (len);
 }
 
 int    ft_printf(const char *arguments, ...)
@@ -38,13 +39,13 @@ int    ft_printf(const char *arguments, ...)
 		{
 			if (*arguments != '%')
 			{
-				ft_putchar_fd(*arguments, 1);
+				count_chars += ft_putchar(*arguments, 1);
 				arguments++;
 			}
 			if (*arguments == '%')
 			{
 				arguments++;				
-				check_conversion(arguments, arg);
+				count_chars += check_conversion(arguments, arg);
 				arguments++;
 			}
 }
