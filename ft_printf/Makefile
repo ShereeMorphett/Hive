@@ -14,11 +14,10 @@ NAME = libftprintf.a
 
 FLAGS = -Wall -Wextra -Werror
 
-SRC = ft_atoi.c ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_putstr_fd.c\
-	ft_strchr.c ft_striteri.c ft_strlen.c ft_strnstr.c \
+SRC = utilities.c ft_printf.c ft_printf.h
+
 	
-OBJ = ft_atoi.o ft_putchar_fd.o ft_putendl_fd.o ft_putnbr_fd.o ft_putstr_fd.o\
-	ft_strchr.o ft_striteri.o ft_strlen.o ft_strnstr.o \
+OBJ = utilities.o ft_printf.o
 	
 
 all:	$(NAME)
