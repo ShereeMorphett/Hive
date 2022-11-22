@@ -14,10 +14,10 @@ NAME = libftprintf.a
 
 FLAGS = -Wall -Wextra -Werror
 
-SRC = utilities.c ft_printf.c ft_printf.h
+SRC = utilities.c ft_printf.c ft_printf.h pointer.c hex.c
 
 	
-OBJ = utilities.o ft_printf.o
+OBJ = utilities.o ft_printf.o pointer.o hex.o
 	
 
 all:	$(NAME)

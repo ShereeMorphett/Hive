@@ -10,6 +10,7 @@
 • %X Prints a number in hexadecimal (base 16) uppercase format.
 • %% Prints a percent sign.*/
 #include <stdio.h>
+#include <limits.h>
 
 #include "ft_printf.h"
 
@@ -177,21 +178,52 @@ printf("%s \n-----Testing from libft- uppercase hexadecimal-----%s\n", KMAG, KWH
 
 printed_characters = ft_printf("%X",number); 
 printf("\n%i" , printed_characters); 
-
 printf("\n\n");
+
 printed_characters = ft_printf("%X",digit); 
 printf("\n%i" , printed_characters); 
+printf("\n\n");
 
+printed_characters = ft_printf("%X", LONG_MAX);
+printf("\n%i" , printed_characters); 
+printf("\n\n");
 
+printed_characters = ft_printf("%X", LONG_MIN);
+printf("\n%i" , printed_characters); 
+printf("\n\n");
 
+printed_characters = ft_printf("%X", ULONG_MAX);
+printf("\n%i" , printed_characters); 
+printf("\n\n");
+
+printed_characters = ft_printf("%X", 9223372036854775807LL);
+printf("\n%i" , printed_characters); 
+printf("\n\n");
 printf("%s \n-----Testing from printf - uppercase hexadecimal-----%s\n", KBLU, KWHT);
 
 printed_characters = printf("%X", number);
 printf("\n%i" , printed_characters); 
-
 printf("\n\n");
-printf("%X", digit);
+
+printed_characters = printf("%X", digit);
 printf("\n%i" , printed_characters); 
+printf("\n\n");
+
+printed_characters = printf("%X", LONG_MAX);
+printf("\n%i" , printed_characters); 
+printf("\n\n");
+
+printed_characters = printf("%X", LONG_MIN);
+printf("\n%i" , printed_characters); 
+printf("\n\n");
+
+printed_characters = printf("%X", ULONG_MAX);
+printf("\n%i" , printed_characters); 
+printf("\n\n");
+
+printed_characters = printf("%X", 9223372036854775807LL);
+printf("\n%i" , printed_characters); 
+printf("\n\n");
 
 
 printf("%s \n-----Testing from libft- lowercase hexadecimal-----%s\n", KMAG, KWHT);
@@ -243,7 +275,7 @@ printed_characters = printf("%u", -1);
 printf("\n%i" , printed_characters); 
 printf("\n\n");
 printed_characters = printf("%u", -9);
-printf("\n%i" , printed_characters); 
+printf("\n%i" , printed_characters);
 printf("\n\n");
 printed_characters = printf("%u", 0);
 printf("\n%i" , printed_characters); 
