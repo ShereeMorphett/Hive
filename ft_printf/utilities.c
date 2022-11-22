@@ -40,10 +40,12 @@ int	ft_putnbr(int n)
 		storage = -storage;
 	}
 	if (storage / 10)
-		ft_putnbr(storage / 10);
-        len++;
+	{
+		len += ft_putnbr(storage / 10);
+	}
 	ft_putchar(storage % 10 + '0');
-    return (len);
+    len++;
+	return (len);
 }
 
 int	count_hex(unsigned long num)

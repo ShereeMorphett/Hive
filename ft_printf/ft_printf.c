@@ -4,11 +4,36 @@
 #include <stdarg.h>
 #include <stdio.h>
 
+int	ft_unsignedputnbr(int n)
+{
+	long int	storage;
+    int len;
+
+    len = 0;
+	storage = n;
+	if (storage < 0)
+	{
+		storage += 4294967295 + 1;
+	}
+	if (storage / 10)
+	{
+		len += ft_putnbr(storage / 10);
+	}
+	ft_putchar(storage % 10 + '0');
+    len++;
+	return (len);
+}
 static int check_conversion2(const char *arguments, va_list arg)
 {
 	int len;
 
 	len = 0;
+	
+	if (*arguments == 'u')
+	{
+		len += ft_unsignedputnbr(va_arg(arg, int));
+	}
+
 	if ( *arguments == 'p')
 	{	
 		len += pointer(va_arg(arg, void*),  "0123456789abcdef");
@@ -37,7 +62,7 @@ static int check_conversion(const char *arguments, va_list arg)
 	{	
 		len += ft_putchar(va_arg(arg, int));
 	}
-	if ( *arguments == 'i' || *arguments == 'd' || *arguments == 'u')
+	if ( *arguments == 'i' || *arguments == 'd')
 	{
 		len += ft_putnbr(va_arg(arg, int));
 	}

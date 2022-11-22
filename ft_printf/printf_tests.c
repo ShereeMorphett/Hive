@@ -25,9 +25,80 @@ int main()
 	int test_dec = 4;
 	char strings[] = "does it print.";
 	unsigned int number = 29;
+	int	hundreds = 349;
+	int	thousands = 2542;
+	int large = 1569565;
+	int small = 1;
+	int neg = -154;
 
 	int printed_characters;
 printf("%s~~~~~~~~~~~~Testing ft_printf~~~~~~~~~~~~%s\n", KGRN, KWHT);
+
+
+printf("%s \n-----Testing from libft- %%d decimal-----%s\n", KMAG, KWHT);
+printed_characters = ft_printf("%d", number);
+printf("\n%i" , printed_characters); 
+printf("\n\n");
+printed_characters = ft_printf("%d", hundreds);
+printf("\n%i" , printed_characters); 
+printf("\n\n");
+printed_characters = ft_printf("%d", neg);
+printf("\n%i" , printed_characters); 
+printf("\n\n");
+printed_characters = ft_printf("%d", small);
+printf("\n%i" , printed_characters); 
+printf("\n\n");
+printed_characters = ft_printf("%d", large);
+printf("\n%i" , printed_characters); 
+
+printf("%s \n-----Testing from printf - %%d Decimal-----%s\n", KBLU, KWHT);
+printed_characters = printf("%i", number);
+printf("\n%i" , printed_characters); 
+printf("\n\n");
+printed_characters = printf("%i", hundreds);
+printf("\n%i" , printed_characters); 
+printf("\n\n");
+printed_characters = printf("%i", neg);
+printf("\n%i" , printed_characters); 
+printf("\n\n");
+printed_characters = printf("%i", small);
+printf("\n%i" , printed_characters); 
+printf("\n\n");
+printed_characters = printf("%i", large);
+printf("\n%i" , printed_characters); 
+
+printf("%s \n-----Testing from libft- %%i integer-----%s\n", KMAG, KWHT);
+printed_characters = ft_printf("%i", number);
+printf("\n%i" , printed_characters); 
+printf("\n\n");
+printed_characters = ft_printf("%i", hundreds);
+printf("\n%i" , printed_characters); 
+printf("\n\n");
+printed_characters = ft_printf("%i", neg);
+printf("\n%i" , printed_characters); 
+printf("\n\n");
+printed_characters = ft_printf("%i", small);
+printf("\n%i" , printed_characters); 
+printf("\n\n");
+printed_characters = ft_printf("%i", large);
+printf("\n%i" , printed_characters); 
+
+printf("%s \n-----Testing from printf - %%i integer-----%s\n", KBLU, KWHT);
+printed_characters = printf("%d", number);
+printf("\n%i" , printed_characters); 
+printf("\n\n");
+printed_characters = printf("%d", hundreds);
+printf("\n%i" , printed_characters); 
+printf("\n\n");
+printed_characters = printf("%d", neg);
+printf("\n%i" , printed_characters); 
+printf("\n\n");
+printed_characters = printf("%d", small);
+printf("\n%i" , printed_characters); 
+printf("\n\n");
+printed_characters = printf("%d", large);
+printf("\n%i" , printed_characters); 
+
 
 printf("%s \n-----Testing from libft- character input-----%s\n", KMAG, KWHT);
 printed_characters = ft_printf("%c", 'd');
@@ -38,7 +109,6 @@ printf("\n%i" , printed_characters);
 printf("\n\n");
 printed_characters = ft_printf("%c", '?');
 printf("\n%i" , printed_characters); 
-
 printf("\n\n");
 printed_characters = ft_printf("%c", character);
 printf("\n%i" , printed_characters); 
@@ -147,6 +217,19 @@ printf("\n%i" , printed_characters);
 printf("\n\n");
 printed_characters = ft_printf("%u", digit);
 printf("\n%i" , printed_characters); 
+printf("\n\n");
+printed_characters = ft_printf("%u", -1);
+printf("\n%i" , printed_characters); 
+printf("\n\n");
+printed_characters = ft_printf("%u", -9);
+printf("\n%i" , printed_characters); 
+printf("\n\n");
+printed_characters = ft_printf("%u", 0);
+printf("\n%i" , printed_characters); 
+printf("\n\n");
+printed_characters = ft_printf("%u", -200);
+printf("\n%i" , printed_characters);
+
 
 printf("%s \n-----Testing from printf - Unsigned decimal base 10-----%s\n", KBLU, KWHT);
 
@@ -155,6 +238,20 @@ printf("\n%i" , printed_characters);
 printf("\n\n");
 printed_characters = printf("%u", digit);
 printf("\n%i" , printed_characters); 
+printf("\n\n");
+printed_characters = printf("%u", -1);
+printf("\n%i" , printed_characters); 
+printf("\n\n");
+printed_characters = printf("%u", -9);
+printf("\n%i" , printed_characters); 
+printf("\n\n");
+printed_characters = printf("%u", 0);
+printf("\n%i" , printed_characters); 
+printf("\n\n");
+printed_characters = printf("%u", -200);
+printf("\n%i" , printed_characters);
+
+
 printf("%s \n-----Testing from libft- multiple formatters-----%s\n", KMAG, KWHT);
 
 printed_characters = ft_printf("this has an unsigned number %u and an int %d", number, digit); 
