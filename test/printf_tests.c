@@ -11,7 +11,6 @@
 • %% Prints a percent sign.*/
 #include <stdio.h>
 #include <limits.h>
-
 #include "ft_printf.h"
 
 #define KGRN  "\x1B[32m"
@@ -169,7 +168,7 @@ printf("\n\n");
 
 printf("%s \n-----Testing from printf - printing pointer-----%s\n", KBLU, KWHT);
 
-printed_characters = printf("%p\n", b); 
+printed_characters = printf("%p", b); 
 printf("\n%i" , printed_characters);
 printf("\n\n");
 
