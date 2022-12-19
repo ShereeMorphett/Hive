@@ -6,7 +6,7 @@
 /*   By: smorphet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 17:30:36 by smorphet          #+#    #+#             */
-/*   Updated: 2022/11/06 12:56:30 by smorphet         ###   ########.fr       */
+/*   Updated: 2022/12/19 15:22:18 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef LIBFT_H
@@ -14,7 +14,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-typedef struct	s_list
+typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
@@ -56,9 +56,10 @@ void	ft_putnbr_fd(int n, int fd);
 void	ft_putendl_fd(char *s, int fd);
 
 t_list	*ft_lstnew(void *content);
-void ft_lstadd_front(t_list **lst, t_list *new);
-int ft_lstsize(t_list *lst);
-void ft_lstdelone(t_list *lst, void (*del)(void*));
-void ft_lstclear(t_list **lst, void (*del)(void *));
-void ft_lstiter(t_list *lst, void (*f)(void *));
+void	ft_lstadd_front(t_list **lst, t_list *new);
+int		ft_lstsize(t_list *lst);
+void	ft_lstdelone(t_list *lst, void (*del)(void*));
+void	ft_lstclear(t_list **lst, void (*del)(void *));
+void	ft_lstiter(t_list *lst, void (*f)(void *));
+t_list	*ft_lstlast(t_list *lst);
 #endif

@@ -36,11 +36,5 @@ int main(void)
 	list = ft_lstnew("things\n");
 	list = add_link(list, "go\n");
 	list = add_link(list, "here\n");
-
-	printf("%d\n", ft_lstsize(list));
-	ft_printlist(list);
-
 	
-
-
 }

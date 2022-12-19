@@ -22,7 +22,7 @@ SRC = ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
 	ft_strlcpy.c ft_strlen.c ft_strmapi.c ft_strncmp.c ft_strnstr.c \
 	ft_strrchr.c ft_strtrim.c ft_substr.c ft_tolower.c ft_toupper.c \
 	ft_lstnew.c	ft_lstadd_front.c ft_lstsize.c ft_lstdelone.c ft_lstclear.c \
-	ft_lstiter.c
+	ft_lstiter.c ft_lstlast.c
 
 OBJ = ft_atoi.o ft_bzero.o ft_calloc.o ft_isalnum.o ft_isalpha.o \
 	ft_isascii.o ft_isdigit.o ft_isprint.o ft_itoa.o ft_memchr.o \
@@ -32,7 +32,7 @@ OBJ = ft_atoi.o ft_bzero.o ft_calloc.o ft_isalnum.o ft_isalpha.o \
 	ft_strlcpy.o ft_strlen.o ft_strmapi.o ft_strncmp.o ft_strnstr.o \
 	ft_strrchr.o ft_strtrim.o ft_substr.o ft_tolower.o ft_toupper.o \
 	ft_lstnew.o ft_lstadd_front.o ft_lstsize.o ft_lstdelone.o ft_lstclear.o \
-	ft_lstiter.o
+	ft_lstiter.o ft_lstlast.o
 
 all:	$(NAME)
 
