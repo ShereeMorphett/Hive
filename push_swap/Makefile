@@ -1,4 +1,4 @@
-
+//http://www.lunderberg.com/2015/08/24/cpp-makefile-multiple-libraries/
 NAME = push_swap
 
 CFILES = push_swap.c
