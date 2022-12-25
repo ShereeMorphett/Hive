@@ -1,23 +1,33 @@
-NAME = push_swap.a
 
-FLAGS = -Wall -Wextra -Werror
+NAME = push_swap
 
-SRCS= push_swap.c
+CFILES = push_swap.c
 
-OBJ= push_swap.o
+OBJECTS = $(CFILES:.c=.o)
 
-LIBFT= $(MAKE) -C ../libft
-		cp libft.a
+LIB_PATH = libft/
 
-all:	$(NAME)
+CC = cc
 
-$(NAME): 
-	cc -c $(SRC) $(LIBFT)
-	ar rc $(NAME) $(OBJ)
+CFLAGS = -Wall -Wextra -Werror
+
+all: libft_make $(NAME)
+
+libft_make:
+	make -C $(LIB_PATH) all
+
+$(NAME): $(OBJECTS)
+	$(CC) $(CFLAGS) $(OBJECTS) $(LIB_PATH)libft.a -o $(NAME)
+
 clean:
-	/bin/rm -f $(OBJ) $(BONUS_OBJ)
+	make -C $(LIB_PATH) clean
+	rm -f $(OBJECTS)
 
 fclean: clean
-	/bin/rm -f $(NAME)
+	make -C $(LIB_PATH) fclean
+	rm -f $(NAME)
 
 re: fclean all
+
+call: all clean
+	make -C $(LIB_PATH) fclean
