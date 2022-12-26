@@ -1,26 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smorphet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/22 09:44:52 by smorphet          #+#    #+#             */
-/*   Updated: 2022/12/22 09:44:58 by smorphet         ###   ########.fr       */
+/*   Created: 2022/10/27 14:06:54 by smorphet          #+#    #+#             */
+/*   Updated: 2022/11/04 17:14:18 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
-# include <unistd.h>
-# include <stdlib.h>
-#include "libft/libft.h"
+#include "libft.h"
 
-void swap(t_list *stack, char id);
-void ss(t_list stack_a, t_list stack_b);
-void push(t_list stack, char id);
-void rotate(t_list stack, char id);
-void rr(t_list stack_a, t_list stack_b);
-void rev_rotate(t_list stack, char id);
-void rrr(t_list stack_a, t_list stack_b);
+char	*ft_strdup(const char *s)
+{
+	char	*newstring;
+	int		index;
 
-#endif
+	index = 0;
+	newstring = (char *)malloc(sizeof(char) * (ft_strlen(s)) + 1);
+	if (newstring)
+	{
+		if (s == '\0')
+		{
+			return (NULL);
+		}
+		while (s[index] != '\0')
+		{
+			newstring[index] = s[index];
+			index++;
+		}
+		newstring[index] = '\0';
+	}
+	return (newstring);
+}

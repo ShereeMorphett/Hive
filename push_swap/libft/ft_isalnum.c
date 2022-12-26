@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smorphet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/22 09:44:52 by smorphet          #+#    #+#             */
-/*   Updated: 2022/12/22 09:44:58 by smorphet         ###   ########.fr       */
+/*   Created: 2022/10/27 14:04:03 by smorphet          #+#    #+#             */
+/*   Updated: 2022/10/27 14:04:11 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
-# include <unistd.h>
-# include <stdlib.h>
-#include "libft/libft.h"
-
-void swap(t_list *stack, char id);
-void ss(t_list stack_a, t_list stack_b);
-void push(t_list stack, char id);
-void rotate(t_list stack, char id);
-void rr(t_list stack_a, t_list stack_b);
-void rev_rotate(t_list stack, char id);
-void rrr(t_list stack_a, t_list stack_b);
-
-#endif
+int	ft_isalnum(int argument)
+{
+	if (argument >= 'A' && argument <= 'Z')
+		return (1);
+	if (argument >= 'a' && argument <= 'z' )
+		return (1);
+	if (argument >= '0' && argument <= '9')
+		return (1);
+	else
+		return (0);
+}

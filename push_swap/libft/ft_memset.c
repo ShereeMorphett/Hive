@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smorphet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/22 09:44:52 by smorphet          #+#    #+#             */
-/*   Updated: 2022/12/22 09:44:58 by smorphet         ###   ########.fr       */
+/*   Created: 2022/10/27 14:06:19 by smorphet          #+#    #+#             */
+/*   Updated: 2022/11/03 16:47:13 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
-# include <unistd.h>
-# include <stdlib.h>
-#include "libft/libft.h"
+#include "libft.h"
 
-void swap(t_list *stack, char id);
-void ss(t_list stack_a, t_list stack_b);
-void push(t_list stack, char id);
-void rotate(t_list stack, char id);
-void rr(t_list stack_a, t_list stack_b);
-void rev_rotate(t_list stack, char id);
-void rrr(t_list stack_a, t_list stack_b);
+void	*ft_memset(void *str, int c, size_t n)
+{
+	unsigned char	*hold;
+	unsigned char	change;
 
-#endif
+	change = (unsigned char) c;
+	hold = str;
+	while (n > 0)
+	{
+		*hold++ = (unsigned char) change;
+		n--;
+	}
+	return (str);
+}

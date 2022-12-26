@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smorphet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/22 09:44:52 by smorphet          #+#    #+#             */
-/*   Updated: 2022/12/22 09:44:58 by smorphet         ###   ########.fr       */
+/*   Created: 2022/10/27 14:07:15 by smorphet          #+#    #+#             */
+/*   Updated: 2022/11/06 12:49:55 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
-# include <unistd.h>
-# include <stdlib.h>
-#include "libft/libft.h"
 
-void swap(t_list *stack, char id);
-void ss(t_list stack_a, t_list stack_b);
-void push(t_list stack, char id);
-void rotate(t_list stack, char id);
-void rr(t_list stack_a, t_list stack_b);
-void rev_rotate(t_list stack, char id);
-void rrr(t_list stack_a, t_list stack_b);
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
+{
+	unsigned int	index;
 
-#endif
+	index = 0;
+	if (!s)
+		return ;
+	while (s[index])
+	{
+		f(index, &s[index]);
+		index++;
+	}
+}

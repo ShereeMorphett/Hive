@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smorphet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/22 09:44:52 by smorphet          #+#    #+#             */
-/*   Updated: 2022/12/22 09:44:58 by smorphet         ###   ########.fr       */
+/*   Created: 2022/12/19 15:22:36 by smorphet          #+#    #+#             */
+/*   Updated: 2022/12/19 15:23:59 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
-# include <unistd.h>
-# include <stdlib.h>
-#include "libft/libft.h"
+#include "libft.h"
 
-void swap(t_list *stack, char id);
-void ss(t_list stack_a, t_list stack_b);
-void push(t_list stack, char id);
-void rotate(t_list stack, char id);
-void rr(t_list stack_a, t_list stack_b);
-void rev_rotate(t_list stack, char id);
-void rrr(t_list stack_a, t_list stack_b);
+int	ft_lstsize(t_list *lst)
+{
+	int	count;
 
-#endif
+	count = 0;
+	while (lst)
+	{
+		count++;
+		lst = lst->next;
+	}
+	return (count);
+}

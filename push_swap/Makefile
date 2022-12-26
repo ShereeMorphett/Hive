@@ -1,33 +1,20 @@
-//http://www.lunderberg.com/2015/08/24/cpp-makefile-multiple-libraries/
+
+CFLAGS = cc -Wall -Wextra -Werror -o
+
 NAME = push_swap
 
-CFILES = push_swap.c
+SRC = 	push_swap.c\
 
-OBJECTS = $(CFILES:.c=.o)
-
-LIB_PATH = libft/
-
-CC = cc
-
-CFLAGS = -Wall -Wextra -Werror
-
-all: libft_make $(NAME)
-
-libft_make:
-	make -C $(LIB_PATH) all
-
-$(NAME): $(OBJECTS)
-	$(CC) $(CFLAGS) $(OBJECTS) $(LIB_PATH)libft.a -o $(NAME)
+all: $(NAME)
+$(NAME):
+	@$(MAKE) -C libft/ re
+	$(CFLAGS) $(NAME) $(SRC) -L libft/ -lft
 
 clean:
-	make -C $(LIB_PATH) clean
-	rm -f $(OBJECTS)
+	@$(MAKE) -C libft/ clean
 
-fclean: clean
-	make -C $(LIB_PATH) fclean
+fclean: fclean
 	rm -f $(NAME)
+	@$(MAKE) -C libft/ fclean
 
 re: fclean all
-
-call: all clean
-	make -C $(LIB_PATH) fclean

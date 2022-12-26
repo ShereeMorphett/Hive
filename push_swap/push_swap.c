@@ -11,46 +11,53 @@
 /* ************************************************************************** */
 #include "push_swap.h"
 
-static int check_input(int argc, char* argv[])
+#include <stdio.h> // DELETE THIS AND THE FT_PRINTLIST
+
+static int convert_input(int argc, char* argv[], int *checked_input)
 {
 	int index;
-	int check;
 
-	check = 1;
-	while (check <= argc)
+	index = 0;
+	while (index < argc)
 	{
-		index = 1;
-
-		while(index <= argc)
-		{
-			if (argv[check] == argv[index])
-				return (1);
-			index++;
-		}
-		check++;
+		checked_input[index] = ft_atoi(argv[index]);
+		index++;
 	}
+	return (0);
 }
 
-void main(int argc, char *argv[])
+// static void ft_printlist(t_list *list)
+// {
+// 	while (list)
+// 	{
+// 		printf("%i", *list->content);
+// 		list = list->next;
+// 	}
+// }
+
+
+int main(int argc, char *argv[])
 {
-	t_list *new;
-	t_list **stack_a;
-	t_list **stack_b;
-	t_list **moves;
+	//t_list *new;
+	//t_list **stack_a;
+	//t_list **stack_b;
+	//t_list **moves;
 	int index;
-		
+	int *checked_input;
+
+	
 	index = 1;
+	checked_input = (int*)malloc((argc) * sizeof(int));
+	//stack_a = NULL;
 	if (argc <= 1)
-		return;
-	if(check_input(argc, argv) != 0)
+		return (0);
+	*checked_input = convert_input(argc, argv, checked_input);
+
+	while (index < argc)
 	{
-		write(2, "Error\n", 6);
-		return;
+		printf("%i\n", checked_input[index]);
+		index++;
 	}
-	while(argc > index)
-	{
-		new = ft_lstnew(argv[index]);
-		t_lstadd_back(**stack_a, *new);
-		argv[index++];	
-	}
+
+	return (0);
 }

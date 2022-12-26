@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smorphet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/22 09:44:52 by smorphet          #+#    #+#             */
-/*   Updated: 2022/12/22 09:44:58 by smorphet         ###   ########.fr       */
+/*   Created: 2022/10/31 15:17:29 by smorphet          #+#    #+#             */
+/*   Updated: 2022/11/06 12:50:57 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
-# include <unistd.h>
-# include <stdlib.h>
-#include "libft/libft.h"
+#include "libft.h"
 
-void swap(t_list *stack, char id);
-void ss(t_list stack_a, t_list stack_b);
-void push(t_list stack, char id);
-void rotate(t_list stack, char id);
-void rr(t_list stack_a, t_list stack_b);
-void rev_rotate(t_list stack, char id);
-void rrr(t_list stack_a, t_list stack_b);
+int	ft_memcmp(const void *str1, const void *str2, size_t n)
+{
+	const unsigned char	*str1_hold;
+	const unsigned char	*str2_hold;
+	size_t				index;
 
-#endif
+	index = 0;
+	str1_hold = str1;
+	str2_hold = str2;
+	while (index < n)
+	{
+		if (str1_hold[index] != str2_hold[index])
+		{
+			return ((int)(str1_hold[index] - str2_hold[index]));
+		}
+		index++;
+	}
+	return (0);
+}
