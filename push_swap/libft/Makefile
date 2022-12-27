@@ -40,12 +40,9 @@ BONUS_OBJ = ft_lstnew.o ft_lstadd_front.o ft_lstadd_back.o ft_lstsize.o ft_lstde
 all:	$(NAME)
 
 $(NAME): 
-	cc -c $(SRC)
-	ar rc $(NAME) $(OBJ)
-
-bonus:
 	cc -c $(SRC) $(BONUS_SRC)
 	ar rc $(NAME) $(OBJ) $(BONUS_OBJ)
+
 clean:
 	/bin/rm -f $(OBJ) $(BONUS_OBJ)
 
