@@ -9,6 +9,7 @@
 • %x Prints a number in hexadecimal (base 16) lowercase format.
 • %X Prints a number in hexadecimal (base 16) uppercase format.
 • %% Prints a percent sign.*/
+
 #include <stdio.h>
 #include <limits.h>
 #include "ft_printf.h"

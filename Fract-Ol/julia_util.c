@@ -5,21 +5,36 @@
 int julia_placeholder(t_program *fract)
 {
 	int count;
+	int offset;
+	t_image	img;
+
+	int x = WINDOW_WIDTH;
+	int y = WINDOW_HEIGHT;
+	img.image = mlx_new_image(fract->mlx, x, y);
+	img.address = mlx_get_data_addr(img.image, &img.bits_per_pixel, &img.line_length, &img.endian);
+	offset = (y * img.line_length + x * (img.bits_per_pixel / 8));
+
+	count = 600;
+
+	place_pixel(&img, x - count, y - count, BLUE);
 
 	while (count++ < 100)
-		mlx_pixel_put(fract->mlx, fract->win, ((WINDOW_WIDTH / 2) + count), WINDOW_HEIGHT / 2, PINK);
+		place_pixel(&img, ((WINDOW_WIDTH / 2) + count), WINDOW_HEIGHT / 2, RED);
 	
 	count = 0;
 	while (count++ < 100)
-		mlx_pixel_put(fract->mlx, fract->win, ((WINDOW_WIDTH / 3) + count), WINDOW_HEIGHT / 3, BLUE);
+		place_pixel(&img, ((WINDOW_WIDTH / 3) + count), WINDOW_HEIGHT / 3, BLUE);
 	
 	count = 0;
 	while (count++ < 100)
-		mlx_pixel_put(fract->mlx, fract->win, ((WINDOW_WIDTH / 4) +  count), WINDOW_HEIGHT / 4, CYAN);
+		place_pixel(&img, ((WINDOW_WIDTH / 4) +  count), WINDOW_HEIGHT / 4, CYAN);
 	
 	count = 0;
 	while (count++ < 100)
-		mlx_pixel_put(fract->mlx, fract->win, ((WINDOW_WIDTH / 5) + count), WINDOW_HEIGHT / 5, MAGENTA);
+		place_pixel(&img, ((WINDOW_WIDTH / 5) + count), WINDOW_HEIGHT / 5, MAGENTA);
 	
+	
+	
+	mlx_put_image_to_window(fract->mlx, fract->win, img.image, 0, 0);
 	return (0);
 }

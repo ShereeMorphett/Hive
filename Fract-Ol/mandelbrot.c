@@ -1,42 +1,25 @@
-#include "mlx.h"
-#include "key_maps.h"
 #include "fract'ol.h"
-#include "colours.h"
-#include <math.h>
-
-int mandelbrot_plotting(t_program *fract)
-{
-	// z = f(z) = pow(z, 2) + c;
-	int point;
-	int complex;
-
-	mlx_pixel_put(fract->mlx, fract->win, WINDOW_WIDTH / 4, WINDOW_HEIGHT / 4, RED);
-
-
-	
-}
-
+#define MAX_ITERATIONS 50;
 
 int mandelbrot_placeholder(t_program *fract)
 {
 	int count;
-	
-	count = 0;
+	int offset;
+	t_image	img;
+	int x = WINDOW_WIDTH;
+	int y = WINDOW_HEIGHT;
 
-	while (count++ < 100)
-		mlx_pixel_put(fract->mlx, fract->win, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2 + count, YELLOW);
-	
-	count = 0;
-	while (count++ < 100)
-		mlx_pixel_put(fract->mlx, fract->win, WINDOW_WIDTH / 3, WINDOW_HEIGHT / 3 + count, GREEN);
-	
-	count = 0;
-	while (count++ < 100)
-		mlx_pixel_put(fract->mlx, fract->win, WINDOW_WIDTH / 4, WINDOW_HEIGHT / 4 + count, RED);
-	
-	count = 0;
-	while (count++ < 100)
-		mlx_pixel_put(fract->mlx, fract->win, WINDOW_WIDTH / 5, WINDOW_HEIGHT / 5 + count, BLUE);
+	img.image = mlx_new_image(fract->mlx, x, y);
+	img.address = mlx_get_data_addr(img.image, &img.bits_per_pixel, &img.line_length, &img.endian);
+	 offset = (y * img.line_length + x * (img.bits_per_pixel / 8));
+
+	count = 600;
+	while (count != 0)
+	{
+		place_pixel(&img, x - count, y - count, BLUE);
+		count--;
+	}
+	mlx_put_image_to_window(fract->mlx, fract->win, img.image, 0, 0);
 	
 	return (0);
 }

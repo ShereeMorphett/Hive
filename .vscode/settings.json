@@ -1,6 +1,7 @@
 {
 	"files.associations": {
 		"get_next_line.h": "c",
-		"fract'ol.h": "c"
+		"fract'ol.h": "c",
+		"libft.h": "c"
 	}
 }
