@@ -1,4 +1,4 @@
-#include "fract'ol.h"
+
 
 int	create_trgb(int t, int r, int g, int b)
 {
