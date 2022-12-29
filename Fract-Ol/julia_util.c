@@ -1,4 +1,4 @@
-#include "fract'ol.h"
+#include "fractol.h"
 #include "mlx.h"
 #include "colours.h"
 

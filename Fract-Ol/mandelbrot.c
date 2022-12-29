@@ -1,4 +1,4 @@
-#include "fract'ol.h"
+#include "fractol.h"
 #define MAX_ITERATIONS 50;
 
 int mandelbrot_placeholder(t_program *fract)

@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "fract'ol.h"
+#include "fractol.h"
 #include <stdio.h>
 
 static int	cross_close(int keycode, t_program *vars)
@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
 		mandelbrot_placeholder(&fract);
 	else
 	{
-		ft_putstr_fd("./fract'ol  [julia, mandelbrot]", 1);
+		ft_putstr_fd("./fract'ol  [julia, mandelbrot]\n", 1);
 		exit (EXIT_FAILURE);
 	}
 	mlx_hook(fract.win, 2, KEY_PRESS, key_map, &fract);

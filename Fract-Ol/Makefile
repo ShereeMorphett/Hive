@@ -48,8 +48,7 @@ $(NAME): $(OBJ)
 	$(CC) $(OBJ) $(MLX_LNK) $(FT_LNK) -lm -o $(NAME)
 
 clean:
-	rm -rf *.o
-	rm -rf *.gch
+	rm -rf *.o *.gch
 	make -C $(FT) clean
 	make -C $(MLX) clean
 

@@ -1,4 +1,4 @@
-#include "fract'ol.h"
+#include "fractol.h"
 
 
 void	place_pixel(t_image *img, int x, int y, int color)
