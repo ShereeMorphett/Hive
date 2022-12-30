@@ -1,9 +1,6 @@
 NAME	= fractol
 OS		= $(shell uname)
-
-
 SRC		= *.c
-
 
 OBJ		= *.o
 

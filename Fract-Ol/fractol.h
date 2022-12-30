@@ -2,9 +2,14 @@
 #include "colours.h"
 #include "mlx.h"
 #include "key_maps.h"
-# define WINDOW_WIDTH 600
-# define WINDOW_HEIGHT 400
+# define WINDOW_WIDTH 1080
+# define WINDOW_HEIGHT 900
 
+typedef struct		struct_complex_num
+{
+	double		real;
+	double		imaginary;
+}					t_complex_num;
 
 typedef struct  struct_image
 {
@@ -15,6 +20,20 @@ typedef struct  struct_image
 	int		endian;
 }               t_image;
 
+
+typedef struct		s_visual
+{
+	double		xmin;
+	double		xmax;
+	double		ymin;
+	double		ymax;
+	double		zoom;
+	double		offx;
+	double		offy;
+	long		max;
+	t_complex_num	mouse;
+}					t_visual;
+
 typedef struct  s_program
 {
     void *mlx;
@@ -23,20 +42,16 @@ typedef struct  s_program
 
 }               t_program;
 
-typedef struct		struct_complex_num
-{
-	double		real;
-	double		imaginary;
-}					t_complex_num;
+
  
+
+
 void mandelbrot_plotting(t_program *fract);
 int key_map(int keycode, t_program *vars);
 int	prog_close(int keycode, t_program *vars);
 static int	cross_close(int keycode, t_program *vars);
 void	place_pixel(t_image *img, int x, int y, int color);
 int key_map(int keycode, t_program *vars);
-
-
 
 
 //////////////////////DELETE THESE////////////////////////////////////  
