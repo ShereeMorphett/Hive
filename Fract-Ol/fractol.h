@@ -5,11 +5,6 @@
 # define WINDOW_WIDTH 1080
 # define WINDOW_HEIGHT 900
 
-typedef struct		struct_complex_num
-{
-	double		real;
-	double		imaginary;
-}					t_complex_num;
 
 typedef struct  struct_image
 {
@@ -31,7 +26,6 @@ typedef struct		s_visual
 	double		offx;
 	double		offy;
 	long		max;
-	t_complex_num	mouse;
 }					t_visual;
 
 typedef struct  s_program
