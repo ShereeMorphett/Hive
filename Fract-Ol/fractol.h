@@ -2,31 +2,33 @@
 #include "colours.h"
 #include "mlx.h"
 #include "key_maps.h"
-# define WINDOW_WIDTH 1080
-# define WINDOW_HEIGHT 900
-
+# define WINDOW_WIDTH 800
+# define WINDOW_HEIGHT 600
+# define	X_MIN  -2.0
+# define	X_MAX  1.0
+# define    Y_MIN  -1.5
+# define    Y_MAX  1.5
 
 typedef struct  struct_image
 {
 	void	*image;
-	char	*address;
-	int		bits_per_pixel;
+	char	*add;
+	int		bpp;
 	int		line_length;
 	int		endian;
 }               t_image;
 
-
-typedef struct		s_visual
+typedef struct  struct_visualizer
 {
-	double		xmin;
-	double		xmax;
-	double		ymin;
-	double		ymax;
-	double		zoom;
-	double		offx;
-	double		offy;
-	long		max;
-}					t_visual;
+  double	init_y;
+  double	init_x;
+  double x;
+  double y;
+  int iter;
+  	int pixel_x;
+	int pixel_y;
+	double x_new;
+}               t_visualizer;
 
 typedef struct  s_program
 {
@@ -36,11 +38,7 @@ typedef struct  s_program
 
 }               t_program;
 
-
- 
-
-
-void mandelbrot_plotting(t_program *fract);
+void mandelbrot_visualizer(t_program *fract);
 int key_map(int keycode, t_program *vars);
 int	prog_close(int keycode, t_program *vars);
 static int	cross_close(int keycode, t_program *vars);
@@ -50,8 +48,6 @@ int key_map(int keycode, t_program *vars);
 
 //////////////////////DELETE THESE////////////////////////////////////  
 int julia_placeholder(t_program *fract);
-int mandelbrot_placeholder(t_program *fract);
-
 ////////////colours////////////////
 int	create_trgb(int t, int r, int g, int b);
 int	get_transp(int trgb);

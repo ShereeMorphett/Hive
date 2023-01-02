@@ -5,7 +5,7 @@ void	place_pixel(t_image *img, int x, int y, int color)
 {
 	char	*destination;
 
-	destination = img->address + (y * img->line_length + x * (img->bits_per_pixel / 8));
+	destination = img->add + (y * img->line_length + x * (img->bpp/ 8));
 	*(unsigned int*)destination = color;
 }
 

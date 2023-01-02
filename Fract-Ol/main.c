@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
 	if (ft_strncmp(argv[1], "julia", 5) == 0)
 		julia_placeholder(&fract);
 	else if (ft_strncmp(argv[1], "mandelbrot", 10) == 0)
-		mandelbrot_placeholder(&fract);
+		mandelbrot_visualizer(&fract);
 	else
 	{
 		ft_putstr_fd("./fract'ol  [julia, mandelbrot]\n", 1);

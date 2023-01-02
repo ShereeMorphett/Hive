@@ -5,3 +5,5 @@
 #define	YELLOW	0xFFFF00
 #define	CYAN	0x00FFFF
 #define	MAGENTA	0xFF00FF
+#define BLACK 	0x000000
+#define WHITE 	0xFFFFFF
