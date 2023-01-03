@@ -31,7 +31,7 @@ int julia_placeholder(t_program *fract)
 	count = 0;
 	while (count++ < 100)
 		place_pixel(&img, ((WINDOW_WIDTH / 5) + count), WINDOW_HEIGHT / 5, MAGENTA);
-		
+
 	mlx_put_image_to_window(fract->mlx, fract->win, img.image, 0, 0);
 	return (0);
 }

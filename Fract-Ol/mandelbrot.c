@@ -10,7 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "fractol.h"
-#define MAX_ITER 1000
+#define MAX_ITER 100
+
+#include <stdio.h>
 
 void	mandelbrot_equation(t_visualizer *man)
 {
@@ -44,9 +46,10 @@ void	mandelbrot_visualizer(t_program *fract)
 			mandel.x = 0;
 			mandel.y = 0;
 			mandelbrot_equation(&mandel);
+
 			if (mandel.iter < MAX_ITER)
 				place_pixel(&img, mandel.pixel_x, mandel.pixel_y, WHITE);
-			else
+			else 
 				place_pixel(&img, mandel.pixel_x, mandel.pixel_y, BLACK);
 			mandel.pixel_x++;
 		}	

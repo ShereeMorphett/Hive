@@ -25,9 +25,13 @@ typedef struct  struct_visualizer
   double x;
   double y;
   int iter;
-  	int pixel_x;
-	int pixel_y;
-	double x_new;
+  int pixel_x;
+  int pixel_y;
+  double x_new;
+  int r;
+  int g;
+  int b;
+
 }               t_visualizer;
 
 typedef struct  s_program
