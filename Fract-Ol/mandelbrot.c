@@ -35,32 +35,38 @@ double lerp(double start, double end, double blend)
 int	mandel_colour(int iter)
 {
 	double blend;
-
 	double r;
 	double g;
 	double b;
-	// int index = 0;
-	// double n_blend;
 
-	// int quantity = 4;
-	 int colours[4] = {PINK, WHITE, BLUE};
-	// double weights[4] = {1.0, 0.33, 0.0};
+	int colours[] = {BLACK, RED, BLACK};
+	double weights[] = {0.0, 0.3, 1.0};
+	int quantity = sizeof(colours) / sizeof(colours[0]);
+
+	if (iter >= MAX_ITER)
+		return colours[quantity - 1]; 
 
 	// [1, MAX_ITER] => [0.0, 1.0]
 	blend = (double)(iter - 1) / (MAX_ITER - 1);
-	// while (index <= quantity || blend <= weights[index])
-	// 	index++;
-	// n_blend = (blend - weights[index - 1])/ (weights[index] - weights[index - 1]);
-	// // recalculate blend then LERP
-	r = lerp(get_r(BLACK), get_r(colours[2]), blend);
-	g = lerp(get_g(BLACK), get_g(colours[2]), blend);
-	b = lerp(get_b(BLACK), get_b(colours[2]), blend);
+
+	int index = 0;
+	while (index < quantity)
+ 	{
+		if (weights[index] <= blend)
+			break;
+		index++;
+	}
+	if (index >= quantity-1)
+		return colours[quantity-1];
+	
+	blend = (blend - weights[index])/(weights[index+1] - weights[index]);
+	//recalculate blend then LERP
+
+	r = lerp(get_r(colours[index]), get_r(colours[index + 1]), blend);
+	g = lerp(get_g(colours[index]), get_g(colours[index + 1]), blend);
+	b = lerp(get_b(colours[index]), get_b(colours[index + 1]), blend);
+
 	return ((int)create_trgb(0, r, g, b));
-	//get start & end colour
-	//extract bytes (r,g,b bytes) from both colours
-	//convert to floating points
-	//lerp on start and end components using blend factor
-	//cast floats back to unsigned bytes and repack colour
 }
 
 void	mandelbrot_visualizer(t_program *fract)
