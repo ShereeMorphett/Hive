@@ -1,5 +1,10 @@
 
 #define ESC_KEY                        53
+# define UP_KEY 126
+# define DOWN_KEY 125
+# define RIGHT_KEY 124
+# define LEFT_KEY 123
+
 
 #define NoEventMask			0L
 #define KEY_PRESS			(1L<<0)
@@ -21,3 +26,6 @@ are reserved in the protocol for errors and replies. */
 #define ON_MOUSEMOVE 6
 #define ON_EXPOSE  12
 #define DESTROY_NOTIFY		17
+
+
+
