@@ -36,10 +36,10 @@ $(OBJDIR)/%.o:%.c
 	$(CC) $(CFLAGS) $(MLX_INC) $(FT_INC) -o $@ -c $<
 
 $(FT_LIB):
-	@make -C $(FT)
+	@$(MAKE) -C $(FT)
 
 $(MLX_LIB):
-	@make -C $(MLX)
+	@$(MAKE) -C $(MLX)
 
 $(NAME): $(OBJ)
 	$(CC) $(OBJ) $(MLX_LNK) $(FT_LNK) -lm -o $(NAME)

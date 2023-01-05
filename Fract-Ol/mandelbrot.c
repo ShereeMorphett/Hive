@@ -26,30 +26,44 @@ void	mandelbrot_equation(t_visualizer *man)
 		man->iter++;
 	}
 }
+// int set_palette(t_visualizer *mandel, t_program *fract)
+// {
+// 	int colours[] = {BLACK, YELLOW, BLACK};
+// 	double weights[] = {0.0, 0.05, 1.0};
 
-double lerp(double start, double end, double blend) 
-{
-    return (start * (1.0 - blend)) + (end * blend);
-}
+// 	mandel->weight = weights;
+// 	mandel->palette = colours;
 
-int	mandel_colour(int iter)
+// }
+
+int	mandel_colour(int iter, t_visualizer *mandel, t_program *fract)
 {
 	double blend;
-	double r;
-	double g;
-	double b;
 
-	int colours[] = {BLACK, RED, BLACK};
-	double weights[] = {0.0, 0.3, 1.0};
+	int colours[] = {WHITE, BLACK};
+	double weights[] = {0.0, 1.0};
+
+	// if (fract->colour == 0)	
+	// {
+	// 	colours[] = {WHITE, GREEN, BLACK};
+	// 	weights[] = {0.0, 0.05, 1.0};
+	// }
+
+	// else if (fract->colour == 1)
+	// {
+	// 	colours[] = {BLACK, GREEN, YELLOW, BLACK};
+	// 	weights[] = {0.0, 0.1, 0.3, 1.0};
+
+	// }
+	//mandel->palette = colours;
+	//mandel->weight = weights;
+
 	int quantity = sizeof(colours) / sizeof(colours[0]);
-
+	int index = 0;
 	if (iter >= MAX_ITER)
 		return colours[quantity - 1]; 
-
 	// [1, MAX_ITER] => [0.0, 1.0]
 	blend = (double)(iter - 1) / (MAX_ITER - 1);
-
-	int index = 0;
 	while (index < quantity)
  	{
 		if (weights[index] <= blend)
@@ -58,15 +72,12 @@ int	mandel_colour(int iter)
 	}
 	if (index >= quantity-1)
 		return colours[quantity-1];
-	
 	blend = (blend - weights[index])/(weights[index+1] - weights[index]);
 	//recalculate blend then LERP
-
-	r = lerp(get_r(colours[index]), get_r(colours[index + 1]), blend);
-	g = lerp(get_g(colours[index]), get_g(colours[index + 1]), blend);
-	b = lerp(get_b(colours[index]), get_b(colours[index + 1]), blend);
-
-	return ((int)create_trgb(0, r, g, b));
+	mandel->r = lerp(get_r(colours[index]), get_r(colours[index + 1]), blend);
+	mandel->g = lerp(get_g(colours[index]), get_g(colours[index + 1]), blend);
+	mandel->b = lerp(get_b(colours[index]), get_b(colours[index + 1]), blend);
+	return ((int)create_trgb(0, mandel->r, mandel->g, mandel->b));
 }
 
 void	mandelbrot_visualizer(t_program *fract)
@@ -76,18 +87,22 @@ void	mandelbrot_visualizer(t_program *fract)
 
 	mandel.pixel_y = 0;
 	img.image = mlx_new_image(fract->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	fract->image = img.image;
 	img.add = mlx_get_data_addr(img.image, &img.bpp, &img.line_length, &img.endian);
+
 	while (mandel.pixel_y < WINDOW_HEIGHT)
 	{
-		mandel.init_y = ((double)mandel.pixel_y / (WINDOW_HEIGHT - 1));
+		mandel.init_y = (((double)mandel.pixel_y)/ (WINDOW_HEIGHT - 1));
+		//panning and zooming changes happen here
 		mandel.init_y = Y_MIN + mandel.init_y * (Y_MAX - Y_MIN);
 		mandel.pixel_x = 0;
 		while (mandel.pixel_x < WINDOW_WIDTH)
 		{
 			mandel.init_x = ((double)mandel.pixel_x / (WINDOW_WIDTH - 1));
+			//panning and zooming changes happen here
 			mandel.init_x = X_MIN + mandel.init_x * (X_MAX - X_MIN);
 			mandelbrot_equation(&mandel);
-			place_pixel(&img, mandel.pixel_x, mandel.pixel_y, mandel_colour(mandel.iter));
+			place_pixel(&img, mandel.pixel_x, mandel.pixel_y, mandel_colour(mandel.iter, &mandel, &fract));
 			mandel.pixel_x++;
 		}	
 		mandel.pixel_y++;

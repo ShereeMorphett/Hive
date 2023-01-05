@@ -15,6 +15,9 @@ void input_check_initialize(int argc, char *argv[], t_program *fract)
 		exit (EXIT_FAILURE);
 	}
 	fract->win = mlx_new_window(fract->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "Fract'ol");
+	fract->zoom = 0;
+	fract->pan_adjust = 0;
+	fract->colour = 0;
 	if (fract->win == NULL)
 	{
 		ft_putstr_fd ("Error window was not created.\n", 1);
@@ -22,11 +25,15 @@ void input_check_initialize(int argc, char *argv[], t_program *fract)
 	}
 }
 
+int	render_next_frame(t_program *fract)
+{
+	mlx_put_image_to_window(fract->mlx, fract->win, fract->image, 0, 0);
+	//ft_putstr_fd("entered rendering\n", 1);
+}
 
 int main(int argc, char *argv[])
 {
 	t_program	fract;
-
 	int *x;
 	int *y;
 
@@ -49,7 +56,9 @@ int main(int argc, char *argv[])
 	}
 	mlx_hook(fract.win, 2, KEY_PRESS, key_map, &fract);
 	mlx_hook(fract.win, ON_MOUSEDOWN, 0, key_map, &fract);
-	mlx_hook(fract.win, DESTROY_NOTIFY, 0, cross_close, &fract);	
+	mlx_hook(fract.win, DESTROY_NOTIFY, 0, cross_close, &fract);
+	
+	mlx_loop_hook(fract.mlx, render_next_frame, &fract);	
 	mlx_loop(fract.mlx);
 	free(fract.mlx);
 	return (0);

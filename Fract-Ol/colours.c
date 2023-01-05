@@ -24,3 +24,8 @@ unsigned int	get_b(unsigned int trgb)
 {
 	return (trgb & 0xFFu);
 }
+
+double lerp(double start, double end, double blend) 
+{
+    return (start * (1.0 - blend)) + (end * blend);
+}

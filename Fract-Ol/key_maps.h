@@ -4,6 +4,13 @@
 # define DOWN_KEY 125
 # define RIGHT_KEY 124
 # define LEFT_KEY 123
+# define KEY_ONE 18
+# define KEY_TWO 19
+# define KEY_THREE 20
+# define KEY_FOUR 21
+
+
+
 
 
 #define NoEventMask			0L

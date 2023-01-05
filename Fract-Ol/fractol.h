@@ -2,8 +2,8 @@
 #include "colours.h"
 #include "mlx.h"
 #include "key_maps.h"
-# define WINDOW_WIDTH 1080
-# define WINDOW_HEIGHT 800
+# define WINDOW_WIDTH 1920
+# define WINDOW_HEIGHT 1080
 # define	X_MIN  -2.0
 # define	X_MAX  1.0
 # define    Y_MIN  -1.5
@@ -31,17 +31,26 @@ typedef struct  struct_visualizer
   int r;
   int g;
   int b;
+  int *weight;
+  int *palette;
 
 }               t_visualizer;
+
 
 typedef struct  s_program
 {
     void *mlx;
     void *win;
-    t_image	image;
+    void  *image;
+    int zoom;
+    double pan_adjust;
+    int colour;
+
 
 }               t_program;
 
+
+int	render_next_frame(t_program *fract);
 void mandelbrot_visualizer(t_program *fract);
 int key_map(int keycode, t_program *vars);
 int	prog_close(int keycode, t_program *vars);
