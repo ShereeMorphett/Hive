@@ -55,8 +55,8 @@ int	mandel_colour(int iter, t_visualizer *mandel, t_program *fract)
 	// 	weights[] = {0.0, 0.1, 0.3, 1.0};
 
 	// }
-	//mandel->palette = colours;
-	//mandel->weight = weights;
+	mandel->palette = colours;
+	mandel->weight = weights;
 
 	int quantity = sizeof(colours) / sizeof(colours[0]);
 	int index = 0;
