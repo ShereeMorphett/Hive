@@ -2,8 +2,8 @@
 #include "colours.h"
 #include "mlx.h"
 #include "key_maps.h"
-# define WINDOW_WIDTH 1920
-# define WINDOW_HEIGHT 1080
+# define WINDOW_WIDTH 500
+# define WINDOW_HEIGHT 200
 # define	X_MIN  -2.0
 # define	X_MAX  1.0
 # define    Y_MIN  -1.5

@@ -1,5 +1,5 @@
 
-#define ESC_KEY                        53
+#define ESC_KEY 53
 # define UP_KEY 126
 # define DOWN_KEY 125
 # define RIGHT_KEY 124

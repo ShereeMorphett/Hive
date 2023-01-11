@@ -1,4 +1,3 @@
-
 #define	PINK 	0xff80ed
 #define	RED		0xFF0000
 #define	GREEN	0x00FF00
@@ -14,6 +13,12 @@
 #define YEL_PALE 0xFAE442
 #define KIWI 0x8BD448
 #define BUT_BLUE 0x2AA8F2
+
+typedef struct		s_palette
+{
+	int			cycle;
+	int			colors[16];
+}					t_palette;
 
 
 
