@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
 	fract.win = mlx_new_window(fract.mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "Fract'ol");
 	input_check_initialize(argc, argv, &fract);
 	if (ft_strncmp(argv[1], "julia", 5) == 0)
-		julia_placeholder(&fract);
+		exit (printf("julia not done yet\n"));
 	else if (ft_strncmp(argv[1], "mandelbrot", 10) == 0)
 		mandelbrot_visualizer(&fract);
 	else
