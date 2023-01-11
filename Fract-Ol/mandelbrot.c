@@ -12,17 +12,25 @@
 #include "fractol.h"
 #include <stdio.h>
 #define MAX_ITER 1000
+# define	X_MIN  -2.0
+# define	X_MAX  1.0
+# define    Y_MIN  -1.5
+# define    Y_MAX  1.5
 
-void	mandelbrot_equation(t_visualizer *man)
+static void	mandelbrot_equation(t_visualizer *man)
 {
+	double x;
+	double x_new;
+	double y;
+
 	man->iter = 0;
-	man->x = 0;
-	man->y = 0;
-	while ((man->x * man->x) + (man->y * man->y) <= 4.0 && man->iter < MAX_ITER)
+	x = 0;
+	y = 0;
+	while ((x * x) + (y * y) <= 4.0 && man->iter < MAX_ITER)
 	{
-		man->x_new = (man->x * man->x) - (man->y * man->y) + man->init_x;
-		man->y = 2.0 * man->x * man->y + man->init_y;
-		man->x = man->x_new;
+		x_new = (x * x) - (y * y) + man->fractal_x;
+		y = 2.0 * x * y + man->fractal_y;
+		x = x_new;
 		man->iter++;
 	}
 }
@@ -36,7 +44,7 @@ void	mandelbrot_equation(t_visualizer *man)
 
 // }
 
-int	mandel_colour(int iter, t_visualizer *mandel, t_program *fract)
+static int	mandel_colour(t_visualizer *mandel)
 {
 	double blend;
 
@@ -60,10 +68,10 @@ int	mandel_colour(int iter, t_visualizer *mandel, t_program *fract)
 
 	int quantity = sizeof(colours) / sizeof(colours[0]);
 	int index = 0;
-	if (iter >= MAX_ITER)
+	if (mandel->iter >= MAX_ITER)
 		return colours[quantity - 1]; 
 	// [1, MAX_ITER] => [0.0, 1.0]
-	blend = (double)(iter - 1) / (MAX_ITER - 1);
+	blend = (double)(mandel->iter - 1) / (MAX_ITER - 1);
 	while (index < quantity)
  	{
 		if (weights[index] <= blend)
@@ -80,32 +88,38 @@ int	mandel_colour(int iter, t_visualizer *mandel, t_program *fract)
 	return ((int)create_trgb(0, mandel->r, mandel->g, mandel->b));
 }
 
-void	mandelbrot_visualizer(t_program *fract)
+void	mandelbrot_visualizer(t_program *prog)
 {
-	t_image			img;
 	t_visualizer	mandel;
 
-	mandel.pixel_y = 0;
-	img.image = mlx_new_image(fract->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	fract->image = img.image;
-	img.add = mlx_get_data_addr(img.image, &img.bpp, &img.line_length, &img.endian);
+	double fractal_w;
+	double fractal_h;
+	double start_x;
+	double start_y;
 
+	fractal_w = (X_MAX - X_MIN) / prog->zoom;
+	fractal_h = (Y_MAX - Y_MIN) / prog->zoom;
+	start_x = X_MIN + ((X_MAX - X_MIN) * 0.5) - (fractal_w * 0.5) + prog->pan_adjust;
+ 	start_y = Y_MIN + ((Y_MAX - Y_MIN) * 0.5) - (fractal_h * 0.5);
+
+
+
+//blend = amount through each axis (0.0 - 1.0 (%))
+	mandel.pixel_y = 0;
 	while (mandel.pixel_y < WINDOW_HEIGHT)
 	{
-		mandel.init_y = (((double)mandel.pixel_y)/ (WINDOW_HEIGHT - 1));
-		//panning and zooming changes happen here
-		mandel.init_y = Y_MIN + mandel.init_y * (Y_MAX - Y_MIN);
+		double blend_y = (((double)mandel.pixel_y)/ (WINDOW_HEIGHT - 1));
+		mandel.fractal_y = lerp(start_y, start_y + fractal_h, blend_y);
 		mandel.pixel_x = 0;
 		while (mandel.pixel_x < WINDOW_WIDTH)
 		{
-			mandel.init_x = ((double)mandel.pixel_x / (WINDOW_WIDTH - 1));
-			//panning and zooming changes happen here
-			mandel.init_x = X_MIN + mandel.init_x * (X_MAX - X_MIN);
+			double blend_x = ((double)mandel.pixel_x / (WINDOW_WIDTH - 1));
+			mandel.fractal_x = lerp(start_x, start_x + fractal_w, blend_x) ;
+
 			mandelbrot_equation(&mandel);
-			place_pixel(&img, mandel.pixel_x, mandel.pixel_y, mandel_colour(mandel.iter, &mandel, &fract));
+			place_pixel(&prog->image, mandel.pixel_x, mandel.pixel_y, mandel_colour(&mandel));
 			mandel.pixel_x++;
 		}	
 		mandel.pixel_y++;
 	}
-	mlx_put_image_to_window(fract->mlx, fract->win, img.image, 0, 0);
 }

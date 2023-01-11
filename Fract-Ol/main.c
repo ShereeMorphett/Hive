@@ -2,64 +2,102 @@
 #include "fractol.h"
 #include <stdio.h>
 
-static int	cross_close(int keycode, t_program *vars)
+static void cleanup(t_program* program)
 {
-	exit(EXIT_SUCCESS);
+	if (!program)
+		return;
+	if (program->mlx)
+	{
+		if (program->image.handle)
+		{
+			mlx_destroy_image(program->mlx, program->image.handle);
+			program->image.handle = NULL;
+		}
+		if (program->win)
+		{
+			mlx_destroy_window(program->mlx, program->win);
+			program->win = NULL;
+		}
+		free(program->mlx);
+		program->mlx = NULL;
+	}
 }
 
-void input_check_initialize(int argc, char *argv[], t_program *fract)
+void cleanup_and_exit(t_program *program, int result)
 {
-	if (fract->mlx == NULL)
+	cleanup(program);
+	exit(result);
+}
+
+static void initialize(t_program *prog)
+{
+	ft_memset(prog, 0, sizeof(t_program));
+
+	prog->mlx = mlx_init();
+	if (prog->mlx == NULL)
 	{
 		ft_putstr_fd ("Error mlx did not initialize.\n", 1);
-		exit (EXIT_FAILURE);
+		cleanup_and_exit(prog, EXIT_FAILURE);
 	}
-	fract->win = mlx_new_window(fract->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "Fract'ol");
-	fract->zoom = 0;
-	fract->pan_adjust = 0;
-	fract->colour = 0;
-	if (fract->win == NULL)
+
+	prog->win = mlx_new_window(prog->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "Fract'ol");
+	if (prog->win == NULL)
 	{
 		ft_putstr_fd ("Error window was not created.\n", 1);
-		exit (EXIT_FAILURE);
+		cleanup_and_exit(prog, EXIT_FAILURE);
 	}
+
+	prog->image.handle = mlx_new_image(prog->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	prog->image.add = mlx_get_data_addr(prog->image.handle, &prog->image.bpp, &prog->image.line_length, &prog->image.endian);
+	prog->image_dirty = 1;
+	prog->pan_adjust = 1.0;
+	prog->zoom = 1.0;
 }
 
-int	render_next_frame(t_program *fract)
+static int	render_next_frame(t_program *prog)
 {
-	mlx_put_image_to_window(fract->mlx, fract->win, fract->image, 0, 0);
-	//ft_putstr_fd("entered rendering\n", 1);
+	if (prog->image_dirty)
+	{
+		mandelbrot_visualizer(prog);
+		prog->image_dirty = 0;
+	}
+	mlx_put_image_to_window(prog->mlx, prog->win, prog->image.handle, 0, 0);
 }
 
 int main(int argc, char *argv[])
 {
-	t_program	fract;
-	int *x;
-	int *y;
+	t_program	prog;
 
 	if (argc <= 1)	 
 	{
 		ft_putstr_fd("./fract'ol  [julia, mandelbrot]", 1);
-		exit (EXIT_FAILURE);
+		return EXIT_FAILURE;
 	}
-	fract.mlx = mlx_init();
-	fract.win = mlx_new_window(fract.mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "Fract'ol");
-	input_check_initialize(argc, argv, &fract);
+
+	/*
 	if (ft_strncmp(argv[1], "julia", 5) == 0)
-		exit (printf("julia not done yet\n"));
+	{
+		printf("julia not done yet\n");
+		cleanup_and_exit(&prog, 69);
+	}
 	else if (ft_strncmp(argv[1], "mandelbrot", 10) == 0)
-		mandelbrot_visualizer(&fract);
+		mandelbrot_visualizer(&prog);
 	else
 	{
 		ft_putstr_fd("./fract'ol  [julia, mandelbrot]\n", 1);
-		exit (EXIT_FAILURE);
+		cleanup_and_exit(&prog, EXIT_FAILURE);
 	}
-	mlx_hook(fract.win, 2, KEY_PRESS, key_map, &fract);
-	mlx_hook(fract.win, ON_MOUSEDOWN, 0, key_map, &fract);
-	mlx_hook(fract.win, DESTROY_NOTIFY, 0, cross_close, &fract);
-	
-	mlx_loop_hook(fract.mlx, render_next_frame, &fract);	
-	mlx_loop(fract.mlx);
-	free(fract.mlx);
+	*/
+
+	// input_check();
+
+	initialize(&prog);
+
+	mlx_key_hook(prog.win, key_map, &prog);
+	mlx_mouse_hook(prog.win, mouse_map, &prog);
+	mlx_hook(prog.win, DESTROY_NOTIFY, 0, cleanup_and_exit, &prog);
+	mlx_loop_hook(prog.mlx, render_next_frame, &prog);	
+	mlx_loop(prog.mlx);
+	cleanup(&prog);
 	return (0);
 }

@@ -10,24 +10,24 @@ CFLAGS	= -Wall -Wextra -Werror -g
 
 
 # mlx library
-ifeq ($(OS), Linux)
-	MLX		= ./miniLibX_X11/
-	MLX_LNK	= -L $(MLX) -l mlx -lXext -lX11
+FOUND_OK := $(shell if [ -d ./miniLibX/ ]; then echo "ok"; fi)
+ifeq ($(FOUND_OK), ok)
+	MLX		= ./miniLibX/
 else
-	FOUND_OK := $(shell if [ -d ./miniLibX/ ]; then echo "ok"; fi)
-	ifeq ($(FOUND_OK), ok)
-		MLX		= ./miniLibX/
-	else
-		MLX		= ./../miniLibX/
-	endif
-	MLX_LNK	= -L $(MLX) -l mlx -framework OpenGL -framework AppKit
+	MLX		= ./../miniLibX/
+endif
+ifeq ($(OS), Linux)
+	MLX_LNK	= -L $(MLX) -lmlx -lXext -lX11
+else
+	MLX_LNK	= -L $(MLX) -lmlx -L/usr/X11/include/../lib -lXext -lX11 -framework OpenGL -framework AppKit
 endif
 
 MLX_INC	= -I $(MLX)
-MLX_LIB	= $(addprefix $(MLX), libmlx.a)
-
-MLX_LIB = $(addprefix $(MLX), libmlx_Darwin.a)
-
+ifeq ($(OS), Darwin)
+	MLX_LIB = $(addprefix $(MLX), libmlx_Darwin.a)
+else
+	MLX_LIB	= $(addprefix $(MLX), libmlx.a)
+endif
 
 # ft library
 FOUND_OK := $(shell if [ -d ./libft/ ]; then echo "ok"; fi)
@@ -37,9 +37,9 @@ else
 	FT		= ./../libft/
 endif
 
-FT_LIB	= $(addprefix $(FT),libft.a)
+FT_LIB	= $(addprefix $(FT), libft.a)
 FT_INC	= -I $(FT)
-FT_LNK	= -L $(FT) -l ft -l pthread
+FT_LNK	= -L $(FT) -l ft
 
 all: obj $(FT_LIB) $(MLX_LIB) $(NAME)
 
