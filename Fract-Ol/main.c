@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include "fractol.h"
-#include <stdio.h>
+
 
 static void cleanup(t_program* program)
 {
@@ -23,7 +23,7 @@ static void cleanup(t_program* program)
 	}
 }
 
-void cleanup_and_exit(t_program *program, int result)
+int cleanup_and_exit(t_program *program, int result)
 {
 	cleanup(program);
 	exit(result);
@@ -32,14 +32,12 @@ void cleanup_and_exit(t_program *program, int result)
 static void initialize(t_program *prog)
 {
 	ft_memset(prog, 0, sizeof(t_program));
-
 	prog->mlx = mlx_init();
 	if (prog->mlx == NULL)
 	{
 		ft_putstr_fd ("Error mlx did not initialize.\n", 1);
 		cleanup_and_exit(prog, EXIT_FAILURE);
 	}
-
 	prog->win = mlx_new_window(prog->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "Fract'ol");
 	if (prog->win == NULL)
 	{
@@ -50,7 +48,7 @@ static void initialize(t_program *prog)
 	prog->image.handle = mlx_new_image(prog->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	prog->image.add = mlx_get_data_addr(prog->image.handle, &prog->image.bpp, &prog->image.line_length, &prog->image.endian);
 	prog->image_dirty = 1;
-	prog->pan_adjust = 1.0;
+	prog->pan_adjust = 0;
 	prog->zoom = 1.0;
 }
 
@@ -62,6 +60,8 @@ static int	render_next_frame(t_program *prog)
 		prog->image_dirty = 0;
 	}
 	mlx_put_image_to_window(prog->mlx, prog->win, prog->image.handle, 0, 0);
+	
+	return (0);
 }
 
 int main(int argc, char *argv[])
@@ -73,7 +73,6 @@ int main(int argc, char *argv[])
 		ft_putstr_fd("./fract'ol  [julia, mandelbrot]", 1);
 		return EXIT_FAILURE;
 	}
-
 	/*
 	if (ft_strncmp(argv[1], "julia", 5) == 0)
 	{
@@ -88,9 +87,6 @@ int main(int argc, char *argv[])
 		cleanup_and_exit(&prog, EXIT_FAILURE);
 	}
 	*/
-
-	// input_check();
-
 	initialize(&prog);
 
 	mlx_key_hook(prog.win, key_map, &prog);

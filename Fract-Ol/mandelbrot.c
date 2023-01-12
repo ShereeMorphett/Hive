@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "fractol.h"
-#include <stdio.h>
 #define MAX_ITER 1000
 # define	X_MIN  -2.0
 # define	X_MAX  1.0
@@ -34,58 +33,40 @@ static void	mandelbrot_equation(t_visualizer *man)
 		man->iter++;
 	}
 }
-// int set_palette(t_visualizer *mandel, t_program *fract)
-// {
-// 	int colours[] = {BLACK, YELLOW, BLACK};
-// 	double weights[] = {0.0, 0.05, 1.0};
+ void set_palette(t_program *prog, t_visualizer *man)
+{
+	//int colours[4] = {BLACK, 0xff80ed, 0x00FF00, BLACK}; //black, pink, green, black
+	int colours[4] = {BLACK, 0x2AA8F2, 0xFBA949, BLACK}; //black, blue, yellow, black
+	double weights[] = {0.0, 0.03, 0.5, 1.0};
+	man->palette = colours;
+	man->weight = weights;
+	man->quantity = sizeof(colours) / sizeof(colours[0]);
+}
 
-// 	mandel->weight = weights;
-// 	mandel->palette = colours;
-
-// }
-
-static int	mandel_colour(t_visualizer *mandel)
+static int	mandel_colour(t_visualizer *man, t_program *prog)
 {
 	double blend;
-
-	int colours[] = {WHITE, BLACK};
-	double weights[] = {0.0, 1.0};
-
-	// if (fract->colour == 0)	
-	// {
-	// 	colours[] = {WHITE, GREEN, BLACK};
-	// 	weights[] = {0.0, 0.05, 1.0};
-	// }
-
-	// else if (fract->colour == 1)
-	// {
-	// 	colours[] = {BLACK, GREEN, YELLOW, BLACK};
-	// 	weights[] = {0.0, 0.1, 0.3, 1.0};
-
-	// }
-	mandel->palette = colours;
-	mandel->weight = weights;
-
-	int quantity = sizeof(colours) / sizeof(colours[0]);
-	int index = 0;
-	if (mandel->iter >= MAX_ITER)
-		return colours[quantity - 1]; 
+	int index;
+	
+	index = 0;
+	set_palette(prog, man);
+	if (man->iter >= MAX_ITER)
+		return man->palette[man->quantity - 1]; 
 	// [1, MAX_ITER] => [0.0, 1.0]
-	blend = (double)(mandel->iter - 1) / (MAX_ITER - 1);
-	while (index < quantity)
+	blend = (double)(man->iter - 1) / (MAX_ITER - 1);
+	while (index < man->quantity)
  	{
-		if (weights[index] <= blend)
+		if (man->weight[index] <= blend)
 			break;
 		index++;
 	}
-	if (index >= quantity-1)
-		return colours[quantity-1];
-	blend = (blend - weights[index])/(weights[index+1] - weights[index]);
-	//recalculate blend then LERP
-	mandel->r = lerp(get_r(colours[index]), get_r(colours[index + 1]), blend);
-	mandel->g = lerp(get_g(colours[index]), get_g(colours[index + 1]), blend);
-	mandel->b = lerp(get_b(colours[index]), get_b(colours[index + 1]), blend);
-	return ((int)create_trgb(0, mandel->r, mandel->g, mandel->b));
+	if (index >= (man->quantity - 1))
+		return man->palette[man->quantity-1];
+	blend = (blend - man->weight[index])/(man->weight[index+1] - man->weight[index]);
+	man->r = lerp(get_r(man->palette[index]), get_r(man->palette[index + 1]), blend);
+	man->g = lerp(get_g(man->palette[index]), get_g(man->palette[index + 1]), blend);
+	man->b = lerp(get_b(man->palette[index]), get_b(man->palette[index + 1]), blend);
+	return ((int)create_trgb(0, man->r, man->g, man->b));
 }
 
 void	mandelbrot_visualizer(t_program *prog)
@@ -101,11 +82,8 @@ void	mandelbrot_visualizer(t_program *prog)
 	fractal_h = (Y_MAX - Y_MIN) / prog->zoom;
 	start_x = X_MIN + ((X_MAX - X_MIN) * 0.5) - (fractal_w * 0.5) + prog->pan_adjust;
  	start_y = Y_MIN + ((Y_MAX - Y_MIN) * 0.5) - (fractal_h * 0.5);
-
-
-
-//blend = amount through each axis (0.0 - 1.0 (%))
 	mandel.pixel_y = 0;
+
 	while (mandel.pixel_y < WINDOW_HEIGHT)
 	{
 		double blend_y = (((double)mandel.pixel_y)/ (WINDOW_HEIGHT - 1));
@@ -115,9 +93,8 @@ void	mandelbrot_visualizer(t_program *prog)
 		{
 			double blend_x = ((double)mandel.pixel_x / (WINDOW_WIDTH - 1));
 			mandel.fractal_x = lerp(start_x, start_x + fractal_w, blend_x) ;
-
 			mandelbrot_equation(&mandel);
-			place_pixel(&prog->image, mandel.pixel_x, mandel.pixel_y, mandel_colour(&mandel));
+			place_pixel(&prog->image, mandel.pixel_x, mandel.pixel_y, mandel_colour(&mandel, prog));
 			mandel.pixel_x++;
 		}	
 		mandel.pixel_y++;

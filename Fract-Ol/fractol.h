@@ -1,10 +1,11 @@
-#include "libft.h"
+#include "../libft/libft.h"
 #include "colours.h"
 #include "mlx.h"
+#include "math.h"
+#include "stdio.h"
 #define DESTROY_NOTIFY		17
-# define WINDOW_WIDTH 500
-# define WINDOW_HEIGHT 200
-
+# define WINDOW_WIDTH 1920
+# define WINDOW_HEIGHT 1080
 
 typedef struct  struct_image
 {
@@ -25,11 +26,11 @@ typedef struct  struct_visualizer
   int r;
   int g;
   int b;
-  int *weight;
+  int quantity;
+  double *weight;
   int *palette;
 
 }               t_visualizer;
-
 
 typedef struct  s_program
 {
@@ -44,7 +45,8 @@ typedef struct  s_program
 
 }               t_program;
 
-void cleanup_and_exit(t_program *program, int result);
+void set_palette(t_program *prog, t_visualizer *man);
+int cleanup_and_exit(t_program *program, int result);
 void mandelbrot_visualizer(t_program *fract);
 int key_map(int keycode, t_program *vars);
 int mouse_map(int keycode, int x, int y, t_program *prog);

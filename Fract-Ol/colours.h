@@ -1,3 +1,6 @@
+#ifndef FRACTOL_H
+# define FRACTOL_H
+
 #define	PINK 	0xff80ed
 #define	RED		0xFF0000
 #define	GREEN	0x00FF00
@@ -14,13 +17,6 @@
 #define KIWI 0x8BD448
 #define BUT_BLUE 0x2AA8F2
 
-typedef struct		s_palette
-{
-	int			cycle;
-	int			colors[16];
-}					t_palette;
-
-
 
 double lerp(double start, double end, double blend);
 unsigned create_trgb(unsigned t, unsigned r, unsigned g, unsigned b);
@@ -28,3 +24,5 @@ unsigned int	get_t(unsigned int trgb);
 unsigned int	get_r(unsigned int trgb);
 unsigned int	get_g(unsigned int trgb);
 unsigned int	get_b(unsigned int trgb);
+
+#endif
