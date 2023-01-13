@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include "fractol.h"
 
-
 static void cleanup(t_program* program)
 {
 	if (!program)
@@ -48,7 +47,9 @@ static void initialize(t_program *prog)
 	prog->image.handle = mlx_new_image(prog->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	prog->image.add = mlx_get_data_addr(prog->image.handle, &prog->image.bpp, &prog->image.line_length, &prog->image.endian);
 	prog->image_dirty = 1;
-	prog->pan_adjust = 0;
+	prog->colour = 0;
+	prog->pan_adjust_x = 0;
+	prog->pan_adjust_y = 0;
 	prog->zoom = 1.0;
 }
 

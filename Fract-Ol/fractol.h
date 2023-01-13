@@ -4,8 +4,8 @@
 #include "math.h"
 #include "stdio.h"
 #define DESTROY_NOTIFY		17
-# define WINDOW_WIDTH 1920
-# define WINDOW_HEIGHT 1080
+# define WINDOW_WIDTH 800
+# define WINDOW_HEIGHT 480
 
 typedef struct  struct_image
 {
@@ -37,7 +37,8 @@ typedef struct  s_program
     void *mlx;
     void *win;
     double zoom;
-    double pan_adjust;
+    double pan_adjust_x;
+    double pan_adjust_y;
     int colour;
     t_image image;
     int image_dirty;
