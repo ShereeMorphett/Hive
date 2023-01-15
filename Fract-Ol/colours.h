@@ -18,7 +18,6 @@
 #define BUT_BLUE 0x2AA8F2
 
 
-double lerp(double start, double end, double blend);
 unsigned create_trgb(unsigned t, unsigned r, unsigned g, unsigned b);
 unsigned int	get_t(unsigned int trgb);
 unsigned int	get_r(unsigned int trgb);

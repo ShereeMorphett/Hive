@@ -33,6 +33,7 @@ static void	mandelbrot_equation(t_visualizer *man)
 		man->iter++;
 	}
 }
+
  void set_palette(t_program *prog, t_visualizer *man)
 {
 	int colours[4];
@@ -42,6 +43,11 @@ static void	mandelbrot_equation(t_visualizer *man)
 	{
 		colours[1] = 0x0000FF; // blue
 		colours[2] = 0X9C4F96; // berry
+	}
+	else if (prog->colour == 2)
+	{
+		colours[1] = 0xFF00FF;
+		colours[2] = 0xFFFFFF;
 	}
 	else
 	{
@@ -91,8 +97,8 @@ void	mandelbrot_visualizer(t_program *prog)
 
 	fractal_w = (X_MAX - X_MIN) / prog->zoom;
 	fractal_h = (Y_MAX - Y_MIN) / prog->zoom;
-	start_x = X_MIN + ((X_MAX - X_MIN) * 0.5) - (fractal_w * 0.5) + prog->pan_adjust_x;
- 	start_y = Y_MIN + ((Y_MAX - Y_MIN) * 0.5) - (fractal_h * 0.5) + prog->pan_adjust_y;
+	start_x = X_MIN + ((X_MAX - X_MIN) * 0.5) - (fractal_w * 0.5) + prog->pan_x;
+ 	start_y = Y_MIN + ((Y_MAX - Y_MIN) * 0.5) - (fractal_h * 0.5) + prog->pan_y;
 	mandel.pixel_y = 0;
 
 	while (mandel.pixel_y < WINDOW_HEIGHT)

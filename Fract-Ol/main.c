@@ -45,11 +45,12 @@ static void initialize(t_program *prog)
 	}
 
 	prog->image.handle = mlx_new_image(prog->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	prog->image.add = mlx_get_data_addr(prog->image.handle, &prog->image.bpp, &prog->image.line_length, &prog->image.endian);
+	prog->image.add = mlx_get_data_addr(prog->image.handle, &prog->image.bpp, \
+		 &prog->image.line_length, &prog->image.endian);
 	prog->image_dirty = 1;
 	prog->colour = 0;
-	prog->pan_adjust_x = 0;
-	prog->pan_adjust_y = 0;
+	prog->pan_x = 0;
+	prog->pan_y = 0;
 	prog->zoom = 1.0;
 }
 
@@ -65,7 +66,7 @@ static int	render_next_frame(t_program *prog)
 	return (0);
 }
 
-int main(int argc, char *argv[])
+void main(int argc, char *argv[])
 {
 	t_program	prog;
 
@@ -77,7 +78,7 @@ int main(int argc, char *argv[])
 	/*
 	if (ft_strncmp(argv[1], "julia", 5) == 0)
 	{
-		printf("julia not done yet\n");
+		julia_visualizer(t_program *prog, argv[]);
 		cleanup_and_exit(&prog, 69);
 	}
 	else if (ft_strncmp(argv[1], "mandelbrot", 10) == 0)
@@ -89,12 +90,12 @@ int main(int argc, char *argv[])
 	}
 	*/
 	initialize(&prog);
-
 	mlx_key_hook(prog.win, key_map, &prog);
 	mlx_mouse_hook(prog.win, mouse_map, &prog);
 	mlx_hook(prog.win, DESTROY_NOTIFY, 0, cleanup_and_exit, &prog);
 	mlx_loop_hook(prog.mlx, render_next_frame, &prog);	
 	mlx_loop(prog.mlx);
 	cleanup(&prog);
-	return (0);
+	
+	exit (EXIT_SUCCESS);
 }

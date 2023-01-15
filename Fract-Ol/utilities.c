@@ -8,6 +8,12 @@ void	place_pixel(t_image *img, int x, int y, int color)
 	*(unsigned int*)destination = color;
 }
 
+double lerp(double start, double end, double blend) 
+{
+    return (start * (1.0 - blend)) + (end * blend);
+}
+
+
 int mouse_map(int keycode, int x, int y, t_program *prog)
 {
 	//fprintf(stdout, "key_map: %i, %i\n", x, y)
@@ -33,19 +39,19 @@ int key_map(int keycode, t_program *prog)
 	else if (keycode == 18 || keycode == 49)
 	{
 		ft_putstr_fd("1 colour set\n", 1);
-		prog->image_dirty = 1;
-		prog->colour = 0;
+		prog->image_dirty = 0;
+		prog->colour = 1;
 	}
 	else if (keycode == 19 || keycode == 50)
 	{
 		ft_putstr_fd("2 colour set\n", 1);
-		prog->colour = 2;
+		prog->colour = 1;
 		prog->image_dirty = 1;
 	}
-	else if (keycode == 20)
+	else if (keycode == 20 || keycode == 51)
 	{
 		ft_putstr_fd("3 colour set\n", 1);
-		prog->colour = 3;
+		prog->colour = 2;
 		prog->image_dirty = 1;
 	}
 	else if (keycode == 61) // MAP TO SCHOOL COMP
@@ -60,22 +66,22 @@ int key_map(int keycode, t_program *prog)
 	}
 		else if (keycode == 65364)
 	{
-		prog->pan_adjust_y -= 0.25;
+		prog->pan_y -= 0.25;
 		prog->image_dirty = 1;
 	}
 	else if(keycode == 65362)
 	{
-		prog->pan_adjust_y += 0.25;
+		prog->pan_y += 0.25;
 		prog->image_dirty = 1;
 	}
 	else if (keycode == 65363 || keycode == 124)
 	{
-		prog->pan_adjust_x -= 0.25;
+		prog->pan_x -= 0.25;
 		prog->image_dirty = 1;
 	}
 	else if(keycode == 65361 || keycode == 123)
 	{
-		prog->pan_adjust_x += 0.25;
+		prog->pan_x += 0.25;
 		prog->image_dirty = 1;
 	}
 	return (0);
