@@ -1,5 +1,3 @@
-#ifndef FRACTOL_H
-# define FRACTOL_H
 
 #define	PINK 	0xff80ed
 #define	RED		0xFF0000
@@ -17,11 +15,8 @@
 #define KIWI 0x8BD448
 #define BUT_BLUE 0x2AA8F2
 
-
 unsigned create_trgb(unsigned t, unsigned r, unsigned g, unsigned b);
 unsigned int	get_t(unsigned int trgb);
 unsigned int	get_r(unsigned int trgb);
 unsigned int	get_g(unsigned int trgb);
 unsigned int	get_b(unsigned int trgb);
-
-#endif
