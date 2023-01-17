@@ -9,7 +9,6 @@
 /*   Updated: 2022/11/15 12:08:27 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #ifndef GET_NEXT_LINE_BONUS_H
 # define GET_NEXT_LINE_BONUS_H
 # include <stdlib.h>

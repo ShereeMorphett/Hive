@@ -1,11 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   julia.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: smorphet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/17 12:58:36 by smorphet          #+#    #+#             */
+/*   Updated: 2023/01/17 12:58:40 by smorphet         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "fractol.h"
-
 
 static void	julia_equation(t_visualizer *julia, t_program *prog)
 {
-	double x;
-	double x_new;
-	double y;
+	double	x;
+	double	x_new;
+	double	y;
 
 	julia->iter = 0;
 	x = julia->fractal_x;
@@ -22,29 +32,24 @@ static void	julia_equation(t_visualizer *julia, t_program *prog)
 void	julia_visualizer(t_program *prog)
 {
 	t_visualizer	julia;
+	double			bln_x;
+	double			blend_y;
 
-	double fractal_w;
-	double fractal_h;
-	double start_x;
-	double start_y;
-
-	fractal_w = (X_MAX - X_MIN) / prog->zoom;
-	fractal_h = (Y_MAX - Y_MIN) / prog->zoom;
-	start_x = X_MIN + ((X_MAX - X_MIN) * 0.5) - (fractal_w * 0.5) + prog->pan_x;
- 	start_y = Y_MIN + ((Y_MAX - Y_MIN) * 0.5) - (fractal_h * 0.5) + prog->pan_y;
-	julia.pixel_y = 0;
-
+	fract_initialize(prog, &julia);
 	while (julia.pixel_y < WIN_HEIGHT)
 	{
-		double blend_y = (((double)julia.pixel_y)/ (WIN_HEIGHT - 1));
-		julia.fractal_y = lerp(start_y, start_y + fractal_h, blend_y);
+		blend_y = (((double) julia.pixel_y) / (WIN_HEIGHT - 1));
+		julia.fractal_y = lerp(julia.start_y, \
+		julia.start_y + julia.fract_h, blend_y);
 		julia.pixel_x = 0;
 		while (julia.pixel_x < WIN_WIDTH)
 		{
-			double blend_x = ((double)julia.pixel_x / (WIN_WIDTH - 1));
-			julia.fractal_x = lerp(start_x, start_x + fractal_w, blend_x) ;
+			bln_x = ((double)julia.pixel_x / (WIN_WIDTH - 1));
+			julia.fractal_x = lerp(julia.start_x, \
+			julia.start_x + julia.fract_w, bln_x);
 			julia_equation(&julia, prog);
-			place_pixel(&prog->image, julia.pixel_x, julia.pixel_y, fract_colour(&julia, prog));
+			place_pixel(&prog->image, julia.pixel_x, julia.pixel_y, \
+			fract_colour(&julia, prog));
 			julia.pixel_x++;
 		}	
 		julia.pixel_y++;

@@ -16,10 +16,9 @@
 
 typedef struct s_list
 {
-	int			*content;
+	int				*content;
 	struct s_list	*next;
 	struct s_list	*prev;
-	
 }					t_list;
 
 int		ft_isalpha(int argument);
@@ -65,4 +64,5 @@ void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+double	ft_atof(const char *str);
 #endif

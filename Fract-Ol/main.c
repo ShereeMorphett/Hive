@@ -6,32 +6,10 @@
 /*   By: smorphet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 10:13:13 by smorphet          #+#    #+#             */
-/*   Updated: 2023/01/16 10:13:23 by smorphet         ###   ########.fr       */
+/*   Updated: 2023/01/17 12:58:50 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "fractol.h"
-
-void	cleanup(t_program *program)
-{
-	if (!program)
-		return ;
-	if (program->mlx)
-	{
-		if (program->image.handle)
-		{
-			mlx_destroy_image(program->mlx, program->image.handle);
-			program->image.handle = NULL;
-		}
-		if (program->win)
-		{
-			mlx_destroy_window(program->mlx, program->win);
-			program->win = NULL;
-		}
-		free(program->image.add);
-		free(program->mlx);
-		program->mlx = NULL;
-	}
-}
 
 static void	initialize(t_program *prog)
 {
@@ -58,33 +36,41 @@ static void	initialize(t_program *prog)
 	prog->zoom = 1.0;
 }
 
+static void	print_error(t_program *prog)
+{
+	ft_putendl_fd("------INCORRECT INPUT------", 1);
+	ft_putendl_fd("Correct input for mandelbrot: ./fractol mandelbrot", 1);
+	ft_putendl_fd("Correct input for julia: ./fractol julia x y", 1);
+	ft_putendl_fd("[x, y are double from -2.0 to 2.0]", 1);
+	cleanup_and_exit(prog, EXIT_FAILURE);
+}
+
 static void	input_check(t_program *prog, char *argv[], int argc)
 {
-	if (ft_strncmp(argv[1], "mandelbrot", 10) == 0)
+	if (ft_strncmp(argv[1], "mandelbrot", 13) == 0 && argc == 2)
 	{
 		prog->fract = 0;
 		mandelbrot_visualizer(prog);
 	}
 	else if (ft_strncmp(argv[1], "julia", 5) == 0)
 	{
-		if (argc <= 2)
+		if (argc == 2)
 		{
 			prog->c_x = 0;
 			prog->c_y = 0.8;
 		}
-		else 
+		else
 		{
-			prog->c_x = atof(argv[2]);
-			prog->c_y = atof(argv[3]);
+			prog->c_x = ft_atof(argv[2]);
+			prog->c_y = ft_atof(argv[3]);
+			if (prog->c_x == 0.00 || prog->c_y == 0.00)
+				print_error(prog);
 		}
 		prog->fract = 1;
 		julia_visualizer(prog);
 	}
 	else
-	{
-		ft_putstr_fd("./fract'ol  [julia, mandelbrot]\n", 1);
-		cleanup_and_exit(prog, EXIT_FAILURE);
-	}
+		print_error(prog);
 }
 
 static int	render_next_frame(t_program *prog)

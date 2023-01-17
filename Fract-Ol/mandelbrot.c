@@ -6,16 +6,16 @@
 /*   By: smorphet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 16:39:20 by smorphet          #+#    #+#             */
-/*   Updated: 2023/01/02 16:39:26 by smorphet         ###   ########.fr       */
+/*   Updated: 2023/01/17 12:58:57 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "fractol.h"
 
 static void	mandelbrot_equation(t_visualizer *man)
 {
-	double x;
-	double x_new;
-	double y;
+	double	x;
+	double	x_new;
+	double	y;
 
 	man->iter = 0;
 	x = 0;
@@ -29,34 +29,38 @@ static void	mandelbrot_equation(t_visualizer *man)
 	}
 }
 
+void	fract_initialize(t_program *prog, t_visualizer *fract)
+{
+	fract->fract_w = (X_MAX - X_MIN) / prog->zoom;
+	fract->fract_h = (Y_MAX - Y_MIN) / prog->zoom;
+	fract->start_x = X_MIN + ((X_MAX - X_MIN) * 0.5) - \
+	(fract->fract_w * 0.5) + prog->pan_x;
+	fract->start_y = Y_MIN + ((Y_MAX - Y_MIN) * 0.5) - \
+	(fract->fract_h * 0.5) + prog->pan_y;
+	fract->pixel_y = 0;
+}
+
 void	mandelbrot_visualizer(t_program *prog)
 {
-	t_visualizer	mandel;
+	t_visualizer	man;
+	double			bln_x;
+	double			blend_y;
 
-	double fractal_w;
-	double fractal_h;
-	double start_x;
-	double start_y;
-
-	fractal_w = (X_MAX - X_MIN) / prog->zoom;
-	fractal_h = (Y_MAX - Y_MIN) / prog->zoom;
-	start_x = X_MIN + ((X_MAX - X_MIN) * 0.5) - (fractal_w * 0.5) + prog->pan_x;
- 	start_y = Y_MIN + ((Y_MAX - Y_MIN) * 0.5) - (fractal_h * 0.5) + prog->pan_y;
-	mandel.pixel_y = 0;
-
-	while (mandel.pixel_y < WIN_HEIGHT)
+	fract_initialize(prog, &man);
+	while (man.pixel_y < WIN_HEIGHT)
 	{
-		double blend_y = (((double)mandel.pixel_y)/ (WIN_HEIGHT - 1));
-		mandel.fractal_y = lerp(start_y, start_y + fractal_h, blend_y);
-		mandel.pixel_x = 0;
-		while (mandel.pixel_x < WIN_WIDTH)
+		blend_y = (((double)man.pixel_y) / (WIN_HEIGHT - 1));
+		man.fractal_y = lerp(man.start_y, man.start_y + man.fract_h, blend_y);
+		man.pixel_x = 0;
+		while (man.pixel_x < WIN_WIDTH)
 		{
-			double blend_x = ((double)mandel.pixel_x / (WIN_WIDTH - 1));
-			mandel.fractal_x = lerp(start_x, start_x + fractal_w, blend_x) ;
-			mandelbrot_equation(&mandel);
-			place_pixel(&prog->image, mandel.pixel_x, mandel.pixel_y, fract_colour(&mandel, prog));
-			mandel.pixel_x++;
+			bln_x = ((double)man.pixel_x / (WIN_WIDTH - 1));
+			man.fractal_x = lerp(man.start_x, man.start_x + man.fract_w, bln_x);
+			mandelbrot_equation(&man);
+			place_pixel(&prog->image, man.pixel_x, man.pixel_y, \
+						fract_colour(&man, prog));
+			man.pixel_x++;
 		}	
-		mandel.pixel_y++;
+		man.pixel_y++;
 	}
 }

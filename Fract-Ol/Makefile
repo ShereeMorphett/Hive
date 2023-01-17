@@ -1,16 +1,14 @@
 NAME	= fractol
 
-SRC		= *.c
+SRC		= colours.c event_map.c julia.c main.c mandelbrot.c palette.c utilities.c
 
-OBJ		= *.o
+OBJ		= colours.o event_map.o julia.o main.o mandelbrot.o palette.o utilities.o
 
-# compiler
 CC		= cc
 CFLAGS	= -Wall -Wextra -Werror -g
 
 
 FOUND_OK := $(shell if [ -d ./libft/ ]; then echo "ok"; fi)
-
 ifeq ($(FOUND_OK), ok)
 	FT		= ./libft/
 else
@@ -21,18 +19,15 @@ FT_LIB	= $(addprefix $(FT), libft.a)
 FT_INC	= -I $(FT)
 FT_LNK	= -L $(FT) -l ft
 
-all: obj $(FT_LIB) $(NAME)
+all: $(FT_LIB) $(NAME)
 
-obj:
+$(OBJ):
 	cc -c $(SRC)
-
-$(OBJDIR)/%.o:%.c
-	$(CC) $(CFLAGS) $(FT_INC) -o $@ -c $<
 
 $(FT_LIB):
 	@$(MAKE) -C $(FT)
 
-$(NAME): $(OBJ)
+$(NAME): $(FT_LIB) $(OBJ)
 	$(CC) $(OBJ) $(FT_LNK) -lmlx -framework OpenGL -framework AppKit -lm -o $(NAME)
 
 clean:
