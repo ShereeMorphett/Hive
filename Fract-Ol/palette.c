@@ -6,7 +6,7 @@
 /*   By: smorphet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 12:59:10 by smorphet          #+#    #+#             */
-/*   Updated: 2023/01/17 12:59:17 by smorphet         ###   ########.fr       */
+/*   Updated: 2023/01/17 17:26:38 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "fractol.h"
@@ -50,25 +50,25 @@ void	set_palette(t_program *prog, t_visualizer *man)
 
 int	fract_colour(t_visualizer *man, t_program *prog)
 {
-	double	blend;
+	double	bln;
 	int		in;
 
 	in = 0;
 	set_palette(prog, man);
 	if (man->iter >= MAX_ITER)
 		return (man->palette[man->quantity - 1]);
-	blend = (double)(man->iter - 1) / (MAX_ITER - 1);
+	bln = (double)(man->iter - 1) / (MAX_ITER - 1);
 	while (in < man->quantity)
 	{
-		if (prog->weight[in] <= blend)
+		if (prog->weight[in] <= bln)
 			break ;
 		in++;
 	}
 	if (in >= (man->quantity - 1))
 		return (man->palette[man->quantity - 1]);
-	blend = (blend - prog->weight[in]) / (prog->weight[in + 1] - prog->weight[in]);
-	man->r = lerp(get_r(man->palette[in]), get_r(man->palette[in + 1]), blend);
-	man->g = lerp(get_g(man->palette[in]), get_g(man->palette[in + 1]), blend);
-	man->b = lerp(get_b(man->palette[in]), get_b(man->palette[in + 1]), blend);
+	bln = (bln - prog->weight[in]) / (prog->weight[in + 1] - prog->weight[in]);
+	man->r = lerp(get_r(man->palette[in]), get_r(man->palette[in + 1]), bln);
+	man->g = lerp(get_g(man->palette[in]), get_g(man->palette[in + 1]), bln);
+	man->b = lerp(get_b(man->palette[in]), get_b(man->palette[in + 1]), bln);
 	return ((int)create_trgb(0, man->r, man->g, man->b));
 }

@@ -13,6 +13,9 @@
 
 int	mouse_map(int keycode, int x, int y, t_program *prog)
 {
+	int z;
+	
+	z = x + y;
 	if (keycode == 5)
 	{	
 		prog->zoom += 0.25;

@@ -95,7 +95,7 @@ int	main(int argc, char *argv[])
 
 	if (argc <= 1)
 	{
-		ft_putstr_fd("./fract'ol  [julia, mandelbrot]", 1);
+		print_error(&prog);
 		return (EXIT_FAILURE);
 	}
 	initialize(&prog);

@@ -22,7 +22,7 @@ FT_LNK	= -L $(FT) -l ft
 all: $(FT_LIB) $(NAME)
 
 $(OBJ):
-	cc -c $(SRC)
+	cc -c $(CFLAGS) $(SRC)
 
 $(FT_LIB):
 	@$(MAKE) -C $(FT)

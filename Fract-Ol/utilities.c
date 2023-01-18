@@ -34,10 +34,7 @@ void	cleanup(t_program *program)
 			mlx_destroy_window(program->mlx, program->win);
 			program->win = NULL;
 		}
-		if (program->weight)
-			free(program->weight);
-			program->weight = NULL;
-		free(program->mlx);
+		program->weight = NULL;
 		program->mlx = NULL;
 	}
 }
