@@ -1,14 +1,19 @@
 NAME_S	= server
-
 NAME_C	= client
-
 SRC_C	= client.c
-
 SRC_S	= server.c
-
 OBJ_C	= client.o
-
 OBJ_S	= server.o
+
+NAMEBC		= client_bonus
+NAMEBS		= server_bonus
+SRCBC_FILES	=	client_bonus
+SRCBS_FILES	=	server_bonus
+SRCBC 		= 	client_bonus.c
+OBJBC 		= 	client_bonus.o
+SRCBS 		= 	server.c
+OBJBS 		= 	server.o
+
 
 CC		= cc
 CFLAGS	= -Wall -Wextra -Werror -g
@@ -42,13 +47,22 @@ $(NAME_S): $(FT_LIB) $(OBJ_S)
 $(NAME_C): $(FT_LIB) $(OBJ_C)
 	$(CC) $(OBJ_C) $(FT_LNK) -o $(NAME_C)
 
+allbonus:		$(NAMEBC) $(NAMEBS)
+
+$(NAMEBC):	$(OBJBC)
+			@$(CC) $(FLAGS) $(OBJBC) $(HEADER) libft.a -o $(NAMEBC)
+
+$(NAMEBS):	$(OBJBS) $(OBJF)
+			@$(CC) $(FLAGS) $(OBJBS) $(HEADER) libft.a -o $(NAMEBS)
 clean:
 	rm -rf *.o *.gch
 	make -C $(FT) clean
 
 fclean: clean
-	rm -rf $(NAME_S)
+	rm -rf $(NAME) $(NAME_S) $(NAMEBC) $(NAMEBS)
 	rm -rf $(NAME_C)
 	make -C $(FT) fclean
 
 re: fclean all
+
+.PHONY:		start all clean fclean re bonus norm
