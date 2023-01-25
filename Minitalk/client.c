@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   client.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: smorphet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/25 08:51:27 by smorphet          #+#    #+#             */
+/*   Updated: 2023/01/25 08:51:29 by smorphet         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "minitalk.h"
 
 static void	send_bits(int server_pid, char letter)
@@ -16,33 +27,32 @@ static void	send_bits(int server_pid, char letter)
 	}
 }
 
-static void print_errors()
+static void	print_errors(void) 
 {
-		ft_putendl_fd("----INPUT ERROR----", 1);
-		ft_putendl_fd("Correct input: ./client <PID> <MESSAGE>", 1);
-		exit (EXIT_FAILURE);
+	ft_putendl_fd("----INPUT ERROR----", 1);
+	ft_putendl_fd("Correct input: ./client PID 'MESSAGE' ", 1);
+	exit (EXIT_FAILURE);
 }
 
-int main(int argc, char *argv[])
+int	main(int argc, char *argv[])
 {
-    int index;
-    int server_pid;
-    
-    index = 0;
-    server_pid = ft_atoi(argv[1]);
-    if (argc != 3)
-        print_errors();
-    else
+	int	index;
+	int	server_pid;
+
+	index = 0;
+	server_pid = ft_atoi(argv[1]);
+	if (argc != 3)
+		print_errors();
+	else
 	{
 		if (!ft_strncmp(argv[2], "EXIT", 5))
 			kill(server_pid, SIGINT);
 		while (argv[2][index] != '\0')
 		{
-            send_bits(server_pid, argv[2][index]);
+			send_bits(server_pid, argv[2][index]);
 			index++;
 		}
 		send_bits(server_pid, '\n');
 	}
-    return(0);
-    
+	exit (EXIT_SUCCESS);
 }

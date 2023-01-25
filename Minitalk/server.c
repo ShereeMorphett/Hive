@@ -1,8 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   server.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: smorphet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/25 08:51:18 by smorphet          #+#    #+#             */
+/*   Updated: 2023/01/25 08:51:21 by smorphet         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "minitalk.h"
 
-int running = 1;
-
-static void print_pid(void)
+static void	print_pid(void)
 {
 	char	*server_pid;
 
@@ -12,16 +21,16 @@ static void print_pid(void)
 	free(server_pid);
 }
 
-void	signal_handle(int signal)
+static void	signal_process(int signal)
 {
 	static int	bit;
 	static int	letter;
-	
+
 	if (signal == SIGINT)
 	{
-		ft_putendl_fd("Exiting program", 1);	
-		running = 0;
-    }
+		ft_putendl_fd("Exiting program", 1);
+		exit (EXIT_SUCCESS);
+	}
 	if (signal == SIGUSR1)
 		letter |= (0x01 << bit);
 	bit++;
@@ -33,21 +42,21 @@ void	signal_handle(int signal)
 	}
 }
 
-int main(int argc, char *argv[])
+int	main(int argc, char *argv[])
 {
-		if (argc != 1 && argv[0] != NULL)
+	if (argc != 1 && argv[0] != NULL)
 	{
 		ft_putendl_fd("----INPUT ERROR----", 1);
 		ft_putendl_fd("Correct input: ./server", 1);
-		return (0);
+		exit (EXIT_FAILURE);
 	}
-    print_pid();
+	print_pid();
 	ft_putendl_fd("Waiting on client program...", 1);
-	while (running)
+	while (argc == 1)
 	{
-		signal(SIGUSR1, signal_handle);
-		signal(SIGUSR2, signal_handle);
+		signal(SIGUSR1, signal_process);
+		signal(SIGUSR2, signal_process);
 		pause ();
 	}
-    exit (EXIT_SUCCESS);
+	exit (EXIT_SUCCESS);
 }
