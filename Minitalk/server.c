@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "minitalk.h"
-
+#include <stdio.h>
+#include <string.h>
 static void	print_pid(void)
 {
 	char	*server_pid;
@@ -23,23 +24,26 @@ static void	print_pid(void)
 
 static void	signal_process(int signal)
 {
+	static char *string;
 	static int	bit;
 	static int	letter;
+	char *add_letter = NULL;
 
-	if (signal == SIGINT)
-	{
-		ft_putendl_fd("Exiting program", 1);
-		exit (EXIT_SUCCESS);
-	}
+	add_letter = malloc(sizeof(char) * 2);
 	if (signal == SIGUSR1)
 		letter |= (0x01 << bit);
 	bit++;
+	if (bit == 1)
+		string = malloc(sizeof(char) * 2);
 	if (bit == 8)
 	{
-		ft_putchar_fd(letter, 1);
+		*add_letter = (char const) letter;
+		string = ft_strjoin(string, add_letter);
+		free(add_letter);
 		bit = 0;
 		letter = 0;
 	}
+	ft_putstr_fd(string, 1);
 }
 
 int	main(int argc, char *argv[])

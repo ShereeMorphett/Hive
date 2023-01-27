@@ -45,14 +45,11 @@ int	main(int argc, char *argv[])
 		print_errors();
 	else
 	{
-		if (!ft_strncmp(argv[2], "EXIT", 5))
-			kill(server_pid, SIGINT);
 		while (argv[2][index] != '\0')
 		{
 			send_bits(server_pid, argv[2][index]);
 			index++;
 		}
-		send_bits(server_pid, '\n');
 	}
 	exit (EXIT_SUCCESS);
 }
