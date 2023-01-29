@@ -8,8 +8,7 @@ int main()
     int num;  
     printf ("getting exam.... \n");  
     srand(time(0));
-    num = rand() % 12;
-    printf ("%d\n", num);   
+    num = rand() % 12;   
     printf("%s ----LEVEL 1---- %s\n", KMAG, KWHT);
     if (num == 0)
         printf("first_word\n");
@@ -135,6 +134,6 @@ int main()
         printf("sort_int_tab\n");
     else if (num == 9)
         printf("sort_list\n");
-
+    printf("\n");
     return (0);  
     }  
