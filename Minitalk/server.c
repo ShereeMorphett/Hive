@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "minitalk.h"
-#include <stdio.h>
-#include <string.h>
+
 static void	print_pid(void)
 {
 	char	*server_pid;
@@ -19,7 +18,6 @@ static void	print_pid(void)
 	server_pid = ft_itoa(getpid());
 	ft_putstr_fd("server pid: ", 1);
 	ft_putendl_fd(server_pid, 1);
-	free(server_pid);
 }
 
 static void	signal_process(int signal)
@@ -56,7 +54,7 @@ int	main(int argc, char *argv[])
 	}
 	print_pid();
 	ft_putendl_fd("Waiting on client program...", 1);
-	while (argc == 1)
+	while (argc)
 	{
 		signal(SIGUSR1, signal_process);
 		signal(SIGUSR2, signal_process);
