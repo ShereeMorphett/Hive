@@ -17,16 +17,16 @@ static void	ft_del(void *content)
 
 t_list	*add_link(t_list *list, char *str)
 {
-t_list *temp;
+	t_list *temp;
 
-temp = malloc(sizeof(t_list));
-	
-if (temp)
-{
-	temp->content = str;
-	temp->next = list;
-}
-	return (temp);
+	temp = malloc(sizeof(t_list));
+		
+	if (temp)
+	{
+		temp->content = str;
+		temp->next = list;
+	}
+		return (temp);
 }
 
 int main(void)

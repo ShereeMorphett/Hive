@@ -27,7 +27,7 @@ static void	send_bits(int server_pid, char letter)
 	}
 }
 
-static void	print_errors(void) 
+static void	print_errors(void)
 {
 	ft_putendl_fd("----INPUT ERROR----", 1);
 	ft_putendl_fd("Correct input: ./client PID 'MESSAGE' ", 1);
@@ -40,11 +40,12 @@ int	main(int argc, char *argv[])
 	int	server_pid;
 
 	index = 0;
-	server_pid = ft_atoi(argv[1]);
+
 	if (argc != 3)
 		print_errors();
 	else
 	{
+        server_pid = ft_atoi(argv[1]);
 		while (argv[2][index] != '\0')
 		{
 			send_bits(server_pid, argv[2][index]);

@@ -18,14 +18,15 @@ static void	print_pid(void)
 	server_pid = ft_itoa(getpid());
 	ft_putstr_fd("server pid: ", 1);
 	ft_putendl_fd(server_pid, 1);
+	free(server_pid);
 }
 
 static void	signal_process(int signal)
 {
-	static char *string;
+	static char	*string;
 	static int	bit;
 	static int	letter;
-	char *add_letter = NULL;
+	char		*add_letter;
 
 	add_letter = malloc(sizeof(char) * 2);
 	if (signal == SIGUSR1)
