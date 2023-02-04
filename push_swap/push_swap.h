@@ -12,7 +12,15 @@
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
+# include "../libft/libft.h"
+#include <stdio.h> // 	REMOVE BEFORE SUBMISSION
 
-#include "../libft/libft.h"
+typedef struct s_stack {
+    int size;
+    int *stack_a;
+    int *stack_b;
+} t_stack;
+
+void clean_exit(int *stack, int code);
 
 #endif

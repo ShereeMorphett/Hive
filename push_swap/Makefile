@@ -11,8 +11,8 @@
 # **************************************************************************** #
 
 NAME = push_swap
-SRC	= push_swap.c
-OBJ	= push_swap.o
+SRC	= push_swap.c utilities.c movements.c
+OBJ	= push_swap.o utilities.o movements.o
 
 CC		= cc
 CFLAGS	= -Wall -Wextra -Werror -g

@@ -10,24 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
-#include <stdio.h>
 
-static int *process_argv(char *argv[], int *stack_a)
+
+static int *process_argv(char *argv[], int argc, int *stack_a)
 {
 	int index;
+	int size;
 
-	index = 0;
-
-	while (argv[index])
-		index++;
-	
-	stack_a = (int*) malloc(sizeof(int) * index);
+	size = argc - 1;
 	index = 1;
 
+	stack_a = (int*) malloc(sizeof(int) * size);
+	index = 1;
 	while (argv[index])
 	{
-		stack_a[index] = ft_atoi(argv[index]);
-		ft_putnbr_fd(stack_a[index], 1);
+		stack_a[index - 1] = ft_atoi(argv[index]);
+		ft_putnbr_fd(stack_a[index - 1], 1);
 		ft_putchar_fd('\n', 1);
 		index++;
 	}
@@ -73,12 +71,40 @@ static void free_newstring(char **new_string)
 	free(new_string);
 }
 
+static void validate_input(int *stack_a, t_stack stack_data)
+{
+    int index;
+    int check;
+
+    check = 0;
+    while (stack_a[check])
+        check++;
+    stack_data.size = check;
+    check = 0;
+    while (check < stack_data.size)
+    {
+        index = check + 1;
+        while (index < stack_data.size)
+        {
+            if (stack_a[check] == stack_a[index])
+            {
+				clean_exit(stack_a, EXIT_FAILURE);
+            }
+            index++;
+        }
+        check++;
+    }
+}
+
 int main(int argc, char *argv[])
 {
 	char **new_string;
+	t_stack *stack_data;
 	int *stack_a;
 	
+	stack_data = malloc(sizeof (t_stack));
 	stack_a = NULL;
+
 	if (argc < 2)
 		return (0);
 	if (argc == 2)
@@ -88,10 +114,10 @@ int main(int argc, char *argv[])
 		free_newstring(new_string);
 	}
 	else if (argc > 2)
-		stack_a = process_argv(argv, stack_a);
-	
-	//validate_input(stack_a);
-
+		stack_a = process_argv(argv, argc, stack_a);
+	validate_input(stack_a, *stack_data);
+	stack_data->stack_a = stack_a;
+	printf("%i \n", stack_data->stack_a[0]);
 	free(stack_a);
 	return (0);
 }
