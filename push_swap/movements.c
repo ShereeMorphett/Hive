@@ -31,8 +31,10 @@ rrr : rra and rrb at the same time.*/
 
 /* sa (swap a): Swap the first 2 elements at the top of stack a. Do nothing if there is only one or no elements.
 sb (swap b): Swap the first 2 elements at the top of stack b. Do nothing if there is only one or no elements.*/
-// char swap(int *stack, char *ret)
-// {
+char swap(t_stack stack_data)
+{
+	(void) stack_data;
+	printf("\n entered swap function \n");
 // 	int index;
 // 	int temp;
 
@@ -44,5 +46,7 @@ sb (swap b): Swap the first 2 elements at the top of stack b. Do nothing if ther
 // 		temp = stack[index];
 // 		stack[index] = stack[index + 1];
 // 		stack[index + 1] = temp;
-// 	return (*ret);
-// }
+//	return (*ret);
+	exit(EXIT_SUCCESS);
+
+}

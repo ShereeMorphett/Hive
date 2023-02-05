@@ -31,11 +31,11 @@ void clean_exit(int *stack, int code)
 	exit(code);
 }
 
-// void push_swap(int *stack_a, int *stack_a, int size)
-// {
-// 	ft_putnbr_fd(stack->size, 1);
-// 	printf("\n entered push_swap function \n");
-// 	swap(stack->stack_a, "SA");
-// 	print_stack(stack_a, size);
-// 	exit(EXIT_SUCCESS);
-// }
+void push_swap(t_stack *stack_data)
+{
+	ft_putnbr_fd(stack_data->size, 1);
+	printf("\n entered push_swap function \n");
+	swap(*stack_data);
+	//print_stack(stack_a, size);
+	exit(EXIT_SUCCESS);
+}

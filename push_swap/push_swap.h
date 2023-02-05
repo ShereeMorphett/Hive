@@ -22,5 +22,7 @@ typedef struct s_stack {
 } t_stack;
 
 void clean_exit(int *stack, int code);
+void push_swap(t_stack *stack_data);
+char swap(t_stack stack_data);
 
 #endif

@@ -117,7 +117,10 @@ int main(int argc, char *argv[])
 		stack_a = process_argv(argv, argc, stack_a);
 	validate_input(stack_a, *stack_data);
 	stack_data->stack_a = stack_a;
-	printf("%i \n", stack_data->stack_a[0]);
+	stack_data->stack_b = malloc(sizeof (stack_a));
+
+	push_swap(stack_data);
+
 	free(stack_a);
 	return (0);
 }
