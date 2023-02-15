@@ -8,15 +8,28 @@
         "name": "(lldb) Launch",
         "type": "cppdbg",
         "request": "launch",
-        "program": "${workspaceRoot}/get_next_line/a.out",
-        "args": [],
+        "program": "/Users/smorphet/Desktop/Hive/push_swap/push_swap",
+        "args": ["1 3 5 7 6"],
         "stopAtEntry": false,
-        "cwd": "${workspaceRoot}/get_next_line",
+        "cwd": "${workspaceRoot}/push_swap",
         "environment": [],
         "externalConsole": false,
         "MIMode": "lldb",
     }
+
+
+
+
+
+
+
+
+
+
+
 ]
+
+
 
 
 }

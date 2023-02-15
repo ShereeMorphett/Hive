@@ -37,59 +37,35 @@ Examples:
 #include <stdlib.h>
 #include <stdio.h>
 
+
 int	*ft_range(int start, int end)
 {
 	int	*res;
 	int	size;
 	int	i;
 
-	if (start <= end)
-		size = end - start + 1;
-	else
-		size = start - end + 1;
+	size = (end - start) + 1;
 	i = 0;
 	res = (int *) malloc(size * sizeof(int));
 	if (!res)
 		return (NULL);
-	if (start <= end)
+	while (i++ < size)
 	{
-		while (start <= end)
-		{
-			res[i++] = start;
-			start++;
-		}
-	}
-	else
-	{
-		while (start >= end)
-		{
-			res[i++] = start;
-			start--;
-		}
+		res[i] = start + i;
+		printf("%i", res[i] - 1);
 	}
 	return (res);
 }
 
-int main(void)
-{
-	int *array;
-	int size;
-	int start = 0;
-	int finish = -3;
 
-	array = ft_range(start, finish);
-	if (!array)
-	{
-		printf("Memory allocation failed\n");
-		return (1);
-	}
-	size = (start <= finish) ? finish - start + 1 : start - finish + 1;
-	int index = 0;
-	while (index < size)
-	{
-		printf("%i ", array[index]);
-		index++;
-	}
-	free(array);
-	return (0);
+int main( void)
+{
+	ft_range(-1, 3);
+
+
+
+
+return (0);
+
+
 }
