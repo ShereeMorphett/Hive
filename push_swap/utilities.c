@@ -66,11 +66,6 @@ void push_swap(t_stack *stack_data)
 	stack_data->stack_b_size = 0;
 	
 	//swap_a(stack_data, 1);
-	// push_b(stack_data);
-	// print_stack(stack_data);
-	// push_b(stack_data);
-	// print_stack(stack_data);
-	// push_a(stack_data);
 	print_stack(stack_data);
 	//rotate_a(stack_data, 1);
 	//print_stack(stack_data);
