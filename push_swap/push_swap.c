@@ -31,8 +31,7 @@ static int	*process_string(char **new_string, int *stack_a, t_stack *stack)
 	index = 0;
 	while (new_string[index] != '\0')
 	{
-		//if (stack_a[index] < '0' || stack_a[index] > '9')
-		//	clean_exit(stack);
+		//check if char is a number
 		stack_a[index] = ft_atoi(new_string[index]);
 		index++;
 	}
@@ -69,8 +68,7 @@ static int	*process_argv(char *argv[], int argc, int *stack_a, t_stack *stack)
 	index = 0;
 	while (index < argc - 1)
 	{	
-		//if (stack_a[index] < '0' || stack_a[index] > '9')
-		//	clean_exit(stack, 1);
+		//check if char is a number
 		stack_a[index] = ft_atoi(argv[index + 1]);
 		index++;
 	}
