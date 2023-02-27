@@ -628,6 +628,38 @@ int main(void)
     printf("testing -2147483648:  %d\n", ft_atoi(atoi_test4));
     printf("testing 2147483647:  %d\n", ft_atoi(atoi_test5));
 
+    //------------FT_ATOI-------------
+    printf("\n\033[0;33m ft_atoi tests: \033[0m\n\n");
+    //basic tests
+    printf("FT: %i\nsys %i\n", ft_atoi("          -232938"), atoi("          -232938"));
+    printf("\nFT: %i\nsys %i\n", ft_atoi("-          232938"), atoi("-          232938"));
+    printf("\nFT: %i\nsys %i\n", ft_atoi("--          232938"), atoi("--          232938"));
+    printf("\nFT: %i\nsys %i\n", ft_atoi("++          232938"), atoi("++          232938"));
+    printf("\nFT: %i\nsys %i\n", ft_atoi("+          232938"), atoi("+          232938"));
+    printf("\nFT: %i\nsys %i\n", ft_atoi("          +232938"), atoi("          +232938"));
+    printf("\nFT: %i\nsys %i\n", ft_atoi("1.3f"), atoi("1.3f"));
+    printf("\nFT: %i\nsys %i\n", ft_atoi(""), atoi(""));
+    printf("\nFT: %i\nsys %i\n", ft_atoi("0"), atoi("0"));
+    printf("\nFT: %i\nsys %i\n", ft_atoi("NULL"), atoi("NULL"));
+    printf("\nFT: %i\nsys %i\n", ft_atoi("1283718jkh"), atoi("1283718jkh"));
+    //limit tests
+    printf("\nFT: %i\nsys %i\n", ft_atoi("9223372036854775808"), atoi("9223372036854775808"));
+    printf("\nFT: %i\nsys %i\n", ft_atoi("9223372036854775807"), atoi("9223372036854775807"));
+    printf("\nFT: %i\nsys %i\n", ft_atoi("9223372036854775806"), atoi("9223372036854775806"));
+    printf("\nFT: %i\nsys %i\n", ft_atoi("9223372036854775805"), atoi("9223372036854775805"));
+    printf("\nFT: %i\nsys %i\n", ft_atoi("9223372036854775804"), atoi("9223372036854775804"));
+    printf("\nFT: %i\nsys %i\n", ft_atoi("9223372036854775803"), atoi("9223372036854775803"));
+    printf("\nFT: %i\nsys %i\n", ft_atoi("9223372036854775899"), atoi("9223372036854775899"));
+    printf("\nFT: %i\nsys %i\n", ft_atoi("-9223372036854775807"), atoi("-9223372036854775807"));
+    printf("\nFT: %i\nsys %i\n", ft_atoi("-9223372036854775808"), atoi("-9223372036854775808"));
+    printf("\nFT: %i\nsys %i\n", ft_atoi("-9223372036854775809"), atoi("-9223372036854775809"));
+    printf("\nFT: %i\nsys %i\n", ft_atoi("-9223372036854775810"), atoi("-9223372036854775810"));
+    printf("\nFT: %i\nsys %i\n", ft_atoi("-9999999999999999999"), atoi("-9999999999999999999"));
+    printf("\nFT: %i\nsys %i\n", ft_atoi("9999999999999999999"), atoi("9999999999999999999"));
+    printf("\nFT: %i\nsys %i\n", ft_atoi("2147483647"), atoi("2147483647"));
+    printf("\nFT: %i\nsys %i\n", ft_atoi("-2147483648"), atoi("-2147483648"));
+    printf("\nFT: %i\nsys %i\n", ft_atoi("2147483646"), atoi("2147483646"));
+    printf("\nFT: %i\nsys %i\n", ft_atoi("2147483648"), atoi("2147483648"));
     printf("%s \n-----Testing from original-----\n%s", KBLU, KWHT);
     printf("testing 2:  %d\n", atoi(atoi_test));
     printf("testing 30:  %d\n", atoi(atoi_test1));

@@ -3,7 +3,8 @@
 		"get_next_line.h": "c",
 		"fract'ol.h": "c",
 		"libft.h": "c",
-		"mlx.h": "c"
+		"mlx.h": "c",
+		"push_swap.h": "c"
 	},
 	"C_Cpp.errorSquiggles": "disabled"
 }
