@@ -37,5 +37,6 @@ void	rotate_both(t_stack *stack_data);
 void	reverse_a(t_stack *stack_data, int print);
 void	reverse_b(t_stack *stack_data, int print);
 void	reverse_both(t_stack *stack_data);
+void if_three(t_stack *stack_data);
 
 #endif

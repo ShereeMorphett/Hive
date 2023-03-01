@@ -11,6 +11,29 @@
 /* ************************************************************************** */
 #include "push_swap.h"
 
+static int	check_number(char *string, t_stack *stack)
+{
+	int	num;
+	int	index;
+
+	index = 0;
+	num = ft_atoi(string);
+	while (string[index] != '\0')
+	{
+		if (string[index] == '-' || string[index] == '+')
+			index++;
+		if (string[index] < '0' || string[index] > '9')
+			clean_exit(stack, 3);
+		index++;
+	}
+	if (string[0] != '-' && num < 0)
+		return (0);
+	if (string[0] == '-' && num > 0)
+		return (0);
+	else
+		return (1);
+}
+
 static int	*process_string(char **new_string, int *stack_a, t_stack *stack)
 {
 	int	index;
@@ -31,7 +54,8 @@ static int	*process_string(char **new_string, int *stack_a, t_stack *stack)
 	index = 0;
 	while (new_string[index] != '\0')
 	{
-		//check if char is a number
+		if (!check_number(new_string[index], stack))
+			clean_exit(stack, 3);
 		stack_a[index] = ft_atoi(new_string[index]);
 		index++;
 	}
@@ -51,10 +75,7 @@ static void	validate_input(int *stack_a, t_stack *stack_data)
 		while (index < stack_data->size)
 		{
 			if (stack_a[check] == stack_a[index])
-			{
-				ft_putendl_fd("Error", 1);
-				clean_exit(stack_data, 1);
-			}
+				clean_exit(stack_data, 3);
 			index++;
 		}
 		check++;
@@ -65,10 +86,16 @@ static int	*process_argv(char *argv[], int argc, int *stack_a, t_stack *stack)
 {
 	int	index;
 
+	index = 1;
+	while (index <= argc - 1)
+	{
+		if (!check_number(argv[index], stack))
+			clean_exit(stack, 3);
+		index++;
+	}
 	index = 0;
 	while (index < argc - 1)
 	{	
-		//check if char is a number
 		stack_a[index] = ft_atoi(argv[index + 1]);
 		index++;
 	}
@@ -85,7 +112,7 @@ int	main(int argc, char *argv[])
 	stack_data = malloc(sizeof (t_stack));
 	stack_a = NULL;
 	if (argc < 2)
-		return (0);
+		clean_exit(stack_data, 2);
 	if (argc == 2)
 	{
 		new_string = ft_split(argv[1], ' ');
