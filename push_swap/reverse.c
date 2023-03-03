@@ -21,13 +21,13 @@ void	reverse_a(t_stack *stack_data, int print)
 	index = stack_data->size - 1;
 	if (stack_data->size > 1)
 	{
-		temp = stack_data->stack_a[stack_data->size - 1];
+		temp = stack_data->a[stack_data->size - 1];
 		while (index != 0)
 		{	
-			stack_data->stack_a[index] = stack_data->stack_a[index - 1];
+			stack_data->a[index] = stack_data->a[index - 1];
 			index--;
 		}
-		stack_data->stack_a[0] = temp;
+		stack_data->a[0] = temp;
 		if (print == 1)
 			ft_putendl_fd("rra", 1);
 	}	
@@ -43,13 +43,13 @@ void	reverse_b(t_stack *stack_data, int print)
 	index = stack_data->stack_b_size - 1;
 	if (stack_data->stack_b_size > 1)
 	{
-		temp = stack_data->stack_b[stack_data->stack_b_size - 1];
+		temp = stack_data->b[stack_data->stack_b_size - 1];
 		while (index != 0)
 		{	
-			stack_data->stack_b[index] = stack_data->stack_b[index - 1];
+			stack_data->b[index] = stack_data->b[index - 1];
 			index--;
 		}
-		stack_data->stack_b[0] = temp;
+		stack_data->b[0] = temp;
 		if (print == 1)
 			ft_putendl_fd("rrb", 1);
 	}	

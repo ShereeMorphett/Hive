@@ -20,11 +20,11 @@ void	swap_a(t_stack *stack_data, int print)
 
 	index = 0;
 	temp = 0;
-	if (stack_data->stack_a[index] || stack_data->stack_a[index + 1])
+	if (stack_data->a[index] || stack_data->a[index + 1])
 	{
-		temp = stack_data->stack_a[index];
-		stack_data->stack_a[index] = stack_data->stack_a[index + 1];
-		stack_data->stack_a[index + 1] = temp;
+		temp = stack_data->a[index];
+		stack_data->a[index] = stack_data->a[index + 1];
+		stack_data->a[index + 1] = temp;
 		if (print == 1)
 			ft_putendl_fd("sa", 1);
 	}
@@ -39,11 +39,11 @@ void	swap_b(t_stack *stack_data, int print)
 
 	index = 0;
 	temp = 0;
-	if (stack_data->stack_b[index] || stack_data->stack_b[index + 1])
+	if (stack_data->b[index] || stack_data->b[index + 1])
 	{
-		temp = stack_data->stack_b[index];
-		stack_data->stack_b[index] = stack_data->stack_b[index + 1];
-		stack_data->stack_b[index + 1] = temp;
+		temp = stack_data->b[index];
+		stack_data->b[index] = stack_data->b[index + 1];
+		stack_data->b[index + 1] = temp;
 		if (print == 1)
 			ft_putendl_fd("sb", 1);
 	}

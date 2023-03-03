@@ -21,13 +21,13 @@ void	rotate_a(t_stack *stack_data, int print)
 	index = 0;
 	if (stack_data->size > 1)
 	{
-		temp = stack_data->stack_a[index];
+		temp = stack_data->a[index];
 		while (index != stack_data->size)
 		{	
-			stack_data->stack_a[index] = stack_data->stack_a[index + 1];
+			stack_data->a[index] = stack_data->a[index + 1];
 			index++;
 		}
-		stack_data->stack_a[index - 1] = temp;
+		stack_data->a[index - 1] = temp;
 		if (print == 1)
 			ft_putendl_fd("ra", 1);
 	}	
@@ -43,13 +43,13 @@ void	rotate_b(t_stack *stack_data, int print)
 	index = 0;
 	if (stack_data->stack_b_size > 1)
 	{
-		temp = stack_data->stack_b[index];
+		temp = stack_data->b[index];
 		while (index != stack_data->size)
 		{	
-			stack_data->stack_b[index] = stack_data->stack_b[index + 1];
+			stack_data->b[index] = stack_data->b[index + 1];
 			index++;
 		}
-		stack_data->stack_b[index - 1] = temp;
+		stack_data->b[index - 1] = temp;
 		if (print == 1)
 			ft_putendl_fd("ra", 1);
 	}	

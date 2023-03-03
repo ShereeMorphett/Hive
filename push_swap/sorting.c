@@ -11,10 +11,58 @@
 /* ************************************************************************** */
 #include "push_swap.h"
 
-void if_three(t_stack *stack_data)
+void	if_two(t_stack *data)
 {
-	ft_putendl_fd("Entered if_three", 1);
+	if (data->size == 2)
+	{
+		if (data->a[0] > data->a[1])
+			swap_a(data, 1);
+	}
+}
 
-	swap_a(stack_data, 1);
+void	if_three(t_stack *data)
+{
+	if (data->a[0] > data->a[1] && data->a[1] < data->a[2])
+	{
+		if (data->a[0] > data->a[2])
+		{
+			swap_a(data, 1);
+			reverse_a(data, 1);
+		}
+		else
+			swap_a(data, 1);
+		if (data->a[0] < data->a[1] && data->a[1] > data->a[2])
+		{
+			if (data->a[0] > data->a[2])
+				rotate_a(data, 1);
+			else
+			{
+				swap_a(data, 1);
+				rotate_a(data, 1);
+			}
+		}
+		else if (data->a[0] > data->a[1] && data->a[1] > data->a[2])
+		{
+			swap_a(data, 1);
+			rotate_a(data, 1);
+		}
+	}
+}
 
+void	if_five(t_stack *data)
+{
+	int max;
+	int index;
+
+	index = 0;
+	max = 0;
+	ft_putendl_fd("entered if_five", 1);
+	while (data->a[index] <= data->size)
+	{
+		if (data->a[index] > max)
+			max = data->a[index];
+		index++;
+	}
+	ft_putnbr_fd(max, 1);
+	ft_putchar_fd('\n', 1);
 }

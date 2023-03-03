@@ -11,8 +11,8 @@
 # **************************************************************************** #
 
 NAME = push_swap
-SRC	= push_swap.c utilities.c swap.c push.c rotate.c reverse.c sorting.c
-OBJ	= push_swap.o utilities.o swap.o push.o rotate.o reverse.o sorting.o
+SRC	= push_swap.c utilities.c swap.c push.c rotate.c reverse.c sorting.c input_validation.c
+OBJ	= push_swap.o utilities.o swap.o push.o rotate.o reverse.o sorting.o input_validation.o
 
 CC		= cc
 CFLAGS	= -Wall -Wextra -Werror -g

@@ -19,7 +19,7 @@ void	print_stack(t_stack *stack_data)
 	printf("stack_a size is: %i \n", stack_data->size);
 	while (index < stack_data->size)
 	{
-		ft_putnbr_fd(stack_data->stack_a[index], 1);
+		ft_putnbr_fd(stack_data->a[index], 1);
 		ft_putchar_fd('\n', 1);
 		index++;
 	}
@@ -27,7 +27,7 @@ void	print_stack(t_stack *stack_data)
 	printf("stack_b size is: %i \n", stack_data->stack_b_size);
 	while (index < stack_data->stack_b_size)
 	{
-		ft_putnbr_fd(stack_data->stack_b[index], 1);
+		ft_putnbr_fd(stack_data->b[index], 1);
 		ft_putchar_fd('\n', 1);
 		index++;
 	}
@@ -42,7 +42,7 @@ static void check_sorted(t_stack *stack_data)
 	{
 		while(index + 1 != stack_data->size)
 		{
-			if (stack_data->stack_a[index] < stack_data->stack_a[index + 1])
+			if (stack_data->a[index] < stack_data->a[index + 1])
 				index++;
 			else 
 				return;
@@ -62,20 +62,24 @@ void	clean_exit(t_stack *stack_data, int error)
 		ft_putendl_fd("Error", 1);
 		exit(EXIT_FAILURE);
 	}
-	if (stack_data->stack_a)
-		free(stack_data->stack_a);
-	if (stack_data->stack_b)
-		free(stack_data->stack_b);
+	if (stack_data->a)
+		free(stack_data->a);
+	if (stack_data->b)
+		free(stack_data->b);
 	exit(EXIT_SUCCESS);
 }
 
 void	push_swap(t_stack *stack_data)
 {
 	check_sorted(stack_data);
-	stack_data->stack_b = (int *)malloc(sizeof (int) * stack_data->size);
+	stack_data->b = (int *)malloc(sizeof (int) * stack_data->size);
 	stack_data->stack_b_size = 0;
+	if (stack_data->size == 2)
+		if_two(stack_data);
 	if (stack_data->size == 3)
 		if_three(stack_data);
+	if (stack_data->size == 5)
+		if_five(stack_data);
 	print_stack(stack_data);
 	exit(EXIT_SUCCESS);
 }
