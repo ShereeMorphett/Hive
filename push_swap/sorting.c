@@ -66,3 +66,4 @@ void	if_five(t_stack *data)
 	ft_putnbr_fd(max, 1);
 	ft_putchar_fd('\n', 1);
 }
+

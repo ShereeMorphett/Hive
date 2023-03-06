@@ -1,20 +1,14 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#                                                       :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: smorphet <marvin@42.fr>                    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/10/24 16:46:20 by smorphet          #+#    #+#              #
-#    Updated: 2022/10/24 16:48:27 by smorphet         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
 
-NAME = libft.a
 
-FLAGS = -Wall -Wextra -Werror
 
-SRC = ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
+NAME		=	libft.a
+CC			=	cc
+CCFLAG		=	-Wall -Wextra -Werror
+
+HDR_FILE	=	get_next_line.h ft_printf.h libft.h
+
+SRC_DIR		=	./src/
+SRC_FILE	=	ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
 	ft_isascii.c ft_isdigit.c ft_isprint.c ft_itoa.c ft_memchr.c \
 	ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c ft_putchar_fd.c \
 	ft_putendl_fd.c ft_putnbr_fd.c ft_putstr_fd.c ft_split.c \
@@ -23,8 +17,11 @@ SRC = ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
 	ft_strrchr.c ft_strtrim.c ft_substr.c ft_tolower.c ft_toupper.c \
 	ft_atof.c ft_lstnew.c	ft_lstadd_front.c ft_lstsize.c \
 	ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstlast.c ft_lstadd_back.c ft_lstmap.c \
+	get_next_line.c get_next_line_utils.c utilities.c ft_printf.c pointer.c hex.c
 
-OBJ = ft_atoi.o ft_bzero.o ft_calloc.o ft_isalnum.o ft_isalpha.o \
+SOURCES		=	$(addprefix $(SRC_DIR), $(SRC_FILE))
+
+OBJ_FILE	=	ft_atoi.o ft_bzero.o ft_calloc.o ft_isalnum.o ft_isalpha.o \
 	ft_isascii.o ft_isdigit.o ft_isprint.o ft_itoa.o ft_memchr.o \
 	ft_memcmp.o ft_memcpy.o ft_memmove.o ft_memset.o ft_putchar_fd.o \
 	ft_putendl_fd.o ft_putnbr_fd.o ft_putstr_fd.o ft_split.o \
@@ -33,17 +30,29 @@ OBJ = ft_atoi.o ft_bzero.o ft_calloc.o ft_isalnum.o ft_isalpha.o \
 	ft_strrchr.o ft_strtrim.o ft_substr.o ft_tolower.o ft_toupper.o \
 	ft_atof.o ft_lstnew.o ft_lstadd_front.o ft_lstadd_back.o ft_lstsize.o \
 	ft_lstdelone.o ft_lstclear.o ft_lstiter.o ft_lstlast.o ft_lstmap.o \
+	get_next_line.o get_next_line_utils.o utilities.o ft_printf.o pointer.o hex.o
 
+OBJECTS		=	$(addprefix $(OBJ_DIR), $(OBJ_FILE))
 
-all:	$(NAME)
+all			:	$(NAME)
 
-$(NAME): 
-	cc -c $(SRC) 
-	ar rc $(NAME) $(OBJ)
+$(NAME)		:	 $(OBJECTS)
+		ar -rcs $(NAME) $(OBJECTS)
+		@echo "\033[0;92m* $(NAME) library file was created *\033[0m"
 
-clean:
-	/bin/rm -f $(OBJ)
-fclean: clean
-	/bin/rm -f $(NAME)
+$(OBJ_DIR)%.o : $(SRC_DIR)%.c
+		@$(CC) $(CCFLAGS) -c $< -o $@
 
-re: fclean all
+clean		:
+		rm -rf $(OBJECTS)
+		@echo "\033[0;91m* $(NAME) object files were deleted *\033[0m"
+
+fclean		:	clean
+		rm -rf $(NAME)
+		@echo "\033[0;91m* $(NAME) was deleted *\033[0m"
+
+re			:	fclean $(NAME)
+
+.PHONY		:	all clean fclean re
+
+.SILENT:

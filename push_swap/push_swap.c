@@ -60,6 +60,7 @@ int	main(int argc, char *argv[])
 	int		*stack_a;
 	char	**new_string;
 
+	ft_printf("check\n");
 	data = malloc(sizeof (t_stack));
 	stack_a = NULL;
 	if (argc < 2)
