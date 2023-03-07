@@ -15,8 +15,6 @@
 # include "../libft/libft.h"
 # include <stdlib.h>
 
-# include <stdio.h>
-
 typedef struct s_stack {
 	int	size;
 	int	*a;
@@ -25,8 +23,8 @@ typedef struct s_stack {
 }	t_stack;
 
 
-int size_of_string(char **new_string);
-int	check_number(char *string, t_stack *stack);
+int		size_of_string(char **new_string);
+int		check_number(char *string, t_stack *stack);
 void	validate_input(int *stack_a, t_stack *stack_data);
 void	clean_exit(t_stack *stack_data, int error);
 void	push_swap(t_stack *stack_data);
@@ -41,8 +39,9 @@ void	rotate_both(t_stack *stack_data);
 void	reverse_a(t_stack *stack_data, int print);
 void	reverse_b(t_stack *stack_data, int print);
 void	reverse_both(t_stack *stack_data);
-void if_three(t_stack *data);
-void if_two(t_stack *data);
+void	if_three(t_stack *data);
+void	if_two(t_stack *data);
 void	if_five(t_stack *data);
+void if_other(t_stack *data);
 
 #endif

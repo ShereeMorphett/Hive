@@ -12,12 +12,12 @@
 
 NAME = push_swap
 
-SRC	= push_swap.c utilities.c swap.c push.c rotate.c reverse.c sorting.c input_validation.c
+SRC	= push_swap.c utilities.c swap.c push.c rotate.c reverse.c sorting.c input_validation.c large_sort.c
 
-OBJ	= push_swap.o utilities.o swap.o push.o rotate.o reverse.o sorting.o input_validation.o
+OBJ	= push_swap.o utilities.o swap.o push.o rotate.o reverse.o sorting.o input_validation.o large_sort.o
 
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror -g
+FLAGS	= -Wall -Wextra -Werror
 
 FOUND_OK := $(shell if [ -d ./libft/ ]; then echo "ok"; fi)
 ifeq ($(FOUND_OK), ok)
@@ -33,7 +33,7 @@ FT_LNK	= -L $(FT) -l ft
 all: $(FT_LIB) $(NAME) $(NAME)
 
 $(OBJ):
-	cc -c $(CFLAGS) $(SRC)
+	cc -c $(FLAGS) $(SRC)
 
 $(FT_LIB):
 	@$(MAKE) -C $(FT)

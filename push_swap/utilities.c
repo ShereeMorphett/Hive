@@ -16,7 +16,7 @@ void	print_stack(t_stack *stack_data)
 	int	index;
 
 	index = 0;
-	printf("stack_a size is: %i \n", stack_data->size);
+	ft_printf("stack_a size is: %i \n", stack_data->size);
 	while (index < stack_data->size)
 	{
 		ft_putnbr_fd(stack_data->a[index], 1);
@@ -24,7 +24,7 @@ void	print_stack(t_stack *stack_data)
 		index++;
 	}
 	index = 0;
-	printf("stack_b size is: %i \n", stack_data->stack_b_size);
+	ft_printf("stack_b size is: %i \n", stack_data->stack_b_size);
 	while (index < stack_data->stack_b_size)
 	{
 		ft_putnbr_fd(stack_data->b[index], 1);
@@ -80,6 +80,8 @@ void	push_swap(t_stack *stack_data)
 		if_three(stack_data);
 	if (stack_data->size == 5)
 		if_five(stack_data);
+	else
+		if_other(stack_data);
 	print_stack(stack_data);
 	exit(EXIT_SUCCESS);
 }
