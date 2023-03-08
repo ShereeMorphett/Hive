@@ -51,7 +51,7 @@ void	rotate_b(t_stack *stack_data, int print)
 		}
 		stack_data->b[index - 1] = temp;
 		if (print == 1)
-			ft_putendl_fd("ra", 1);
+			ft_putendl_fd("rb", 1);
 	}	
 }
 

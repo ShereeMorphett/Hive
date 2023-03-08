@@ -3,7 +3,7 @@
 
 NAME		=	libft.a
 CC			=	cc
-CCFLAG		=	-Wall -Wextra -Werror
+CCFLAG		=	-Wall -Wextra -Werror 
 
 HDR_FILE	=	get_next_line.h ft_printf.h libft.h
 

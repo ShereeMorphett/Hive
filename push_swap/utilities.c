@@ -54,12 +54,14 @@ static void check_sorted(t_stack *stack_data)
 void	clean_exit(t_stack *stack_data, int error)
 {
 	if (error == 1)
-		ft_putendl_fd("Error", 1);
+		ft_putstr_fd("Error\n", 2);
 	if (error == 2)
+	{
 		exit(EXIT_FAILURE);
+	}
 	if (error == 3)
 	{	
-		ft_putendl_fd("Error", 1);
+		ft_putstr_fd("Error\n", 2);
 		exit(EXIT_FAILURE);
 	}
 	if (stack_data->a)
