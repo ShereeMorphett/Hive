@@ -18,9 +18,8 @@ static int	*process_string(char **new_string, int *stack_a, t_stack *data)
 
 	index = 0;
 	letter = 0;
-	if (!new_string[index][letter + 1])
+	if (new_string[index] == '\0')
 		clean_exit(data, 2);
-	letter = size_of_string(new_string);
 	stack_a = (int *) malloc(sizeof(int) * letter);
 	while (new_string[index] != '\0')
 	{
@@ -30,6 +29,8 @@ static int	*process_string(char **new_string, int *stack_a, t_stack *data)
 		index++;
 	}
 	data->size = index;
+	if (data->size == 1)
+		clean_exit(data, 2);
 	return (stack_a);
 }
 
@@ -38,7 +39,7 @@ static int	*process_argv(char *argv[], int argc, int *stack_a, t_stack *stack)
 	int	index;
 
 	index = 1;
-	while (index < argc - 1)
+	while (index < argc)
 	{
 		if (!check_number(argv[index], stack))
 			clean_exit(stack, 3);
@@ -60,10 +61,10 @@ int	main(int argc, char *argv[])
 	int		*stack_a;
 	char	**new_string;
 
+	if (argc == 1)
+		exit(EXIT_SUCCESS);
 	data = malloc(sizeof (t_stack));
 	stack_a = NULL;
-	if (argc < 2)
-		clean_exit(data, 2);
 	if (argc == 2)
 	{
 		new_string = ft_split(argv[1], ' ');

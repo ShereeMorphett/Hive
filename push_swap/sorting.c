@@ -22,30 +22,24 @@ void	if_two(t_stack *data)
 
 void	if_three(t_stack *data)
 {
-	if (data->a[0] > data->a[1] && data->a[1] < data->a[2])
+	while (data->a)
 	{
-		if (data->a[0] > data->a[2])
-		{
-			swap_a(data, 1);
-			reverse_a(data, 1);
-		}
-		else
-			swap_a(data, 1);
-		if (data->a[0] < data->a[1] && data->a[1] > data->a[2])
-		{
-			if (data->a[0] > data->a[2])
-				rotate_a(data, 1);
-			else
-			{
-				swap_a(data, 1);
-				rotate_a(data, 1);
-			}
-		}
+		if ((data->a[0] > data->a[1] && data->a[1] < data->a[2]) && data->a[0] > data->a[2])
+			rotate_a(data, 1);
 		else if (data->a[0] > data->a[1] && data->a[1] > data->a[2])
 		{
 			swap_a(data, 1);
-			rotate_a(data, 1);
+			check_sorted(data);
+			reverse_a(data, 1);
 		}
+		else if (data->a[0] < data->a[1] && data->a[1] > data->a[2])
+		{
+			reverse_a(data, 1);
+			check_sorted(data);
+			swap_a(data, 1);
+		}
+		else if (data->a[0] > data->a[1] && data->a[1] < data->a[2])
+			swap_a(data, 1);
 	}
 }
 

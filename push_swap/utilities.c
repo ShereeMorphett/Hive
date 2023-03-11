@@ -33,7 +33,7 @@ void	print_stack(t_stack *stack_data)
 	}
 }
 
-static void check_sorted(t_stack *stack_data)
+void check_sorted(t_stack *stack_data)
 {
 	int index;
 
@@ -57,17 +57,20 @@ void	clean_exit(t_stack *stack_data, int error)
 		ft_putstr_fd("Error\n", 2);
 	if (error == 2)
 	{
-		exit(EXIT_FAILURE);
+		exit(EXIT_SUCCESS);
 	}
 	if (error == 3)
 	{	
 		ft_putstr_fd("Error\n", 2);
-		exit(EXIT_FAILURE);
+		exit(EXIT_SUCCESS);
 	}
-	if (stack_data->a)
-		free(stack_data->a);
-	if (stack_data->b)
-		free(stack_data->b);
+	if (error == 0)
+	{
+		if (stack_data->a)
+			free(stack_data->a);
+		if (stack_data->b)
+			free(stack_data->b);
+	}
 	exit(EXIT_SUCCESS);
 }
 
@@ -78,9 +81,9 @@ void	push_swap(t_stack *stack_data)
 	stack_data->stack_b_size = 0;
 	if (stack_data->size == 2)
 		if_two(stack_data);
-	if (stack_data->size == 3)
+	else if (stack_data->size == 3)
 		if_three(stack_data);
-	if (stack_data->size == 5)
+	else if (stack_data->size == 5)
 		if_five(stack_data);
 	else
 		if_other(stack_data);

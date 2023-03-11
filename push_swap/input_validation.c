@@ -47,27 +47,9 @@ int	check_number(char *string, t_stack *stack)
 	}
 	if (string[0] != '-' && num < 0)
 		return (0);
-	if (string[0] == '-' && num > 0)
+	if (string[0] == '-' && num >= 0)
 		return (0);
+
 	else
 		return (1);
-}
-
-int	size_of_string(char **new_string)
-{
-	int	index;
-	int	letter;
-
-	index = 0;
-	letter = 0;
-	while (new_string[index][letter])
-	{
-		while (new_string[index][letter])
-		{
-			while (new_string[index][letter])
-				letter++;
-			index++;
-		}
-	}
-	return (letter);
 }
