@@ -42,6 +42,9 @@ void	if_three(t_stack *data)
 			swap_a(data, 1);
 	}
 }
+/*Sends the top two numbers from Stack A to Stack B.
+ Uses the logic from 3 Random Numbers to sort the numbers in A.
+  Makes sure Stack A can correctly accept the numbers from Stack B.*/
 
 void	if_five(t_stack *data)
 {
