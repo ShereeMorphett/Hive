@@ -40,27 +40,8 @@ void	if_three(t_stack *data)
 		}
 		else if (data->a[0] > data->a[1] && data->a[1] < data->a[2])
 			swap_a(data, 1);
+		
+		check_sorted(data);
 	}
-}
-/*Sends the top two numbers from Stack A to Stack B.
- Uses the logic from 3 Random Numbers to sort the numbers in A.
-  Makes sure Stack A can correctly accept the numbers from Stack B.*/
-
-void	if_five(t_stack *data)
-{
-	int max;
-	int index;
-
-	index = 0;
-	max = 0;
-	ft_putendl_fd("entered if_five", 1);
-	while (data->a[index] <= data->size)
-	{
-		if (data->a[index] > max)
-			max = data->a[index];
-		index++;
-	}
-	ft_putnbr_fd(max, 1);
-	ft_putchar_fd('\n', 1);
 }
 
