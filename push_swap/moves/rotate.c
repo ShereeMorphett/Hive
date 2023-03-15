@@ -9,7 +9,7 @@
 /*   Updated: 2023/02/27 16:11:10 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "push_swap.h"
+#include "../push_swap.h"
 
 /*ra (rotate a): Shift up all elements of stack a by 1.
 The first element becomes the last one. */

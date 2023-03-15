@@ -12,7 +12,7 @@
 
 NAME = push_swap
 
-SRC	= push_swap.c utilities.c swap.c push.c rotate.c reverse.c sorting.c input_validation.c large_sort.c
+SRC	= push_swap.c utilities.c moves/swap.c moves/push.c moves/rotate.c moves/reverse.c sorting.c input_validation.c large_sort.c
 
 OBJ	= push_swap.o utilities.o swap.o push.o rotate.o reverse.o sorting.o input_validation.o large_sort.o
 

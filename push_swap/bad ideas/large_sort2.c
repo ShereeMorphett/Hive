@@ -5,11 +5,38 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: smorphet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/15 12:58:24 by smorphet          #+#    #+#             */
-/*   Updated: 2023/03/15 12:58:26 by smorphet         ###   ########.fr       */
+/*   Created: 2023/03/07 12:24:50 by smorphet          #+#    #+#             */
+/*   Updated: 2023/03/07 12:24:53 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
+
+// static void moving_to_top(t_stack *data)
+// {
+
+// 	if (data->found != 0)
+// 	{
+// 		length = data->size - data->second_hold - 1;
+// 		if (length < data->first_hold)
+// 		{
+// 			while(length >= 0)
+// 			{
+// 				reverse_a(data, 1);
+// 				length--;
+// 			}
+// 		}
+// 		else 
+// 		{
+// 			length = data->first_hold - 1;	
+// 			while(length >= 0)
+// 			{
+// 				rotate_a(data, 1);
+// 				length--;
+// 			}
+// 		}
+// 		sorting_b(data);
+// 	}
+// }
 
 void find_range(t_stack *data)
 {
@@ -33,42 +60,25 @@ void find_range(t_stack *data)
 	}
 }
 
-// void find_place(t_stack *data)
-// {
-// 	int index;
-// 	index = 0;
-
-// 	while (data->b[0] > data->a[index])
-// 		index++;
-// 	if (index >= 1)
-// 	{
-// 		push_a(data);
-// 		swap_a(data, 1);
-// 	}
-// }
-
 void if_other(t_stack *data)
 {
+	int pivot;
 	int index;
+	int total;
 
 	index = 0;
+	total = data->size;
+	ft_printf("\n~~~entered if_other~~~\n", data->size);
 	find_range(data);
-	while (data->size != 3)
+	pivot = (data->min + data->max) / 2;
+	
+	while (total >= 0)
 	{
-		if (data->a[0] == data->max)
-			rotate_a(data, 1);
-		else
+		if (pivot > data->a[index])
 			push_b(data);
+		else
+			rotate_a(data,1);
+		total--;
 	}
-	if (data->size == 3)
-		if_three(data, 0);
-	while (data->stack_b_size != 0)
-	{
-		if (data->a[1] < data->a[0])
-			swap_a(data, 1);
-		if (data->b[0] < data->a[0])
-			push_a(data);
-	}
-	print_stack(data);
-	check_sorted(data, 1);
+	check_sorted(data);
 }

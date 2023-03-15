@@ -20,7 +20,7 @@ void	if_two(t_stack *data)
 	}
 }
 
-void	if_three(t_stack *data)
+int	if_three(t_stack *data, int exit)
 {
 	while (data->a)
 	{
@@ -29,19 +29,21 @@ void	if_three(t_stack *data)
 		else if (data->a[0] > data->a[1] && data->a[1] > data->a[2])
 		{
 			swap_a(data, 1);
-			check_sorted(data);
-			reverse_a(data, 1);
+			if (check_sorted(data, exit))
+				reverse_a(data, 1);
 		}
 		else if (data->a[0] < data->a[1] && data->a[1] > data->a[2])
 		{
 			reverse_a(data, 1);
-			check_sorted(data);
-			swap_a(data, 1);
+			if (check_sorted(data, exit))
+				swap_a(data, 1);
 		}
 		else if (data->a[0] > data->a[1] && data->a[1] < data->a[2])
-			swap_a(data, 1);
+			swap_a(data, exit);
 		
-		check_sorted(data);
+		if (!check_sorted(data, exit))
+			return (0);
 	}
+	return (0);
 }
 

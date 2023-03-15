@@ -9,7 +9,7 @@
 /*   Updated: 2023/02/27 16:11:33 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "push_swap.h"
+#include "../push_swap.h"
 
 static void	add_to_array_a(t_stack *stack_data)
 {

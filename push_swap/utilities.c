@@ -33,7 +33,7 @@ void	print_stack(t_stack *stack_data)
 	}
 }
 
-void check_sorted(t_stack *stack_data)
+int check_sorted(t_stack *stack_data, int exit)
 {
 	int index;
 
@@ -45,13 +45,17 @@ void check_sorted(t_stack *stack_data)
 			if (stack_data->a[index] < stack_data->a[index + 1])
 				index++;
 			else 
-				return;
+				return (1);
 		}
-		clean_exit(stack_data, 0);
+		if (exit == 1)
+			clean_exit(stack_data, 0);
+		else
+			return (0);
 	}
+	return (1);
 }
 
-void	clean_exit(t_stack *stack_data, int error)
+void	clean_exit(t_stack *data, int error)
 {
 	if (error == 1)
 		ft_putstr_fd("Error\n", 2);
@@ -66,23 +70,21 @@ void	clean_exit(t_stack *stack_data, int error)
 	}
 	if (error == 0)
 	{
-		if (stack_data->a)
-			free(stack_data->a);
-		if (stack_data->b)
-			free(stack_data->b);
+		if (data->a)
+			free(data->a);
 	}
 	exit(EXIT_SUCCESS);
 }
 
 void	push_swap(t_stack *stack_data)
 {
-	check_sorted(stack_data);
+	check_sorted(stack_data, 1);
 	stack_data->b = (int *)malloc(sizeof (int) * stack_data->size);
 	stack_data->stack_b_size = 0;
 	if (stack_data->size == 2)
 		if_two(stack_data);
 	else if (stack_data->size == 3)
-		if_three(stack_data);
+		if_three(stack_data, 1);
 	else
 		if_other(stack_data);
 	print_stack(stack_data);

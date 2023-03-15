@@ -9,7 +9,7 @@
 /*   Updated: 2023/02/27 16:10:59 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "push_swap.h"
+#include "../push_swap.h"
 
 /* sa (swap a): Swap the first 2 elements at the top of stack a. 
 Do nothing if there is only one or no elements. */
