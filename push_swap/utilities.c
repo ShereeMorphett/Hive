@@ -89,6 +89,6 @@ void	push_swap(t_stack *stack_data)
 		if_five(stack_data);
 	else
 		if_other(stack_data);
-	print_stack(stack_data);
+	//print_stack(stack_data);
 	exit(EXIT_SUCCESS);
 }

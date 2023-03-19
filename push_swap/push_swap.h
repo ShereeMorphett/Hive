@@ -24,8 +24,6 @@ typedef struct s_stack {
 	int second_hold;
 	int found;
 	int place;
-	size_t	chunks;
-	size_t	step;
 	int max;
 	int min;
 }	t_stack;
