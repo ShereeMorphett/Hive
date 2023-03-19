@@ -58,7 +58,7 @@ static int	*process_argv(char *argv[], int argc, int *stack_a, t_stack *stack)
 int	main(int argc, char *argv[])
 {
 	t_stack	*data;
-	int		*stack_a;
+	int *stack_a;
 	char	**new_string;
 
 	if (argc == 1)

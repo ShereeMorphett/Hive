@@ -24,6 +24,8 @@ typedef struct s_stack {
 	int second_hold;
 	int found;
 	int place;
+	size_t	chunks;
+	size_t	step;
 	int max;
 	int min;
 }	t_stack;
@@ -53,6 +55,7 @@ void 	chunking_forward(t_stack *data, int chunk);
 void 	chunking_back(t_stack *data, int chunk);
 void 	find_range(t_stack *data);
 void 	sorting_b(t_stack *data);
+void	push_to_three(t_stack *data);
 
 void	print_stack(t_stack *stack_data);
 
