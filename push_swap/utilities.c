@@ -85,10 +85,7 @@ void	push_swap(t_stack *stack_data)
 		if_two(stack_data);
 	else if (stack_data->size == 3)
 		if_three(stack_data, 1);
-	else if (stack_data->size == 5)
+	else if (stack_data->size >= 4)
 		if_five(stack_data);
-	else
-		if_other(stack_data);
-	//print_stack(stack_data);
 	exit(EXIT_SUCCESS);
 }
