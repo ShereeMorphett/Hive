@@ -1,24 +1,8 @@
-
- 1 
 sa
 pb
 pb
 ra
 pb
-rb
-pa
-sa
-pa
-pa
-sa
-
- 1 
-pb
-sa
-pb
-pb
 pa
 pa
 pa
-
- 0 
