@@ -24,7 +24,8 @@ int	if_three(t_stack *data, int exit)
 {
 	while (data->a)
 	{
-		if ((data->a[0] > data->a[1] && data->a[1] < data->a[2]) && data->a[0] > data->a[2])
+		if ((data->a[0] > data->a[1] && data->a[1] < data->a[2]) && \
+			data->a[0] > data->a[2])
 			rotate_a(data, 1);
 		else if (data->a[0] > data->a[1] && data->a[1] > data->a[2])
 		{
@@ -39,126 +40,34 @@ int	if_three(t_stack *data, int exit)
 				swap_a(data, 1);
 		}
 		else if (data->a[0] > data->a[1] && data->a[1] < data->a[2])
-			swap_a(data, exit);
-		
+			swap_a(data, 1);
 		if (!check_sorted(data, exit))
 			return (0);
 	}
 	return (0);
 }
 
-// int check_a_sorted(t_stack *data)
-// {
-// 	int index;
-
-// 	index = 0;
-// 	if (data->size >= 2)
-// 	{
-// 		while (data->a[index] < data->a[index + 1])
-// 			index++;
-		
-// 		if (index < data->size)
-// 			return (1);
-// 		else
-// 			return (0);
-// 	}
-// 	else
-// 		return (1);
-// }
-
-int check(t_stack *data, int max_size)
+void	if_five(t_stack *data)
 {
-	if (data->size == max_size)
-		return (check_sorted(data, 0));
-	else
-		return (1);
-}
+	int	max_size;
 
-int do_optimal(t_stack *data)
-{
-	int changed;
-
-	changed = 0;
-	if (data->stack_b_size > 1 && data->size > 1)
-	{
-		if (data->a[0] > data->a[1] && data->b[0] < data->b[1])
-		{
-			swap_both(data);
-			changed = 1;
-		}
-		if (data->a[0] == data->max && data->b[0] == data->min)
-		{	
-			rotate_both(data);
-			changed = 1;
-		}
-	}
-	if (data->size > 2)
-	{
-		if (data->a[data->size - 1] == data->min)
-		{
-			reverse_a(data, 1);
-			changed = 1;
-		}
-		if (data->a[0] == data->max)
-		{
-			rotate_a(data, 1);
-			changed = 1;
-		}
-	}
-		if (data->size > 1 && data->a[0] > data->a[1])
-		{
-			swap_a(data, 1);
-			changed = 1;
-		}
-	
-		if (data->stack_b_size > 2 && data->b[0] == data->min)
-		{
-			rotate_b(data, 1);
-			changed = 1;
-		}
-		if (data->stack_b_size >= 2)
-		{
-			if (data->b[0] < data->b[1])
-			{
-				swap_b(data, 1);
-				changed = 1;
-			}
-		}
-	return (changed);
-}
-
- void if_five(t_stack *data)
-{
-	int max_size;
-	
 	max_size = data->size;
 	find_range(data);
-	//while (check(data, max_size) != 0)
-	//{
-		while (data->size > 2)
-		{
-			if (do_optimal(data) == 0)
-				push_b(data);
-			else
-				do_optimal(data);
-		}
-		//	print_stack(data);
+	while (data->size > 2)
+	{
+		if (do_optimal(data) == 0)
+			push_b(data);
+	}		
+	while (data->stack_b_size != 0)
+	{
+		if (data->stack_b_size > 1 && data->b[0] < data->b[1])
+			swap_b(data, 1);
+		while (do_optimal(data) != 0)
+			;
+		if (data->a[0] < data->a[1])
+			push_a(data);
 		if (data->a[0] > data->a[1])
 			swap_a(data, 1);
-		while (data->stack_b_size != 0)
-		{
-			while (do_optimal(data) != 0)
-				;
-			if (data->stack_b_size > 1 && data->b[0] < data->b[1])
-				swap_b(data, 1);
-			if (data->a[0] < data->a[1])
-				push_a(data);
-		}
-		if(data->a[0] > data->a[1])
-			swap_a(data, 1);
-	//}	
-	//print_stack(data);
+	}
 	check_sorted(data, 1);
 }
-
-/* 143865849 289479370 523017420 -655013657 1796663269*/

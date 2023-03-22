@@ -33,18 +33,18 @@ void	print_stack(t_stack *stack_data)
 	}
 }
 
-int check_sorted(t_stack *stack_data, int exit)
+int	check_sorted(t_stack *stack_data, int exit)
 {
-	int index;
+	int	index;
 
 	index = 0;
 	if (stack_data->size != 0)
 	{
-		while(index + 1 != stack_data->size)
+		while (index + 1 != stack_data->size)
 		{
 			if (stack_data->a[index] < stack_data->a[index + 1])
 				index++;
-			else 
+			else
 				return (1);
 		}
 		if (exit == 1)
@@ -76,6 +76,23 @@ void	clean_exit(t_stack *data, int error)
 	exit(EXIT_SUCCESS);
 }
 
+void	find_range(t_stack *data)
+{
+	int	index;
+
+	data->max = data->a[0];
+	data->min = data->a[0];
+	index = 1;
+	while (index < data->size)
+	{
+		if (data->a[index] > data->max)
+			data->max = data->a[index];
+		if (data->a[index] < data->min)
+			data->min = data->a[index];
+		index++;
+	}
+}
+
 void	push_swap(t_stack *stack_data)
 {
 	check_sorted(stack_data, 1);
@@ -86,6 +103,6 @@ void	push_swap(t_stack *stack_data)
 	else if (stack_data->size == 3)
 		if_three(stack_data, 1);
 	else if (stack_data->size >= 4)
-		if_five(stack_data);
+		large_sort(stack_data);
 	exit(EXIT_SUCCESS);
 }

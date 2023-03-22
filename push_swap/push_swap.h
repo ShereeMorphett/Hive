@@ -47,13 +47,11 @@ void	reverse_both(t_stack *stack_data);
 int		if_three(t_stack *data, int exit);
 void	if_two(t_stack *data);
 void	if_five(t_stack *data);
+void	large_sort(t_stack *data);
+int 	do_optimal(t_stack *data);
+void	find_range(t_stack *data);
 
-void	if_other(t_stack *data);
-void 	chunking_forward(t_stack *data, int chunk);
-void 	chunking_back(t_stack *data, int chunk);
-void 	find_range(t_stack *data);
-void 	sorting_b(t_stack *data);
-void	push_to_three(t_stack *data);
+
 
 void	print_stack(t_stack *stack_data);
 

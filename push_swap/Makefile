@@ -12,9 +12,9 @@
 
 NAME = push_swap
 
-SRC	= push_swap.c utilities.c moves/swap.c moves/push.c moves/rotate.c moves/reverse.c sorting.c input_validation.c large_sort.c
+SRC	= push_swap.c utilities.c moves/swap.c moves/push.c moves/rotate.c moves/reverse.c sorting.c input_validation.c op_utilities.c large_sort.c
 
-OBJ	= push_swap.o utilities.o swap.o push.o rotate.o reverse.o sorting.o input_validation.o large_sort.o
+OBJ	= push_swap.o utilities.o swap.o push.o rotate.o reverse.o sorting.o input_validation.o op_utilities.o large_sort.o
 
 CC		= cc
 FLAGS	= -Wall -Wextra -Werror -g

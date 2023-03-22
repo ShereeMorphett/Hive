@@ -49,7 +49,6 @@ int	check_number(char *string, t_stack *stack)
 		return (0);
 	if (string[0] == '-' && num >= 0)
 		return (0);
-
 	else
 		return (1);
 }
