@@ -11,41 +11,44 @@
 /* ************************************************************************** */
 #include "push_swap.h"
 
-
 int check(t_stack *data, int max_size)
 {
 	if (data->size == max_size)
 		return (check_sorted(data, 0));
 	else
-		return (1);
+		return (2);
 }
+
+// int b_max(t_stack *data)
+// {
+
+// 	return (index);
+// }
 
 void	large_sort(t_stack *data)
 {
-	ft_printf("entered into large_sort\n");
 	int	max_size;
+	int median;
 
-	max_size = data->size;
 	find_range(data);
-	while (data->size > 2)
+	median = (data->min + data->max) / 2;
+	max_size = data->size;
+	while (data->size > 3)
 	{
 		if (do_optimal(data) == 0)
 			push_b(data);
-	}	
-	while (check(data, max_size) != 0)
-	{
-		while (data->stack_b_size != 0)
+	}
+	if_three(data, 0);
+	do_optimal(data);
+	
+	while (check(data, max_size) == 2)
+	{ 
+		if (data->stack_b_size != 0)
 		{
-			if (data->stack_b_size > 1 && data->b[0] < data->b[1])
-				swap_b(data, 1);
-			while (do_optimal(data) != 0)
-				;
-			if (data->a[0] < data->a[1])
+			if (do_optimal(data) == 0)
 				push_a(data);
-			if (data->a[0] > data->a[1])
-				swap_a(data, 1);
 		}
 	}
-	//print_stack(data);
-	check_sorted(data, 1);
+//	print_stack(data);
+	check_sorted(data,1);
 }
