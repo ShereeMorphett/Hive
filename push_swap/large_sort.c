@@ -11,44 +11,89 @@
 /* ************************************************************************** */
 #include "push_swap.h"
 
-int check(t_stack *data, int max_size)
+int find_cost(t_stack *data)
 {
-	if (data->size == max_size)
-		return (check_sorted(data, 0));
-	else
-		return (2);
+	int index;
+
+	index = 0;
+	if (data->b[0] > data->a[0])
+		return (0);
+	while (index < data->size - 1)
+	{
+		if (data->b[0] > data->a[index])
+			index++;
+		if (data->b[0] < data->a[index] && data->b[0] < data->a[index + 1])
+			break;
+	}
+	return (index);
 }
 
-// int b_max(t_stack *data)
-// {
+void	do_moves(t_stack *data)
+{
+	int cost;
+	int temp_cost;
 
-// 	return (index);
-// }
+	while (do_optimal(data) != 0) 
+		;
+	
+	cost = find_cost(data);
+	if (cost == 0)
+		push_a(data);
+	if (cost <= data->size / 2)
+	{
+		temp_cost = cost;
+		while (cost-- != 0)
+			rotate_a(data, 1);
+		push_a(data);
+		while (temp_cost-- != 0)
+			reverse_a(data, 1);
+	}
+	else if (cost > data->size / 2)
+	{ 
+		cost = data->size - cost;	
+		temp_cost = cost;
+		while (cost >= 0)
+		{
+			reverse_a(data, 1);
+			cost--;
+		}
+		while (temp_cost-- > 0)
+			rotate_a(data, 1);
+		if (cost == 0)
+		{
+			push_a(data);
+			rotate_a(data, 1);
+		}
+	}
+}
 
 void	large_sort(t_stack *data)
 {
-	int	max_size;
-	int median;
+	int max_size;
 
-	find_range(data);
-	median = (data->min + data->max) / 2;
 	max_size = data->size;
+	find_range(data);
+	do_optimal(data);
+	while (data->stack_b_size != 2)
+	{
+		if (data->a[0] != data->max)
+			push_b(data);
+		else
+			rotate_a(data, 1);
+	}
 	while (data->size > 3)
 	{
-		if (do_optimal(data) == 0)
-			push_b(data);
+		while (do_optimal(data) != 0) 
+			;
+		push_b(data);
 	}
 	if_three(data, 0);
-	do_optimal(data);
-	
-	while (check(data, max_size) == 2)
-	{ 
-		if (data->stack_b_size != 0)
-		{
-			if (do_optimal(data) == 0)
-				push_a(data);
-		}
+	//////////////////////////////////////////////////////////////////////
+	while (data->stack_b_size != 0)
+	{
+		do_moves(data);
+		//push_a(data);
 	}
-//	print_stack(data);
-	check_sorted(data,1);
+	print_stack(data);
+	check_sorted(data, 1);
 }
