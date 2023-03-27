@@ -1,0 +1,272 @@
+
+
+stack_a size is: 12 
+2
+3
+5
+12
+10
+6
+9
+7
+4
+1
+8
+11
+stack_b size is: 0 
+
+
+
+ mid= 6
+
+ value hold = 2
+pb
+
+
+stack_a size is: 11 
+3
+5
+12
+10
+6
+9
+7
+4
+1
+8
+11
+stack_b size is: 1 
+2
+
+
+
+ mid= 6
+
+ value hold = 3
+pb
+
+
+stack_a size is: 10 
+5
+12
+10
+6
+9
+7
+4
+1
+8
+11
+stack_b size is: 2 
+3
+2
+
+
+
+ mid= 6
+
+ value hold = 5
+pb
+
+
+stack_a size is: 9 
+12
+10
+6
+9
+7
+4
+1
+8
+11
+stack_b size is: 3 
+5
+3
+2
+
+
+
+ mid= 6
+
+ value hold = 6
+ra
+ra
+pb
+
+
+stack_a size is: 8 
+9
+7
+4
+1
+8
+11
+12
+10
+stack_b size is: 4 
+6
+5
+3
+2
+
+
+
+ mid= 6
+
+ value hold = 4
+ra
+ra
+pb
+
+
+stack_a size is: 7 
+1
+8
+11
+12
+10
+9
+7
+stack_b size is: 5 
+4
+6
+5
+3
+2
+
+
+
+ mid= 6
+
+ value hold = 1
+pb
+
+
+stack_a size is: 6 
+8
+11
+12
+10
+9
+7
+stack_b size is: 6 
+1
+4
+6
+5
+3
+2
+
+
+
+ mid= 9
+
+ value hold = 8
+pb
+
+
+stack_a size is: 5 
+11
+12
+10
+9
+7
+stack_b size is: 7 
+8
+1
+4
+6
+5
+3
+2
+
+
+
+ mid= 9
+
+ value hold = 9
+rra
+rra
+pb
+
+
+stack_a size is: 4 
+7
+11
+12
+10
+stack_b size is: 8 
+9
+8
+1
+4
+6
+5
+3
+2
+
+
+
+ mid= 9
+
+ value hold = 7
+pb
+
+
+stack_a size is: 3 
+11
+12
+10
+stack_b size is: 9 
+7
+9
+8
+1
+4
+6
+5
+3
+2
+
+
+
+ mid= 11
+
+ value hold = 11
+pb
+sa
+pa
+sa
+pa
+pa
+sa
+pa
+sa
+pa
+pa
+sa
+pa
+sa
+pa
+sa
+pa
+sa
+pa
+
+
+stack_a size is: 12 
+2
+1
+3
+5
+6
+4
+7
+8
+9
+10
+11
+12
+stack_b size is: 0 
+
+

@@ -82,13 +82,25 @@ void	find_range(t_stack *data)
 
 	data->max = data->a[0];
 	data->min = data->a[0];
+	data->max_b = data->b[0];
+	data->min_b = data->b[0];
 	index = 1;
+
 	while (index < data->size)
 	{
 		if (data->a[index] > data->max)
 			data->max = data->a[index];
 		if (data->a[index] < data->min)
 			data->min = data->a[index];
+		index++;
+	}
+	index = 1;
+		while (index < data->stack_b_size)
+	{
+		if (data->b[index] > data->max_b)
+			data->max_b = data->b[index];
+		if (data->b[index] < data->min_b)
+			data->min_b = data->b[index];
 		index++;
 	}
 }
@@ -108,3 +120,4 @@ void	push_swap(t_stack *stack_data)
 		large_sort(stack_data);
 	exit(EXIT_SUCCESS);
 }
+	

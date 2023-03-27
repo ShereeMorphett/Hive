@@ -26,6 +26,8 @@ typedef struct s_stack {
 	int place;
 	int max;
 	int min;
+	int max_b;
+	int min_b;
 }	t_stack;
 
 int		check_number(char *string, t_stack *stack);
