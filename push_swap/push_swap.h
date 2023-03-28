@@ -20,14 +20,10 @@ typedef struct s_stack {
 	int	*a;
 	int	*b;
 	int	stack_b_size;
-	int first_hold;
-	int second_hold;
-	int found;
-	int place;
-	int max;
-	int min;
-	int max_b;
-	int min_b;
+	int	max;
+	int	min;
+	int	max_b;
+	int	min_b;
 }	t_stack;
 
 int		check_number(char *string, t_stack *stack);
@@ -50,11 +46,7 @@ int		if_three(t_stack *data, int exit);
 void	if_two(t_stack *data);
 void	if_five(t_stack *data);
 void	large_sort(t_stack *data);
-int 	do_optimal(t_stack *data);
+int		do_optimal(t_stack *data);
 void	find_range(t_stack *data);
-
-
-
-void	print_stack(t_stack *stack_data);
 
 #endif
