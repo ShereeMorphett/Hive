@@ -44,7 +44,7 @@ void	rotate_b(t_stack *stack_data, int print)
 	if (stack_data->stack_b_size > 1)
 	{
 		temp = stack_data->b[index];
-		while (index != stack_data->size)
+		while (index != stack_data->stack_b_size)
 		{	
 			stack_data->b[index] = stack_data->b[index + 1];
 			index++;
