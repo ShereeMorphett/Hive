@@ -5,7 +5,7 @@ SRC		= colours.c event_map.c julia.c main.c mandelbrot.c palette.c utilities.c
 OBJ		= colours.o event_map.o julia.o main.o mandelbrot.o palette.o utilities.o
 
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror -g
+CFLAGS	= -Wall -Wextra -Werror
 
 
 FOUND_OK := $(shell if [ -d ./libft/ ]; then echo "ok"; fi)

@@ -18,6 +18,8 @@ static int	*process_string(char **new_string, int *stack_a, t_stack *data)
 
 	index = 0;
 	letter = 0;
+	while (new_string[letter])
+		letter++;
 	if (new_string[index] == '\0')
 		clean_exit(data, 2);
 	stack_a = (int *) malloc(sizeof(int) * letter);
@@ -47,7 +49,7 @@ static int	*process_argv(char *argv[], int argc, int *stack_a, t_stack *stack)
 	}
 	index = 0;
 	while (index < argc - 1)
-	{	
+	{
 		stack_a[index] = ft_atoi(argv[index + 1]);
 		index++;
 	}
@@ -72,7 +74,7 @@ int	main(int argc, char *argv[])
 	}
 	else if (argc > 2)
 	{
-		stack_a = (int *)malloc(sizeof (int) * (argc - 1));
+		stack_a = (int *)malloc(sizeof (int) * (argc));
 		process_argv(argv, argc, stack_a, data);
 	}
 	if (data->size == 1)

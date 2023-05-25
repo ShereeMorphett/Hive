@@ -18,11 +18,11 @@ static void	add_to_array_a(t_stack *stack_data)
 
 	hold = stack_data->b[0];
 	stack_data->size++;
-	index = stack_data->size;
+	index = stack_data->size - 1;
 	while (index >= 1)
 	{
-		index--;
 		stack_data->a[index] = stack_data->a[index - 1];
+		index--;
 	}
 	stack_data->a[0] = hold;
 }
@@ -34,11 +34,11 @@ static void	add_to_array_b(t_stack *stack_data)
 
 	hold = stack_data->a[0];
 	stack_data->stack_b_size++;
-	index = stack_data->stack_b_size;
+	index = stack_data->stack_b_size - 1;
 	while (index >= 1)
 	{
-		index--;
 		stack_data->b[index] = stack_data->b[index - 1];
+		index--;
 	}
 	stack_data->b[0] = hold;
 }
@@ -80,7 +80,7 @@ void	push_b(t_stack *stack_data)
 		add_to_array_b(stack_data);
 	}
 	index = 0;
-	while (index < stack_data->size)
+	while (index < stack_data->size - 1)
 	{
 		stack_data->a[index] = stack_data->a[index + 1];
 		index++;

@@ -60,8 +60,6 @@ void	find_range(t_stack *data)
 
 	data->max = data->a[0];
 	data->min = data->a[0];
-	data->max_b = data->b[0];
-	data->min_b = data->b[0];
 	index = 1;
 	while (index < data->size)
 	{
@@ -72,6 +70,8 @@ void	find_range(t_stack *data)
 		index++;
 	}
 	index = 1;
+	data->max_b = data->b[0];
+	data->min_b = data->b[0];
 	while (index < data->stack_b_size)
 	{
 		if (data->b[index] > data->max_b)
@@ -82,18 +82,18 @@ void	find_range(t_stack *data)
 	}
 }
 
-void	push_swap(t_stack *stack_data)
+void	push_swap(t_stack *data)
 {
-	check_sorted(stack_data, 1);
-	stack_data->b = (int *)malloc(sizeof (int) * stack_data->size);
-	stack_data->stack_b_size = 0;
-	if (stack_data->size == 2)
-		if_two(stack_data);
-	else if (stack_data->size == 3)
-		if_three(stack_data, 1);
-	else if (stack_data->size <= 5)
-		if_five(stack_data);
+	check_sorted(data, 1);
+	data->b = (int *)malloc(sizeof (int) * data->size);
+	data->stack_b_size = 0;
+	if (data->size == 2)
+		if_two(data);
+	else if (data->size == 3)
+		if_three(data, 1);
+	else if (data->size <= 5)
+		if_five(data);
 	else
-		large_sort(stack_data);
+		large_sort(data);
 	exit(EXIT_SUCCESS);
 }

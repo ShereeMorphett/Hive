@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smorphet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/20 10:41:30 by smorphet          #+#    #+#             */
-/*   Updated: 2023/02/20 10:45:21 by smorphet         ###   ########.fr       */
+/*   Created: 2023/05/25 13:37:55 by smorphet          #+#    #+#             */
+/*   Updated: 2023/05/25 13:37:57 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-/* Assignment name  : ft_strlen
-Expected files   : ft_strlen.c
-Allowed functions:
---------------------------------------------------------------------------------
 
-Write a function that returns the length of a string.
+#ifndef PHILOSOPHERS_H
+#	define PHILOSOPHERS_H
+#	include <stdio.h>
+#	include <pthread.h>
+#	include <stdlib.h> 
 
-Your function must be declared as follows:
-
-int	ft_strlen(char *str); */
-
-int ft_strlen(char *str)
+typedef struct struct_philo
 {
-	int index = 0;
-	
-	while(str[index])
-	{
-		index++;
-	
-	}
+	int	number_of_philosophers;
+	int	time_to_die;
+	int	time_to_eat;
+	int	time_to_sleep;
+	int	number_times_eat;
+	// array of philosophers
+}	t_philo;
 
-	return(index);
-}
 
+#endif

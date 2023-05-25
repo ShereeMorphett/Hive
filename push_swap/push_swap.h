@@ -49,4 +49,6 @@ void	large_sort(t_stack *data);
 int		do_optimal(t_stack *data);
 void	find_range(t_stack *data);
 
+void	print_stack(t_stack *stack_data);
+
 #endif

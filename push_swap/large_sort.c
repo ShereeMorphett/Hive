@@ -9,7 +9,6 @@
 /*   Updated: 2023/03/28 17:50:34 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "push_swap.h"
 
 void	push_back_to_a(t_stack *data)
@@ -109,7 +108,7 @@ void	large_sort(t_stack *data)
 	int	value_hold;
 
 	while (data->size > 1)
-	{	
+	{
 		find_range(data);
 		half_stack_a = (data->size - 1) / 2;
 		mid_stack_a = get_mean(data);
