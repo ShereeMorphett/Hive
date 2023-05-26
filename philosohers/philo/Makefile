@@ -3,18 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: smorphet <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: smorphet <smorphet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/25 13:37:37 by smorphet          #+#    #+#              #
-#    Updated: 2023/05/25 13:37:39 by smorphet         ###   ########.fr        #
+#    Updated: 2023/05/26 14:49:54 by smorphet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-SRC	= philosophers.c
+SRC	= main.c input_validation.c
 
-OBJ	= philosophers.o
+OBJ	= main.o input_validation.o
 
 CC		= cc
 FLAGS	= -Wall -Wextra -Werror -g

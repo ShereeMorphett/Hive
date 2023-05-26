@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smorphet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: smorphet <smorphet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:37:55 by smorphet          #+#    #+#             */
-/*   Updated: 2023/05/25 13:37:57 by smorphet         ###   ########.fr       */
+/*   Updated: 2023/05/26 14:41:00 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,7 @@ typedef struct struct_philo
 	// array of philosophers
 }	t_philo;
 
+int	process_argv(char *argv[], int argc);
+int	ph_atoi(const char *str);
 
 #endif
