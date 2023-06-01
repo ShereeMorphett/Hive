@@ -32,37 +32,53 @@ input:
 	If not specified, the simulation stops when a philosopher dies.
 				 */
 
-static void initialize_struct(char **argv, t_philo *philo)
-{
-	if (argv[1] && (philo->number_of_philosophers = ph_atoi(argv[1])) == 0)
-	{
-		printf("Number of philosophers must be more than 0\n");
-		exit(0);
-	}
-	if (argv[2])
-		philo->time_to_die = ph_atoi(argv[2]);
-	if (argv[3])
-		philo->time_to_eat = ph_atoi(argv[3]);
-	if (argv[4])
-		philo->time_to_sleep = ph_atoi(argv[4]);
-	if (argv[5])
-		philo->number_times_eat = ph_atoi(argv[5]);
+static void initialize_struct(char **argv, t_philo *philo) {
+    if (argv[1] && (philo->number_of_philosophers = ph_atoi(argv[1])) == 0) {
+        printf("Number of philosophers must be more than 0\n");
+        exit(0);
+    }
+    if (argv[2])
+        philo->time_to_die = ph_atoi(argv[2]);
+    if (argv[3])
+        philo->time_to_eat = ph_atoi(argv[3]);
+    if (argv[4])
+        philo->time_to_sleep = ph_atoi(argv[4]);
+    if (argv[5])
+        philo->number_times_eat = ph_atoi(argv[5]);
 }
 
-int main(int argc, char **argv)
-{
-	t_philo philo;
-
-	if (argc != 5 && argc != 6)
-	{
-		printf("Incorrect number of arguments: ");
-		printf("number_of_philosophers, time_to_die, time_to_eat, time_to_sleep. ");
-		printf("Optional: number_of_times_each_philosopher_must_eat");
-		return (0);
-	}
-	if (!process_argv(argv, argc))
-		initialize_struct(argv, &philo);
-	//philosophers(philo);
-	return (0);
+void* printThread(int id) {
+    (void)id;
+    printf("This is a thread printing\n");
+    // Exit the thread
+	pthread_exit(NULL);
 }
 
+int main(int argc, char **argv) {
+    t_philo philo;
+    pthread_t thread;
+
+    if (argc != 5 && argc != 6) {
+        printf("Incorrect number of arguments: ");
+        printf("number_of_philosophers, time_to_die, time_to_eat, time_to_sleep. ");
+        printf("Optional: number_of_times_each_philosopher_must_eat\n");
+        return (0);
+    }
+    if (!process_argv(argv, argc))
+        initialize_struct(argv, &philo);
+    
+	// Create the thread, this needs to become its own function that takes program
+	//state and makes a loop to create array of thread ids
+	//move struct into id too
+    if (pthread_create(&thread, NULL, printThread, NULL) != 0) {
+        printf("Failed to create the thread\n");
+        return 1;
+	}
+	// Create the thread, this needs to become its own function that takes program
+	//when array is done i need to work out how the hell you make the usleep and stuff print
+	// then we can also play the stupid bit where sheree works out how they share 
+	// the forks etc and choose to eat....so you know the actual point of the task.
+	
+    pthread_join(thread, NULL);
+    return 0;
+}

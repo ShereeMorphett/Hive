@@ -22,7 +22,7 @@ FLAGS	= -Wall -Wextra -Werror -g
 all: $(NAME)
 
 $(OBJ):
-	cc -c $(FLAGS) $(SRC)
+	cc -c -pthread $(FLAGS) $(SRC)
 
 
 $(NAME): $(OBJ)
