@@ -6,7 +6,7 @@
 /*   By: smorphet <smorphet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:37:55 by smorphet          #+#    #+#             */
-/*   Updated: 2023/05/26 14:41:00 by smorphet         ###   ########.fr       */
+/*   Updated: 2023/06/02 13:00:05 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #	include <stdio.h>
 #	include <pthread.h>
 #	include <stdlib.h> 
+#	include <unistd.h>
 
 typedef struct struct_philo
 {
@@ -23,7 +24,7 @@ typedef struct struct_philo
 	int	time_to_eat;
 	int	time_to_sleep;
 	int	number_times_eat;
-	// array of philosophers
+	pthread_t *t_array;
 }	t_philo;
 
 int	process_argv(char *argv[], int argc);

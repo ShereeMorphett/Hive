@@ -6,7 +6,7 @@
 /*   By: smorphet <smorphet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:37:49 by smorphet          #+#    #+#             */
-/*   Updated: 2023/05/26 14:39:27 by smorphet         ###   ########.fr       */
+/*   Updated: 2023/06/02 15:24:47 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ static void initialize_struct(char **argv, t_philo *philo) {
         printf("Number of philosophers must be more than 0\n");
         exit(0);
     }
+	philo->t_array = malloc(sizeof (pthread_t) * philo->number_of_philosophers);
+	if(!philo->t_array)
+		exit(EXIT_FAILURE);
     if (argv[2])
         philo->time_to_die = ph_atoi(argv[2]);
     if (argv[3])
@@ -47,18 +50,41 @@ static void initialize_struct(char **argv, t_philo *philo) {
         philo->number_times_eat = ph_atoi(argv[5]);
 }
 
-void* printThread(int id) {
-    (void)id;
-    printf("This is a thread printing\n");
-    // Exit the thread
+void* philo_routine(void *arg) 
+{
+	pthread_mutex_t hold;
+
+	pthread_mutex_init(&hold, NULL);
+    
+	pthread_mutex_lock(&hold);
+	printf("This is %p printing\n", arg);
+	sleep(3);
+	printf("This is after sleep\n");
+	pthread_mutex_unlock(&hold);
 	pthread_exit(NULL);
 }
 
-int main(int argc, char **argv) {
+void make_thread_array(t_philo *philo)
+{
+	int t_count;
+	t_count = 0;
+	while (t_count < philo->number_of_philosophers)
+	{
+		if (pthread_create(&philo->t_array[t_count], NULL, philo_routine, (void *) philo->t_array) != 0)
+      	{
+		  	printf("Failed to create the thread\n");
+			break ;
+		}
+		printf("thread %d has started\n", t_count);
+      t_count++;
+	}
+}
+int main(int argc, char **argv)
+{
     t_philo philo;
-    pthread_t thread;
-
-    if (argc != 5 && argc != 6) {
+	int count;
+    
+	if (argc != 5 && argc != 6) {
         printf("Incorrect number of arguments: ");
         printf("number_of_philosophers, time_to_die, time_to_eat, time_to_sleep. ");
         printf("Optional: number_of_times_each_philosopher_must_eat\n");
@@ -66,19 +92,13 @@ int main(int argc, char **argv) {
     }
     if (!process_argv(argv, argc))
         initialize_struct(argv, &philo);
-    
-	// Create the thread, this needs to become its own function that takes program
-	//state and makes a loop to create array of thread ids
-	//move struct into id too
-    if (pthread_create(&thread, NULL, printThread, NULL) != 0) {
-        printf("Failed to create the thread\n");
-        return 1;
+	make_thread_array(&philo);
+	count = philo.number_of_philosophers;
+	while (count >= 0)
+	{
+    	pthread_join(philo.t_array[count], NULL);
+		printf("joining thread %d\n", count);
+		count--;
 	}
-	// Create the thread, this needs to become its own function that takes program
-	//when array is done i need to work out how the hell you make the usleep and stuff print
-	// then we can also play the stupid bit where sheree works out how they share 
-	// the forks etc and choose to eat....so you know the actual point of the task.
-	
-    pthread_join(thread, NULL);
-    return 0;
+    return (0);
 }
