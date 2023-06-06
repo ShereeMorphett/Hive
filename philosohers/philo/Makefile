@@ -6,7 +6,7 @@
 #    By: smorphet <smorphet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/25 13:37:37 by smorphet          #+#    #+#              #
-#    Updated: 2023/05/26 14:49:54 by smorphet         ###   ########.fr        #
+#    Updated: 2023/06/06 17:03:16 by smorphet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRC	= main.c input_validation.c
 OBJ	= main.o input_validation.o
 
 CC		= cc
-FLAGS	= -Wall -Wextra -Werror -g
+FLAGS	= -Wall -Wextra -Werror #-fsanitize=thread
 
 all: $(NAME)
 
