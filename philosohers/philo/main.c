@@ -6,11 +6,12 @@
 /*   By: smorphet <smorphet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:37:49 by smorphet          #+#    #+#             */
-/*   Updated: 2023/06/06 17:10:38 by smorphet         ###   ########.fr       */
+/*   Updated: 2023/06/08 13:16:55 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
 
 /*input:	number_of_philosophers time_to_die time_to_eat
 			time_to_sleep [number_of_times_each_philosopher_must_eat]
@@ -32,86 +33,140 @@ input:
 	If not specified, the simulation stops when a philosopher dies.
 */
 
-static void initialize_struct(char **argv, t_philo *philo) 
+static void initialize_struct(char **argv, t_prog *prog) 
 {
-    if (argv[1] && (philo->number_of_philosophers = ph_atoi(argv[1])) == 0) {
+	int count;
+	count = 0;
+    if (argv[1] && (prog->number_of_philosophers = ph_atoi(argv[1])) == 0) {
         printf("Number of philosophers must be more than 0\n");
         exit(0);
     }
-	philo->t_array = malloc(sizeof (pthread_t) * philo->number_of_philosophers);
-	if(!philo->t_array)
+	prog->philo_array = malloc(sizeof (t_philo) * prog->number_of_philosophers);
+	if(!prog->philo_array)
 		exit(EXIT_FAILURE);
-	philo->forks = malloc(sizeof (int) * philo->number_of_philosophers);
-	if(!philo->forks)
+	prog->death_flag = 0;
+	while (count < prog->number_of_philosophers)
+	{
+		prog->philo_array[count] = malloc(sizeof(t_philo));
+        if (!prog->philo_array[count]) {
+            printf("Failed to allocate memory for t_philo structure\n");
+            break;
+        }
+		count++;
+	}
+	prog->forks = malloc(sizeof (int) * prog->number_of_philosophers);
+	if(!prog->forks)
 		exit(EXIT_FAILURE);
     if (argv[2])
-        philo->time_to_die = ph_atoi(argv[2]);
+        prog->time_to_die = ph_atoi(argv[2]);
     if (argv[3])
-        philo->time_to_eat = ph_atoi(argv[3]);
+        prog->time_to_eat = ph_atoi(argv[3]);
     if (argv[4])
-        philo->time_to_sleep = ph_atoi(argv[4]);
+        prog->time_to_sleep = ph_atoi(argv[4]);
     if (argv[5])
-        philo->number_times_eat = ph_atoi(argv[5]);
+        prog->number_times_eat = ph_atoi(argv[5]);
 }
 
-
-void* philo_routine(void *arg) 
+int eating(t_philo *philo)
 {
-	pthread_mutex_t hold;
+	return (1);
+}
 
-	pthread_mutex_init(&hold, NULL);
-	printf("This is %p printing\n", arg);
-	printf("This is after sleep\n");
+void sleeping(t_philo *philo)
+{
+	printf("%d is sleeping"philo->philo_index + 1);
+	usleep(philo->prog_info->time_to_sleep);
+}
+
+void thinking(t_philo *philo)
+{
+	printf("%d is sleeping", philo->philo_index + 1);
+
+
+}
+
+void* philo_routine(void *philo_data) 
+{
+	t_philo *philo = (t_philo *)philo_data;
+	
+	while (philo->prog_info->death_flag == 0)
+	{
+		if (!eating(philo))
+		{ 
+			philo->time_last_ate = gettimeofday();
+		}
+		else if (!sleeping(philo))
+		{ 
+			philo->time_last_slept = gettimeofday();
+		}
+		else
+			thinking(philo);
+
+
+	}
 	pthread_exit(NULL);
 }
 
-
-void make_threads(t_philo *philo)
+void make_threads(t_prog *prog)
 {
 	int t_count;
 	t_count = 0;
-	while (t_count < philo->number_of_philosophers)
+	while (t_count < prog->number_of_philosophers)
 	{
-		if (pthread_create(&philo->t_array[t_count], NULL, philo_routine, (void *) philo->t_array) != 0)
+		prog->philo_array[t_count]->philo_index = t_count;
+		prog->philo_array[t_count]->prog_info = prog;
+		sleep(3);
+		if (pthread_create(&prog->philo_array[t_count]->thread, NULL, philo_routine, (void *) prog->philo_array[t_count]) != 0)
       	{
 		  	printf("Failed to create the thread\n");
 			break ;
 		}
-	  printf("thread %d has started\n", t_count);
-      t_count++;
+		t_count++;
 	}
 }
-void clean_up(t_philo *philo)
+
+void clean_up(t_prog *prog)
 {
-	if (philo->t_array)
-		free(philo->t_array);
-	if (philo->forks)
-		free(philo->forks);
+	int count;
+	count = 0;
+	if (prog->philo_array)
+	{
+        while(count < prog->number_of_philosophers)
+		{
+            free(prog->philo_array[count]);
+			count++;
+        }
+        free(prog->philo_array);
+	}
+	if (prog->forks)
+		free(prog->forks);
 }
 
+/*SHEREE, YOU CANNOT USE EXIT IN THIS PROGRAM*/
 int main(int argc, char **argv)
 {
-    t_philo philo;
+    t_prog prog;
 	int count;
-    
+	count = 0;
 	if (argc != 5 && argc != 6) {
         printf("Incorrect number of arguments: ");
         printf("number_of_philosophers, time_to_die, time_to_eat, time_to_sleep. ");
         printf("Optional: number_of_times_each_philosopher_must_eat\n");
         return (0);
     }
+	printf("initilaize struct started\n");
     if (!process_argv(argv, argc))
-        initialize_struct(argv, &philo);
+        initialize_struct(argv, &prog);
 	// start thread/program here
-	make_threads(&philo);
-	count = philo.number_of_philosophers;
+	printf("initilaize struct complete\n");
+	make_threads(&prog);
+	count = prog.number_of_philosophers - 1;
 	while (count >= 0)
 	{
-    	pthread_join(philo.t_array[count], NULL);
+    	pthread_join(prog.philo_array[count]->thread, NULL);
 		printf("joining thread %d\n", count);
 		count--;
 	}
-
-	clean_up(&philo);
+	clean_up(&prog);
     return (0);
 }
