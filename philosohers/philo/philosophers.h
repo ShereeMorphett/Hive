@@ -44,6 +44,7 @@ typedef struct s_prog
 	int	number_times_eat;
 	t_philo **philo_array;
 	int *forks; //potentially
+	long long start_time;
 	int death_flag;
 }	t_prog;
 

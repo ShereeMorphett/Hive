@@ -67,42 +67,74 @@ static void initialize_struct(char **argv, t_prog *prog)
         prog->number_times_eat = ph_atoi(argv[5]);
 }
 
+long long	get_time(void)
+{
+	struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
+}
+
+void	printer(t_philo *philo, char *print)
+{
+	long int	time;
+
+	time = get_time() - philo->prog_info->start_time;
+	printf("%lld %d %s", get_time() - philo->prog_info->start_time, philo->philo_index, print);
+}
+
+void	non_usleep(int ms)
+{
+	long int	time;
+
+	time = get_time();
+	while (get_time() - time < ms)
+		usleep(ms / 10);
+}
+
 int eating(t_philo *philo)
 {
+	printer(philo, "is eating\n");
 	return (1);
 }
 
-void sleeping(t_philo *philo)
+int sleeping(t_philo *philo)
 {
-	printf("%d is sleeping"philo->philo_index + 1);
-	usleep(philo->prog_info->time_to_sleep);
+	printer(philo, "is sleeping\n");
+	non_usleep(philo->prog_info->time_to_sleep);
+	return (1);
 }
 
-void thinking(t_philo *philo)
+int thinking(t_philo *philo)
 {
-	printf("%d is sleeping", philo->philo_index + 1);
-
-
+	
+	printer(philo, "is thinking\n");
+	return (1);
 }
 
 void* philo_routine(void *philo_data) 
 {
-	t_philo *philo = (t_philo *)philo_data;
+	t_philo *philo;
 	
+	philo = (t_philo *) philo_data;
+	
+	int test = 0;//
+	printf("starting philo %d\n" ,philo->philo_index);
 	while (philo->prog_info->death_flag == 0)
 	{
+		test++;
+		if (test == 10)
+			philo->prog_info->death_flag = 1;
 		if (!eating(philo))
 		{ 
-			philo->time_last_ate = gettimeofday();
+			philo->time_last_ate = get_time();
 		}
 		else if (!sleeping(philo))
 		{ 
-			philo->time_last_slept = gettimeofday();
+			philo->time_last_slept = get_time();
 		}
 		else
 			thinking(philo);
-
-
 	}
 	pthread_exit(NULL);
 }
@@ -111,11 +143,11 @@ void make_threads(t_prog *prog)
 {
 	int t_count;
 	t_count = 0;
+	prog->start_time = get_time();
 	while (t_count < prog->number_of_philosophers)
 	{
 		prog->philo_array[t_count]->philo_index = t_count;
 		prog->philo_array[t_count]->prog_info = prog;
-		sleep(3);
 		if (pthread_create(&prog->philo_array[t_count]->thread, NULL, philo_routine, (void *) prog->philo_array[t_count]) != 0)
       	{
 		  	printf("Failed to create the thread\n");
