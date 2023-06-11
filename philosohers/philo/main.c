@@ -12,29 +12,30 @@
 
 #include "philosophers.h"
 
-/*input:				 
-◦ number_of_philosophers: The number of philosophers and also the number of forks.
+void get_forks(t_philo *philo)
+{
+	int fork_l = philo->philo_index;
+	int fork_r = (philo->philo_index + 1) % philo->prog_info->number_of_philosophers;
 
-◦ time_to_die (in milliseconds): If a philosopher didn’t start eating time_to_die milliseconds since the beginning
-	of their last meal or the beginning of the simulation, they die.
+	pthread_mutex_lock(&philo->prog_info->forks[fork_l]);
+	printer(philo, "has taken left fork\n");
+	pthread_mutex_lock(&philo->prog_info->forks[fork_r]);
+	printer(philo, "has taken right fork\n");
+}
 
-◦ time_to_eat (in milliseconds): The time it takes for a philosopher to eat. During that time, they will need to hold two forks.
-
-◦ time_to_sleep (in milliseconds): The time a philosopher will spend sleeping.
-
-◦ number_of_times_each_philosopher_must_eat (optional argument): If all philosophers have eaten
-	at least number_of_times_each_philosopher_must_eat times, the simulation stops.
-	If not specified, the simulation stops when a philosopher dies.
-*/
-
-
-//time needs to be when started eating
 int eating(t_philo *philo)
 {
-	if ((get_time() - philo->time_last_ate) > philo->time_last_ate)
-		//DEATH HAPPENS
+	get_forks(philo);
+	if ((get_time() - philo->time_last_ate) > philo->prog_info->time_to_die)
+	{
+		pthread_mutex_lock(&philo->prog_info->death_mutex);
+		printer(philo, "has died\n");
+		philo->prog_info->death_flag = 1;
+		return (1);
+	}
 	philo->time_last_ate = get_time();
 	printer(philo, "is eating\n");
+	non_usleep(philo->prog_info->time_to_eat);
 	return (1);
 }
 
@@ -44,13 +45,15 @@ int sleeping(t_philo *philo)
 
 	death_time = get_time() - philo->time_last_ate;
 	printer(philo, "is sleeping\n");
+	pthread_mutex_lock(&philo->prog_info->death_mutex);
 	if ((death_time + philo->prog_info->time_to_sleep) > philo->prog_info->time_to_die)
 	{
-		pthread_mutex_lock(&philo->prog_info->death_mutex);
 		printer(philo, "has died\n");
 		philo->prog_info->death_flag = 1;
-		return(1);
+		pthread_mutex_unlock(&philo->prog_info->death_mutex);
+		return (1);
 	}
+	pthread_mutex_unlock(&philo->prog_info->death_mutex);
 	non_usleep(philo->prog_info->time_to_sleep);
 	return (1);
 }
@@ -59,23 +62,24 @@ void* philo_routine(void *philo_data)
 {
 	t_philo *philo;
 
-	philo = (t_philo *) philo_data;
+	philo = (t_philo *)philo_data;
 
 	pthread_mutex_lock(&philo->prog_info->hordor);
-	pthread_mutex_unlock(&philo->prog_info->hordor); //syncronises the start
+	pthread_mutex_unlock(&philo->prog_info->hordor); // Synchronizes the start
+	if(philo->philo_index % 2 == 0)
+		sleeping(philo);
 	while (1) 
 	{
 		if (!eating(philo))
 		{ 
-			philo->time_last_ate = get_time(); //this needs to be as they started eating to stop dying while eating
+			philo->time_last_ate = get_time(); // Set time_last_ate when they start eating
 		}
 		sleeping(philo);
 		printer(philo, "is thinking\n");
 		if (philo->prog_info->death_flag == 1)
 		{
-            // Someone has died, release the death mutex and exit the routine
-            pthread_mutex_unlock(&philo->prog_info->death_mutex);
-            break;
+			pthread_mutex_unlock(&philo->prog_info->death_mutex);
+			break;
 		}
 	}
 	pthread_exit(NULL);
@@ -89,6 +93,11 @@ void make_threads(t_prog *prog)
 	pthread_mutex_lock(&prog->hordor);
 	while (t_count < prog->number_of_philosophers)
 	{
+		int fork_l = t_count;
+		int fork_r = (t_count + 1) % prog->number_of_philosophers;
+
+		pthread_mutex_init(&prog->forks[fork_l], NULL);
+		pthread_mutex_init(&prog->forks[fork_r], NULL);
 		prog->philo_array[t_count]->philo_index = t_count;
 		prog->philo_array[t_count]->prog_info = prog;
 		if (pthread_create(&prog->philo_array[t_count]->thread, NULL, philo_routine, (void *) prog->philo_array[t_count]) != 0)
