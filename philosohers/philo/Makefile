@@ -6,18 +6,18 @@
 #    By: smorphet <smorphet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/25 13:37:37 by smorphet          #+#    #+#              #
-#    Updated: 2023/06/09 14:54:20 by smorphet         ###   ########.fr        #
+#    Updated: 2023/06/12 15:46:17 by smorphet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-SRC	= main.c input_validation.c utilities.c initialization.c
+SRC	= main.c input_validation.c utilities.c initialization.c routine.c
 
-OBJ	= main.o input_validation.o utilities.o initialization.o
+OBJ	= main.o input_validation.o utilities.o initialization.o routine.o
 
-CC		= cc
-FLAGS	= -Wall -Wextra -Werror # -g -fsanitize=thread
+CC		= cc 
+FLAGS	= -Wall -Wextra -Werror -pthread
 
 all: $(NAME)
 

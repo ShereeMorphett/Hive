@@ -6,7 +6,7 @@
 /*   By: smorphet <smorphet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:54:06 by smorphet          #+#    #+#             */
-/*   Updated: 2023/06/09 14:59:52 by smorphet         ###   ########.fr       */
+/*   Updated: 2023/06/12 12:31:52 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ static int initialize_arrays(t_prog *prog)
 	int count;
 	
 	count = 0;
-	prog->philo_array = malloc(sizeof (t_philo) * prog->number_of_philosophers);
+	prog->philo_array = malloc(sizeof (t_philo) * prog->number_of_philos);
 	if(!prog->philo_array)
 		return (1);
-	while (count < prog->number_of_philosophers)
+	while (count < prog->number_of_philos)
 	{
 		prog->philo_array[count] = malloc(sizeof(t_philo));
         if (!prog->philo_array[count])
@@ -30,7 +30,7 @@ static int initialize_arrays(t_prog *prog)
         }
 		count++;
 	}
-	prog->forks = malloc(sizeof (pthread_mutex_t) * prog->number_of_philosophers);
+	prog->forks = malloc(sizeof (pthread_mutex_t) * prog->number_of_philos);
 	if(!prog->forks)
 		return (1);
 	return (0);
@@ -47,7 +47,7 @@ static int initialize_mutex(t_prog *prog)
 	prog->start_time = -1;
 	if (pthread_mutex_init(&prog->hordor, NULL) != 0)
         printf("\n Hordor mutex init has failed\n");
-	while (count < prog->number_of_philosophers)
+	while (count < prog->number_of_philos)
 	{
 		if (pthread_mutex_init(&prog->forks[count], NULL) != 0) {
             printf("Failed to initialize mutex for fork %d\n", count);
@@ -61,7 +61,7 @@ static int initialize_mutex(t_prog *prog)
 int initialize_struct(char **argv, t_prog *prog)
 {
 	prog->death_flag = 0;
-    if (argv[1] && (prog->number_of_philosophers = ph_atoi(argv[1])) == 0) {
+    if (argv[1] && (prog->number_of_philos = ph_atoi(argv[1])) == 0) {
         printf("Number of philosophers must be more than 0\n");
         return (1);
     }
