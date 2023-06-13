@@ -1,41 +1,37 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   utilities.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: smorphet <smorphet@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/09 14:37:55 by smorphet          #+#    #+#             */
-/*   Updated: 2023/06/12 15:30:47 by smorphet         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "philosophers.h"
 
-void *monitoring(void *prog_data)
+void monitoring(t_prog *prog)
 {
-    t_prog *prog = (t_prog *)prog_data;
     int counter;
     int check;
-
+	int full;
     check = 0;
+    non_usleep(0.7 * prog->time_to_die);
     while (check == 0)
     {
+		counter = 0;
+		full = 0;
+		// while(prog->number_times_eat  >= 0 && counter != prog->number_of_philos) //THIS NEEDS TO BE ADDED INTO
+		// {
+		// 	if (prog->philo_array[counter]->eaten_count >= prog->number_times_eat)
+		// 		full++
+		// 	if ()
+		// }
         counter = 0;
-        while (counter != prog->number_of_philos)
+		while (counter != prog->number_of_philos)
         {
             if ((get_time() - prog->philo_array[counter]->time_last_ate) > prog->time_to_die)
             {
-                pthread_mutex_lock(&prog->death_mutex);
-                prog->death_flag = 1;
                 printer(prog->philo_array[counter], "has died.\n");
-                pthread_mutex_unlock(&prog->death_mutex);
+                prog->death_flag = 1;
                 check = 1;
+				pthread_mutex_unlock(&prog->forks[prog->philo_array[counter]->fork_r]);
+				pthread_mutex_unlock(&prog->forks[prog->philo_array[counter]->fork_r]);
+				pthread_exit(NULL);
             }
             counter++;
         }
     }
-	return NULL;
 }
 
 void	non_usleep(int ms)

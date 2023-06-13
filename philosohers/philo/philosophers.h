@@ -6,7 +6,7 @@
 /*   By: smorphet <smorphet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:37:55 by smorphet          #+#    #+#             */
-/*   Updated: 2023/06/12 15:25:36 by smorphet         ###   ########.fr       */
+/*   Updated: 2023/06/13 15:36:44 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 #	include <unistd.h>
 #	include <sys/time.h>
 
+#	define ERROR 1
+
 typedef struct s_prog t_prog; // Forward declaration of t_prog struct
 
 typedef struct s_philo
@@ -28,6 +30,7 @@ typedef struct s_philo
 	t_prog	*prog_info;
 	int fork_l;
 	int fork_r;
+	int eaten_count;
 }	t_philo;
 
 typedef struct s_prog
@@ -55,6 +58,6 @@ void		non_usleep(int ms);
 int			process_argv(char *argv[], int argc);
 int			ph_atoi(const char *str);
 void		*philo_routine(void *philo_data);
-void		*monitoring(void *prog_data);
+void		monitoring(t_prog *prog_data);
 
 #endif
