@@ -6,13 +6,13 @@
 /*   By: smorphet <smorphet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:58:28 by smorphet          #+#    #+#             */
-/*   Updated: 2023/06/15 12:18:36 by smorphet         ###   ########.fr       */
+/*   Updated: 2023/06/15 14:46:13 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-static int are_they_full(t_prog *prog)
+static void are_they_full(t_prog *prog)
 {
 	int full;
 	int count;
@@ -27,16 +27,12 @@ static int are_they_full(t_prog *prog)
 	}
 	if (full >= prog->number_of_philos)
 	{
+		pthread_mutex_lock(&prog->death_mutex);
 		prog->death_flag = 1;
+		pthread_mutex_unlock(&prog->death_mutex);
 		pthread_exit(NULL);
-	}
+	}	
  }
-
-void drop_forks(t_prog *prog, int counter)
-{
-	pthread_mutex_unlock(&prog->forks[prog->philo_array[counter]->fork_l]);
-	pthread_mutex_unlock(&prog->forks[prog->philo_array[counter]->fork_r]);
-}
 
 void monitoring(t_prog *prog)
 {
@@ -55,10 +51,11 @@ void monitoring(t_prog *prog)
         {
             if ((get_time() - prog->philo_array[counter]->time_last_ate) > prog->time_to_die)
             {
-                printer(prog->philo_array[counter], "has died.\n");
+                printer(prog->philo_array[counter], "has died\n");
                 prog->death_flag = 1;
                 check = 1;
-				drop_forks(prog, counter);
+				pthread_mutex_unlock(&prog->forks[prog->philo_array[counter]->fork_l]);
+				pthread_mutex_unlock(&prog->forks[prog->philo_array[counter]->fork_r]);
 				pthread_exit(NULL);
             }
             counter++;
@@ -85,11 +82,11 @@ long long	get_time(void)
 
 void	printer(t_philo *philo, char *print)
 {
-	long int	time;
+	long long int	time;
 
 	time = get_time() - philo->prog_info->start_time;
 	pthread_mutex_lock(&philo->prog_info->death_mutex);
 	if (philo->prog_info->death_flag == 0)
-		printf("%lld %d %s", get_time() - philo->prog_info->start_time, philo->philo_index + 1, print);
+		printf("%lld %d %s", time, philo->philo_index + 1, print);
 	pthread_mutex_unlock(&philo->prog_info->death_mutex);
 }

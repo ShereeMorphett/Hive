@@ -6,7 +6,7 @@
 #    By: smorphet <smorphet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/25 13:37:37 by smorphet          #+#    #+#              #
-#    Updated: 2023/06/13 15:57:48 by smorphet         ###   ########.fr        #
+#    Updated: 2023/06/15 14:25:54 by smorphet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRC = main.c input_validation.c utilities.c initialization.c routine.c
 OBJ = $(SRC:.c=.o)
 
 CC = cc
-FLAGS = -Wall -Wextra -Werror -pthread #-g -fsanitize=thread -libstan
+FLAGS = -Wall -Wextra -Werror -pthread -g #-g -fsanitize=thread -static-libsan
 
 all: $(NAME)
 
