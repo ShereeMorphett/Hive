@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: smorphet <smorphet@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/14 16:59:20 by smorphet          #+#    #+#             */
+/*   Updated: 2023/06/15 12:15:39 by smorphet         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosophers.h"
 
 void make_threads(t_prog *prog)
@@ -5,11 +17,11 @@ void make_threads(t_prog *prog)
 	int t_count;
 	t_count = 0;
 	
-	pthread_mutex_lock(&prog->hordor); //holds philos as they are created (sync the threads)
+	pthread_mutex_lock(&prog->hordor);
 	while (t_count < prog->number_of_philos)
 	{
 		prog->philo_array[t_count]->fork_l = t_count;
-		prog->philo_array[t_count]->fork_r = (t_count + 1) % prog->number_of_philos; //this is  the correct initialization of the forks, they do access the correct ones
+		prog->philo_array[t_count]->fork_r = (t_count + 1) % prog->number_of_philos;
 		prog->philo_array[t_count]->philo_index = t_count;
 		prog->philo_array[t_count]->prog_info = prog;
 		prog->philo_array[t_count]->eaten_count = 0;
@@ -21,8 +33,8 @@ void make_threads(t_prog *prog)
 		t_count++;
 	}
 	prog->start_time = get_time();
-	pthread_mutex_unlock(&prog->hordor); //release the threads (sync the threads)
-	monitoring(prog); //main thread doing the monitoring
+	pthread_mutex_unlock(&prog->hordor);
+	monitoring(prog);
 }
 
 
@@ -40,10 +52,6 @@ void clean_up(t_prog *prog)
         free(prog->philo_array);
 	}
 	pthread_mutex_destroy(&prog->hordor);
-	// pthread_mutex_destroy(&prog->death_mutex);
-	// count = 0;
-	/* managing the mutex  for forks*/
-
 	while (count < prog->number_of_philos)
 	{
 		pthread_mutex_destroy(&prog->forks[count]);
@@ -65,12 +73,10 @@ int main(int argc, char **argv)
         printf("Optional: number_of_times_each_philosopher_must_eat\n");
         return (0);
     }
-	if (process_argv(argv, argc) == ERROR || initialize_struct(argv, &prog) == ERROR) // is this norm a compliant?
+	if (process_argv(argv, argc) == ERROR || initialize_struct(argv, &prog) == ERROR)
 		return (0);
 
 	make_threads(&prog);
-
-	/*below is the cleanup part, it is the exit and closing of program*/
 	count = prog.number_of_philos - 1;
 	while (count >= 0)
 	{

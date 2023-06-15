@@ -1,6 +1,16 @@
-#include "philosophers.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   routine.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: smorphet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/14 16:58:42 by smorphet          #+#    #+#             */
+/*   Updated: 2023/06/14 16:58:45 by smorphet         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#define SUCCESS 0
+#include "philosophers.h"
 
 int take_fork(t_philo *philo)
 {
@@ -20,7 +30,7 @@ int eating(t_philo *philo)
 	non_usleep(philo->prog_info->time_to_eat);
 	pthread_mutex_unlock(&philo->prog_info->forks[philo->fork_r]);
 	pthread_mutex_unlock(&philo->prog_info->forks[philo->fork_l]);
-	philo->eaten_count++; // for tracking the if finished
+	philo->eaten_count++;
 	return (1);
 }
 
@@ -39,8 +49,8 @@ void* philo_routine(void *philo_data)
 	philo = (t_philo *)philo_data;
 	philo->time_last_ate = get_time();
 	pthread_mutex_lock(&philo->prog_info->hordor); 
-	pthread_mutex_unlock(&philo->prog_info->hordor); //syncing
-	if(philo->philo_index % 2 == 0) // potentially offset eating deadlock? , should be thinking?
+	pthread_mutex_unlock(&philo->prog_info->hordor);
+	if(philo->philo_index % 2 == 0)
 		printer(philo, "is thinking\n");
 	while (flag != 1) 
 	{

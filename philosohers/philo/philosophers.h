@@ -6,7 +6,7 @@
 /*   By: smorphet <smorphet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:37:55 by smorphet          #+#    #+#             */
-/*   Updated: 2023/06/13 15:36:44 by smorphet         ###   ########.fr       */
+/*   Updated: 2023/06/15 09:30:00 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #	include <sys/time.h>
 
 #	define ERROR 1
+#	define SUCCESS 0
 
 typedef struct s_prog t_prog; // Forward declaration of t_prog struct
 
