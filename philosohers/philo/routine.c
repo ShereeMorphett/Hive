@@ -40,6 +40,38 @@ static void sleeping(t_philo *philo)
 	non_usleep(philo->prog_info->time_to_sleep);
 }
 
+
+/*	POTENTIALLY BETTER BUT LAPTOP IS SHIT AND I CANT CHECK IF IT RUNS BETTER ATM
+
+void* philo_routine(void *philo_data)
+{
+	t_philo *philo;
+	int flag = 0;
+	philo = (t_philo *)philo_data;
+	philo->time_last_ate = get_time();
+	pthread_mutex_lock(&philo->prog_info->hordor);
+	pthread_mutex_unlock(&philo->prog_info->hordor);
+	if (philo->philo_index % 2 == 0)
+		printer(philo, "is thinking\n");
+	while (flag != 1) 
+	{
+		eating(philo);
+		sleeping(philo);
+		if (philo->prog_info->death_flag == 1)
+		{
+			pthread_mutex_lock(&philo->prog_info->death_mutex);
+			pthread_mutex_unlock(&philo->prog_info->forks[philo->fork_r]);
+			pthread_mutex_unlock(&philo->prog_info->forks[philo->fork_l]);
+			pthread_mutex_unlock(&philo->prog_info->death_mutex);
+			flag = 1;
+			break;
+		}
+		printer(philo, "is thinking\n");
+	}
+	pthread_exit(NULL);
+}
+*/
+
 void* philo_routine(void *philo_data)
 {
 	t_philo *philo;
