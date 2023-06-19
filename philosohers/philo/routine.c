@@ -69,7 +69,7 @@ void* philo_routine(void *philo_data)
 		printer(philo, "is thinking\n");
 	}
 	pthread_exit(NULL);
-}
+}	
 */
 
 void* philo_routine(void *philo_data)
