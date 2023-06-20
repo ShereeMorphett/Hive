@@ -6,7 +6,7 @@
 /*   By: smorphet <smorphet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:54:06 by smorphet          #+#    #+#             */
-/*   Updated: 2023/06/15 09:29:24 by smorphet         ###   ########.fr       */
+/*   Updated: 2023/06/20 14:14:52 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ static int initialize_mutex(t_prog *prog)
 	int count;
 
 	count = 0;
-	if (pthread_mutex_init(&prog->hordor, NULL) != 0) //sycronization
+	if (pthread_mutex_init(&prog->hordor, NULL) != 0)
         printf("\n Hordor mutex init has failed\n");
-	if (pthread_mutex_init(&prog->death_mutex, NULL) != 0) //sycronization
-        printf("\n Death mutex init has failed\n");
-	while (count < prog->number_of_philos) //forks mutex
+	if (pthread_mutex_init(&prog->death_mutex, NULL) != 0) 
+	    printf("\n Death mutex init has failed\n");
+	while (count < prog->number_of_philos)
 	{
 		if (pthread_mutex_init(&prog->forks[count], NULL) != 0) {
             printf("Failed to initialize mutex for fork %d\n", count);
