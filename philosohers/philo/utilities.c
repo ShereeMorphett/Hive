@@ -6,7 +6,7 @@
 /*   By: smorphet <smorphet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:58:28 by smorphet          #+#    #+#             */
-/*   Updated: 2023/06/20 16:13:13 by smorphet         ###   ########.fr       */
+/*   Updated: 2023/06/20 17:18:50 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,37 +33,36 @@ static void are_they_full(t_prog *prog)
         count++;
     }
 }
-
+static void check_death(t_prog *prog, int counter)
+{
+		if ((get_time() - prog->philo_array[counter]->time_last_ate) > prog->time_to_die)
+	{
+		printer(prog->philo_array[counter], "has died\n");
+		prog->death_flag = 1;
+		pthread_mutex_unlock(&prog->forks[prog->philo_array[counter]->fork_l]);
+		pthread_mutex_unlock(&prog->forks[prog->philo_array[counter]->fork_r]);
+		pthread_exit(NULL);
+	}
+}
 void monitoring(t_prog *prog)
 {
     int counter;
-    int check;
 	int full;
-
-    check = 0;
+	
 	full = 0;
     non_usleep(0.7 * prog->time_to_die);
-    while (check == 0)
+    while (1)
     {
 		counter = 0;
 		if (prog->number_times_eat > 0)
 			are_they_full(prog);
 		while (counter != prog->number_of_philos)
         {
-            if ((get_time() - prog->philo_array[counter]->time_last_ate) > prog->time_to_die)
-            {
-                printer(prog->philo_array[counter], "has died\n");
-                prog->death_flag = 1;
-                check = 1;
-				pthread_mutex_unlock(&prog->forks[prog->philo_array[counter]->fork_l]);
-				pthread_mutex_unlock(&prog->forks[prog->philo_array[counter]->fork_r]);
-				pthread_exit(NULL);
-            }
+			check_death(prog, counter);
             counter++;
         }
     }
 }
-
 
 void	non_usleep(int ms)
 {
