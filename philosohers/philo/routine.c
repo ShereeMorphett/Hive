@@ -51,16 +51,9 @@ static void eating(t_philo *philo)
 	pthread_mutex_unlock(&philo->prog_info->forks[philo->fork_r]);
 	pthread_mutex_unlock(&philo->prog_info->forks[philo->fork_l]);
 	philo->eaten_count++;
-}
-
-static void sleeping(t_philo *philo)
-{
 	printer(philo, "is sleeping\n");
 	non_usleep(philo->prog_info->time_to_sleep);
 }
-
-
-/*    POTENTIALLY BETTER BUT LAPTOP IS SHIT AND I CANT CHECK IF IT RUNS BETTER ATM */
 
 void* philo_routine(void *philo_data)
 {
@@ -73,12 +66,11 @@ void* philo_routine(void *philo_data)
     if (philo->philo_index % 2 == 0)
 	{
         printer(philo, "is thinking\n");
-		non_usleep(philo->prog_info->time_to_eat);
+		non_usleep(philo->prog_info->time_to_eat / 10);
 	}
     while (1)
     {
         eating(philo);
-        sleeping(philo);
 		pthread_mutex_lock(&philo->prog_info->death_mutex);
         if (philo->prog_info->death_flag == 1)
         {

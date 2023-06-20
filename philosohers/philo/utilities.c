@@ -35,7 +35,7 @@ static void are_they_full(t_prog *prog)
 }
 static void check_death(t_prog *prog, int counter)
 {
-		if ((get_time() - prog->philo_array[counter]->time_last_ate) > prog->time_to_die)
+		if ((get_time() - prog->philo_array[counter]->time_last_ate) >= (long)prog->time_to_die)
 	{
 		printer(prog->philo_array[counter], "has died\n");
 		prog->death_flag = 1;
@@ -70,7 +70,7 @@ void	non_usleep(int ms)
 
 	time = get_time();
 	while (get_time() - time < ms)
-		usleep(ms / 10);
+		usleep(500);
 }
 
 long long	get_time(void)
@@ -78,7 +78,7 @@ long long	get_time(void)
 	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
-	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
+	return ((tv.tv_sec * (unsigned long)1000) + tv.tv_usec / 1000);
 }
 
 void	printer(t_philo *philo, char *print)
