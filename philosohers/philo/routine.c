@@ -6,16 +6,17 @@
 /*   By: smorphet <smorphet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:58:42 by smorphet          #+#    #+#             */
-/*   Updated: 2023/06/20 17:12:01 by smorphet         ###   ########.fr       */
+/*   Updated: 2023/06/21 09:07:47 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int take_fork(t_philo *philo)
+int	take_fork(t_philo *philo)
 {
-	int count;
-	while (1) 
+	int	count;
+
+	while (1)
 	{
 		count = 0;
 		if (!pthread_mutex_lock(&philo->prog_info->forks[philo->fork_r]))
@@ -37,12 +38,10 @@ int take_fork(t_philo *philo)
 			pthread_mutex_unlock(&philo->prog_info->forks[philo->fork_r]);
 			usleep(100);
 		}
-	
 	}
-	return (SUCCESS);
 }
 
-static void eating(t_philo *philo)
+static void	eat_sleep_think(t_philo *philo)
 {
 	take_fork(philo);
 	philo->time_last_ate = get_time();
@@ -53,34 +52,34 @@ static void eating(t_philo *philo)
 	philo->eaten_count++;
 	printer(philo, "is sleeping\n");
 	non_usleep(philo->prog_info->time_to_sleep);
+	printer(philo, "is thinking\n");
 }
 
-void* philo_routine(void *philo_data)
+int	philo_routine(void *philo_data)
 {
-    t_philo *philo;
+	t_philo	*philo;
 
-    philo = (t_philo *)philo_data;
-    pthread_mutex_lock(&philo->prog_info->hordor);
-    philo->time_last_ate = get_time();
-    pthread_mutex_unlock(&philo->prog_info->hordor);
-    if (philo->philo_index % 2 == 0)
+	philo = (t_philo *)philo_data;
+	pthread_mutex_lock(&philo->prog_info->hordor);
+	philo->time_last_ate = get_time();
+	pthread_mutex_unlock(&philo->prog_info->hordor);
+	if (philo->philo_index % 2 == 0)
 	{
-        printer(philo, "is thinking\n");
+		printer(philo, "is thinking\n");
 		non_usleep(philo->prog_info->time_to_eat / 10);
 	}
-    while (1)
-    {
-        eating(philo);
+	while (1)
+	{
+		eat_sleep_think(philo);
 		pthread_mutex_lock(&philo->prog_info->death_mutex);
-        if (philo->prog_info->death_flag == 1)
-        {
-            pthread_mutex_unlock(&philo->prog_info->death_mutex);
-            pthread_mutex_unlock(&philo->prog_info->forks[philo->fork_r]);
-            pthread_mutex_unlock(&philo->prog_info->forks[philo->fork_l]);
-            break;
-        }
+		if (philo->prog_info->death_flag == 1)
+		{
+			pthread_mutex_unlock(&philo->prog_info->death_mutex);
+			pthread_mutex_unlock(&philo->prog_info->forks[philo->fork_r]);
+			pthread_mutex_unlock(&philo->prog_info->forks[philo->fork_l]);
+			break ;
+		}
 		pthread_mutex_unlock(&philo->prog_info->death_mutex);
-        printer(philo, "is thinking\n");
-    }
-    pthread_exit(NULL);
+	}
+	return (0);
 }

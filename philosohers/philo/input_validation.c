@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_validation.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smorphet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: smorphet <smorphet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:59:06 by smorphet          #+#    #+#             */
-/*   Updated: 2023/06/14 16:59:08 by smorphet         ###   ########.fr       */
+/*   Updated: 2023/06/21 09:11:47 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,19 @@ static int	check_result(long long result, int sign)
 
 int	ph_atoi(const char *str)
 {
-	int index = 0;
-	int sign = 1;
-	long long result = 0;
+	int			index;
+	int			sign;
+	long long	result;
 
+	index = 0;
+	sign = 1;
+	result = 0;
 	while (str[index] == ' ' || ((9 <= str[index]) && (str[index] <= 13)))
 		index++;
 	if (str[index] == '+')
 		index++;
 	else if (str[index] == '-')
-	{
-		sign = -1;
-		index++;
-	}
+		return (-2147483647);
 	while (str[index] && ('0' <= str[index]) && (str[index] <= '9'))
 	{
 		result = (result * 10) + (str[index] - '0');
@@ -49,9 +49,13 @@ int	ph_atoi(const char *str)
 
 static int	check_number(char *string)
 {
-	int num = ph_atoi(string);
-	int index = 0;
+	int	num;
+	int	index;
 
+	num = ph_atoi(string);
+	if (num == -2147483647)
+		return (0);
+	index = 0;
 	while (string[index] != '\0')
 	{
 		if (string[index] == '-' || string[index] == '+')
@@ -66,10 +70,12 @@ static int	check_number(char *string)
 		return (0);
 	return (1);
 }
+
 int	process_argv(char *argv[], int argc)
 {
-	int index = 1;
+	int	index;
 
+	index = 1;
 	while (index < argc)
 	{
 		if (!check_number(argv[index]))

@@ -6,49 +6,49 @@
 /*   By: smorphet <smorphet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:37:55 by smorphet          #+#    #+#             */
-/*   Updated: 2023/06/20 17:10:06 by smorphet         ###   ########.fr       */
+/*   Updated: 2023/06/21 10:17:33 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
-#	define PHILOSOPHERS_H
-#	include <stdio.h>
-#	include <pthread.h>
-#	include <stdlib.h> 
-#	include <unistd.h>
-#	include <sys/time.h>
+# define PHILOSOPHERS_H
+# include <stdio.h>
+# include <pthread.h>
+# include <stdlib.h> 
+# include <unistd.h>
+# include <sys/time.h>
 
-#	define ERROR 1
-#	define SUCCESS 0
+# define ERROR 1
+# define SUCCESS 0
 
-typedef struct s_prog t_prog; // Forward declaration of t_prog struct
+typedef struct s_prog	t_prog;
 
 typedef struct s_philo
 {
-	pthread_t thread;
-	int philo_index;
+	pthread_t	thread;
+	int			philo_index;
 	long long	time_last_ate;
-	t_prog	*prog_info;
-	int fork_l;
-	int fork_r;
-	int eaten_count;
+	t_prog		*prog_info;
+	int			fork_l;
+	int			fork_r;
+	int			eaten_count;
 }	t_philo;
 
 typedef struct s_prog
 {
-	int	number_of_philos;
-	int	time_to_die;
-	int	time_to_eat;
-	int	time_to_sleep;
-	int	number_times_eat;
-	t_philo **philo_array;
-	long long start_time;
-	int death_flag;
-	int times_eaten;
-	pthread_t monitoring_thread;
-	pthread_mutex_t *forks; //potentially
-	pthread_mutex_t death_mutex;
-	pthread_mutex_t hordor;
+	int				number_of_philos;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				number_times_eat;
+	t_philo			**philo_array;
+	long long		start_time;
+	int				death_flag;
+	int				times_eaten;
+	pthread_t		monitoring_thread;
+	pthread_mutex_t	*forks;
+	pthread_mutex_t	death_mutex;
+	pthread_mutex_t	hordor;
 
 }	t_prog;
 
@@ -58,7 +58,8 @@ long long	get_time(void);
 void		non_usleep(int ms);
 int			process_argv(char *argv[], int argc);
 int			ph_atoi(const char *str);
-void		*philo_routine(void *philo_data);
+int			philo_routine(void *philo_data);
 void		monitoring(t_prog *prog_data);
+int			ft_pthread_exit(t_prog *prog);
 
 #endif

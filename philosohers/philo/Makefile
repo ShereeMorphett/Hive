@@ -6,13 +6,14 @@
 #    By: smorphet <smorphet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/25 13:37:37 by smorphet          #+#    #+#              #
-#    Updated: 2023/06/20 14:31:28 by smorphet         ###   ########.fr        #
+#    Updated: 2023/06/21 08:19:53 by smorphet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-SRC = main.c input_validation.c utilities.c initialization.c routine.c
+SRC = main.c input_validation.c utilities.c initialization.c routine.c \
+	monitoring.c
 
 OBJ = $(SRC:.c=.o)
 
