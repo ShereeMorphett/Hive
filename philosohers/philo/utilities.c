@@ -6,19 +6,28 @@
 /*   By: smorphet <smorphet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:58:28 by smorphet          #+#    #+#             */
-/*   Updated: 2023/06/21 10:01:07 by smorphet         ###   ########.fr       */
+/*   Updated: 2023/07/03 17:33:12 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	non_usleep(int ms)
+void	non_usleep(int ms, t_prog *prog)
 {
 	long int	time;
 
 	time = get_time();
-	while (get_time() - time < ms)
+	while (get_time() - time < ms && prog->death_flag != 1)
+	{
 		usleep(500);
+		pthread_mutex_lock(&prog->death_mutex);
+		if (prog->death_flag != 1)
+		{
+			pthread_mutex_unlock(&prog->death_mutex);
+			break ;
+		}
+	}
+	pthread_mutex_unlock(&prog->death_mutex);
 }
 
 int	ft_pthread_exit(t_prog *prog)

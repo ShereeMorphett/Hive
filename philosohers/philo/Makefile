@@ -6,7 +6,7 @@
 #    By: smorphet <smorphet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/25 13:37:37 by smorphet          #+#    #+#              #
-#    Updated: 2023/06/21 08:19:53 by smorphet         ###   ########.fr        #
+#    Updated: 2023/07/03 17:34:03 by smorphet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,17 +16,18 @@ SRC = main.c input_validation.c utilities.c initialization.c routine.c \
 	monitoring.c
 
 OBJ = $(SRC:.c=.o)
+INC := philosophers.h
 
 CC = cc
-FLAGS = -Wall -Wextra -Werror -pthread -g #-g -fsanitize=thread -static-libsan
+FLAGS = -Wall -Wextra -Werror -pthread #-g -fsanitize=thread
 
 all: $(NAME)
 
-$(OBJ): %.o: %.c
-	$(CC) -c $(FLAGS) $< -o $@
+$(OBJ): %.o: %.c $(INC)
+	$(CC) -c $(FLAGS) -I. $< -o $@
 
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) -o $(NAME)
+	$(CC) $(OBJ) $(FLAGS) -o $(NAME)
 	@echo "\033[0;92m* $(NAME) was created *\033[0m"
 
 clean:

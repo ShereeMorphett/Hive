@@ -6,7 +6,7 @@
 /*   By: smorphet <smorphet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:54:06 by smorphet          #+#    #+#             */
-/*   Updated: 2023/06/21 08:28:03 by smorphet         ###   ########.fr       */
+/*   Updated: 2023/07/03 17:25:30 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static int	initialize_arrays(t_prog *prog)
 			printf("Failed to allocate memory for t_philo structure\n");
 			break ;
 		}
+
 		count++;
 	}
 	prog->forks = malloc(sizeof (pthread_mutex_t) * prog->number_of_philos);
@@ -52,6 +53,8 @@ static int	initialize_mutex(t_prog *prog)
 			printf("Failed to initialize mutex for fork %d\n", count);
 			return (ERROR);
 		}
+		if (pthread_mutex_init(&prog->philo_array[count]->eat_mutex, NULL) != 0)
+			printf("\n Eat count init has failed\n");
 		count++;
 	}
 	return (0);
@@ -62,7 +65,8 @@ int	initialize_struct(char **argv, t_prog *prog)
 	prog->death_flag = 0;
 	prog->start_time = 0;
 	prog->number_of_philos = ph_atoi(argv[1]);
-	if (argv[1] && prog->number_of_philos == 0)
+	if ((argv[1] && prog->number_of_philos == 0) || \
+	prog->number_of_philos > 500)
 	{
 		printf("Number of philosophers must be more than 0\n");
 		return (ERROR);

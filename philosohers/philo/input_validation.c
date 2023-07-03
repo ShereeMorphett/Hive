@@ -6,7 +6,7 @@
 /*   By: smorphet <smorphet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:59:06 by smorphet          #+#    #+#             */
-/*   Updated: 2023/06/21 09:11:47 by smorphet         ###   ########.fr       */
+/*   Updated: 2023/06/21 10:32:28 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	check_number(char *string)
 	int	index;
 
 	num = ph_atoi(string);
-	if (num == -2147483647)
+	if (num == -2147483647 || num == 0)
 		return (0);
 	index = 0;
 	while (string[index] != '\0')
@@ -78,7 +78,7 @@ int	process_argv(char *argv[], int argc)
 	index = 1;
 	while (index < argc)
 	{
-		if (!check_number(argv[index]))
+		if (!check_number(argv[index]) && argv[index])
 		{
 			printf("Input must only contain positive numerical values\n");
 			return (1);

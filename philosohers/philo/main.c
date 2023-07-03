@@ -6,7 +6,7 @@
 /*   By: smorphet <smorphet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:59:20 by smorphet          #+#    #+#             */
-/*   Updated: 2023/06/21 09:06:45 by smorphet         ###   ########.fr       */
+/*   Updated: 2023/07/03 17:29:05 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,14 @@ void	clean_up(t_prog *prog)
 	{
 		while (count < prog->number_of_philos)
 		{
+			pthread_mutex_destroy(&prog->philo_array[count]->eat_mutex);
 			free(prog->philo_array[count]);
 			count++;
 		}
 		free(prog->philo_array);
 	}
 	pthread_mutex_destroy(&prog->hordor);
+	pthread_mutex_destroy(&prog->death_mutex);
 	while (count < prog->number_of_philos)
 	{
 		pthread_mutex_destroy(&prog->forks[count]);

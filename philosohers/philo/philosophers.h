@@ -6,7 +6,7 @@
 /*   By: smorphet <smorphet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:37:55 by smorphet          #+#    #+#             */
-/*   Updated: 2023/06/21 10:17:33 by smorphet         ###   ########.fr       */
+/*   Updated: 2023/07/03 14:53:12 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,14 @@ typedef struct s_prog	t_prog;
 
 typedef struct s_philo
 {
-	pthread_t	thread;
-	int			philo_index;
-	long long	time_last_ate;
-	t_prog		*prog_info;
-	int			fork_l;
-	int			fork_r;
-	int			eaten_count;
+	pthread_t		thread;
+	int				philo_index;
+	long long		time_last_ate;
+	t_prog			*prog_info;
+	int				fork_l;
+	int				fork_r;
+	pthread_mutex_t	eat_mutex;
+	int				eaten_count;
 }	t_philo;
 
 typedef struct s_prog
@@ -49,13 +50,12 @@ typedef struct s_prog
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	death_mutex;
 	pthread_mutex_t	hordor;
-
 }	t_prog;
 
 int			initialize_struct(char **argv, t_prog *prog);
 void		printer(t_philo *philo, char *print);
 long long	get_time(void);
-void		non_usleep(int ms);
+void		non_usleep(int ms, t_prog *prog);
 int			process_argv(char *argv[], int argc);
 int			ph_atoi(const char *str);
 int			philo_routine(void *philo_data);
