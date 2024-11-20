@@ -9,7 +9,7 @@
 /*   Updated: 2022/11/07 17:20:01 by smorphet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-static int	check_result(result, sign)
+static int	check_result(long long result, int sign)
 {
 	if (sign > 0)
 		return (-1);
