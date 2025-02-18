@@ -11,19 +11,19 @@
 /* ************************************************************************** */
 #include "push_swap.h"
 
-static int	*process_string(char **new_string, int *stack_a, t_stack *data)
+static int *process_string(char **new_string, int *stack_a, t_stack *data)
 {
-	int	index;
-	int	letter;
+	int index;
+	int letter;
 
 	index = 0;
 	letter = 0;
 	while (new_string[letter])
 		letter++;
-	if (new_string[index] == '\0')
+	if (*new_string[index] == '\0')
 		clean_exit(data, 2);
-	stack_a = (int *) malloc(sizeof(int) * letter);
-	while (new_string[index] != '\0')
+	stack_a = (int *)malloc(sizeof(int) * letter);
+	while (*new_string[index] != '\0')
 	{
 		if (!check_number(new_string[index], data))
 			clean_exit(data, 3);
@@ -36,9 +36,9 @@ static int	*process_string(char **new_string, int *stack_a, t_stack *data)
 	return (stack_a);
 }
 
-static int	*process_argv(char *argv[], int argc, int *stack_a, t_stack *stack)
+static int *process_argv(char *argv[], int argc, int *stack_a, t_stack *stack)
 {
-	int	index;
+	int index;
 
 	index = 1;
 	while (index < argc)
@@ -57,15 +57,15 @@ static int	*process_argv(char *argv[], int argc, int *stack_a, t_stack *stack)
 	return (0);
 }
 
-int	main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
-	t_stack	*data;
-	int		*stack_a;
-	char	**new_string;
+	t_stack *data;
+	int *stack_a;
+	char **new_string;
 
 	if (argc == 1)
 		exit(EXIT_SUCCESS);
-	data = malloc(sizeof (t_stack));
+	data = malloc(sizeof(t_stack));
 	stack_a = NULL;
 	if (argc == 2)
 	{
@@ -74,7 +74,7 @@ int	main(int argc, char *argv[])
 	}
 	else if (argc > 2)
 	{
-		stack_a = (int *)malloc(sizeof (int) * (argc));
+		stack_a = (int *)malloc(sizeof(int) * (argc));
 		process_argv(argv, argc, stack_a, data);
 	}
 	if (data->size == 1)

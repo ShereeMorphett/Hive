@@ -11,18 +11,18 @@
 /* ************************************************************************** */
 #include "ft_printf.h"
 
-int	ft_putchar(char c)
+int ft_putchar(char c)
 {
 	write(1, &c, 1);
 	return (1);
 }
 
-int	ft_putstr(char *str)
+int ft_putstr(char *str)
 {
-	int	index;
+	int index;
 
 	index = 0;
-	if (str == '\0')
+	if (*str == '\0')
 	{
 		index = ft_putstr("(null)");
 	}
@@ -36,10 +36,10 @@ int	ft_putstr(char *str)
 	return (index);
 }
 
-int	ft_putnbr(int n)
+int ft_putnbr(int n)
 {
-	long int	storage;
-	int			len;
+	long int storage;
+	int len;
 
 	len = 0;
 	storage = n;

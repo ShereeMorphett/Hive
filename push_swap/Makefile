@@ -17,7 +17,7 @@ SRC	= push_swap.c utilities.c moves/swap.c moves/push.c moves/rotate.c moves/rev
 OBJ	= push_swap.o utilities.o swap.o push.o rotate.o reverse.o sorting.o input_validation.o op_utilities.o large_sort.o
 
 CC		= cc
-FLAGS	= -Wall -Wextra -Werror
+FLAGS	= -Wall -Wextra -Werror -pedantic
 
 FOUND_OK := $(shell if [ -d ./libft/ ]; then echo "ok"; fi)
 ifeq ($(FOUND_OK), ok)

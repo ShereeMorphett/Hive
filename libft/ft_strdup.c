@@ -11,16 +11,16 @@
 /* ************************************************************************** */
 #include "libft.h"
 
-char	*ft_strdup(const char *s)
+char *ft_strdup(const char *s)
 {
-	char	*newstring;
-	int		index;
+	char *newstring;
+	int index;
 
 	index = 0;
 	newstring = (char *)malloc(sizeof(char) * (ft_strlen(s)) + 1);
 	if (newstring)
 	{
-		if (s == '\0')
+		if (*s == '\0')
 		{
 			return (NULL);
 		}

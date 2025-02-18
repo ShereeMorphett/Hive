@@ -11,19 +11,19 @@
 /* ************************************************************************** */
 #include "libft.h"
 
-char	*ft_strrchr(const char *str, int c)
+char *ft_strrchr(const char *str, int c)
 {
-	int		index;
-	char	find;
+	int index;
+	char find;
 
 	find = c;
 	index = ft_strlen(str);
-	if (str == '\0')
+	if (*str == '\0')
 		return (NULL);
 	while (index >= 0)
 	{
 		if (str[index] == find)
-			return ((char *) &str[index]);
+			return ((char *)&str[index]);
 		index--;
 	}
 	if (index == 0)
